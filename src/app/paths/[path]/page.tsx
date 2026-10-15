@@ -42,11 +42,7 @@ export default async function Path({
       <p className="font-mono text-xs text-[var(--muted)]">YOUR GUIDED PATH</p>
       <h1 className="my-4 text-4xl font-semibold">{p.title}</h1>
       <p className="mb-8 max-w-2xl text-[var(--muted)]">{p.description}</p>
-      <CatalogGrid
-        lessons={catalog
-          .filter((l) => l.track === p.track)
-          .sort((a, b) => a.order - b.order)}
-      />
+      <CatalogGrid lessons={catalog.filter((l) => l.track === p.track)} />
     </section>
   );
 }

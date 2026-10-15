@@ -1,3 +1,8 @@
+export const dynamic = 'force-dynamic';
+import { canReadLesson } from '@/payments/access';
+import { serverLessonData } from '@/content/server-registry';
+import { freeVisualizers } from '@/engine/registry';
+import { LockedLesson } from '@/components/lesson/locked-lesson';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { catalog, lessonUrl } from '@/content/catalog';
@@ -26,14 +31,21 @@ export default async function LessonPage({
     (l) => l.track === p.track && l.module === p.module && l.slug === p.lesson,
   );
   if (!meta) notFound();
-  if (!meta.isFree)
+  if (meta.status === 'planned')
     return (
-      <section className="mx-auto max-w-3xl px-5 py-20">
-        <h1>{meta.title}</h1>
-        <p>This lesson requires all-access.</p>
-        <Link href="/pricing">Unlock all lessons</Link>
+      <section className="mx-auto max-w-3xl px-5 py-16">
+        <p className="font-mono text-xs">IN THE CURRICULUM</p>
+        <h1 className="my-5 text-4xl font-semibold">{meta.title}</h1>
+        <p className="mb-6 text-[var(--muted)]">
+          This lesson is being authored. Its interactive content is not
+          available yet.
+        </p>
+        <Link href="/learn" className="underline">
+          Explore available lessons
+        </Link>
       </section>
     );
+  if (!(await canReadLesson(meta))) return <LockedLesson meta={meta} />;
   const { Content, code, quiz } = await loadLesson(meta);
   const next = catalog[(catalog.indexOf(meta) + 1) % catalog.length];
   return (
@@ -50,14 +62,23 @@ export default async function LessonPage({
       </nav>
       <div className="mb-8">
         <p className="mb-3 font-mono text-xs text-[var(--muted)]">
-          {meta.level.toUpperCase()} · {meta.estimatedMinutes} MIN · FREE LESSON
+          {meta.level.toUpperCase()} · {meta.estimatedMinutes} MIN ·{' '}
+          {meta.isFree ? 'FREE LESSON' : 'ALL ACCESS'}
         </p>
         <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
           {meta.title}
         </h1>
         <p className="mt-3 text-lg text-[var(--muted)]">{meta.description}</p>
       </div>
-      <LessonPlayer id={meta.slug} code={code} />
+      <LessonPlayer
+        id={meta.slug}
+        code={code}
+        remote={
+          !meta.isFree || !freeVisualizers[meta.slug]
+            ? await serverLessonData(meta)
+            : undefined
+        }
+      />
       <div className="lesson-prose my-12 max-w-3xl">
         <Content />
       </div>

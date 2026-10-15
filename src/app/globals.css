@@ -94,3 +94,15 @@ button:focus-visible {
   padding: 1rem;
   border-radius: 0.75rem;
 }
+.paid-preview {
+  animation: preview-cycle 5s ease-in-out infinite;
+}
+@keyframes preview-cycle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-35px);
+  }
+}

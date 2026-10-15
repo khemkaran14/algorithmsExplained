@@ -16,7 +16,8 @@ export async function POST(request: Request) {
     const user = await requireUser();
     const input = schema.parse(await readJson(request));
     const meta = catalog.find((l) => l.slug === input.slug);
-    if (!meta) throw new ApiError(404, 'Lesson not found.');
+    if (!meta || meta.status === 'planned')
+      throw new ApiError(404, 'Lesson not found.');
     if (
       !meta.isFree &&
       !(await db.entitlement.findFirst({

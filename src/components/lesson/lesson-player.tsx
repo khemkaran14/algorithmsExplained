@@ -6,12 +6,38 @@ import { Play, Pause, SkipBack, SkipForward, RotateCcw } from 'lucide-react';
 import { createPlayerStore } from '@/engine/player-store';
 import { Timeline } from '@/engine/timeline';
 import { freeVisualizers } from '@/engine/registry';
+import type { RemoteLessonData } from '@/content/server-registry';
+import { randomNumbers, validateNumbers } from '@/engine/helpers';
+import type { Visualizer } from '@/engine/types';
 import { LANGUAGES, type Lang } from '@/engine/types';
 import type { CodeLines } from '@/content/load';
 import { Button } from '@/components/ui/button';
 import { VisualCanvas, VisualLegend } from './visual-canvas';
-export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
-  const visualizer = freeVisualizers[id];
+export function LessonPlayer({
+  id,
+  code,
+  remote,
+}: {
+  id: string;
+  code: CodeLines;
+  remote?: RemoteLessonData;
+}) {
+  const [remoteData, setRemoteData] = useState(remote);
+  const visualizer = useMemo<Visualizer>(
+    () =>
+      remoteData
+        ? {
+            id,
+            complexity: remoteData.complexity,
+            presets: { ...remoteData.presets, random: randomNumbers },
+            validateInput: validateNumbers,
+            *generate() {
+              yield* remoteData.frames;
+            },
+          }
+        : freeVisualizers[id],
+    [remoteData, id],
+  );
   const [input, setInput] = useState(visualizer.presets.average);
   const [raw, setRaw] = useState(JSON.stringify(input));
   const [error, setError] = useState('');
@@ -102,9 +128,27 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
   }, [store, mode]);
-  function load(next: unknown) {
+  async function load(next: unknown) {
     try {
       const parsed = visualizer.validateInput(next);
+      if (remoteData) {
+        const response = await fetch(
+          `/api/lessons/${encodeURIComponent(id)}/frames`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ input: parsed }),
+          },
+        );
+        const data = await response.json();
+        if (!response.ok)
+          throw new Error(
+            typeof data.error === 'string'
+              ? data.error
+              : 'This lesson could not be loaded.',
+          );
+        setRemoteData(data as RemoteLessonData);
+      }
       setInput(parsed);
       setRaw(JSON.stringify(parsed));
       setError('');
@@ -115,6 +159,7 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
   }
   const chart = useMemo(
     () =>
+      remoteData?.measurements ??
       [8, 16, 32, 64].map((n) => {
         const sample = visualizer.presets.random(
           id === 'bfs' ? Math.min(n, 16) : n,
@@ -125,7 +170,7 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
           count = f.counters.comparisons + f.counters.reads;
         return { n: sample.length, count };
       }),
-    [visualizer, id],
+    [visualizer, id, remoteData],
   );
   const chartMax = Math.max(...chart.map((p) => p.count), 1);
   return (

@@ -27,7 +27,9 @@ export function CatalogGrid({ lessons }: { lessons: readonly LessonMeta[] }) {
             {l.description}
           </p>
           <span className="mt-4 flex items-center justify-between text-xs text-[var(--muted)]">
-            {l.estimatedMinutes} min · {l.level}
+            {l.status === 'planned'
+              ? 'Coming soon'
+              : `${l.estimatedMinutes} min · ${l.level}`}
             <ArrowUpRight size={16} />
           </span>
         </Link>

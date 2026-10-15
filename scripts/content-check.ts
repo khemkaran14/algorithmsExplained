@@ -11,6 +11,8 @@ const files: Record<Lang, string> = {
 };
 async function main() {
   let errors = 0;
+  let planned = 0;
+  const allowPlanned = process.argv.includes('--allow-planned');
   const slugs = new Set<string>();
   for (const meta of catalog) {
     try {
@@ -24,6 +26,11 @@ async function main() {
         meta.estimatedMinutes < 1
       )
         throw new Error('Incomplete lesson metadata');
+      if (meta.status === 'planned') {
+        if (!allowPlanned) throw new Error('Lesson content is still planned.');
+        planned++;
+        continue;
+      }
       const base = path.join(
         process.cwd(),
         'content',
@@ -105,6 +112,9 @@ async function main() {
     }
   }
   if (errors) process.exitCode = 1;
-  else console.log(`Validated ${catalog.length} complete lessons.`);
+  else
+    console.log(
+      `Validated ${catalog.length - planned} complete lessons; ${planned} planned lessons remain.`,
+    );
 }
 void main();

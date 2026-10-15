@@ -41,7 +41,9 @@ export async function mergeLearning(userId: string, incoming: LocalLearning) {
       where: { userId, type: 'ALL_ACCESS', revokedAt: null },
     });
     const allowed = new Set(
-      catalog.filter((l) => l.isFree || entitlement).map((l) => l.slug),
+      catalog
+        .filter((l) => l.status !== 'planned' && (l.isFree || entitlement))
+        .map((l) => l.slug),
     );
     const savedRows = await tx.lessonProgress.findMany({ where: { userId } });
     const old: ProgressMap = {};

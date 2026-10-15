@@ -1,0 +1,41 @@
+# Merge sort
+
+## Hook
+
+Two sorted streams become one ordered sequence. Imagine two queues of books already ordered by title; repeatedly take the earlier title at the front.
+
+## Watch
+
+Follow the recursion stack as the array splits, then watch each merged value return to its interval.
+
+## How it works
+
+1. Divide the half-open interval [lo, hi) at its midpoint.
+2. Sort the left and right halves recursively.
+3. Compare the first remaining value in each temporary half.
+4. Copy the smaller value to the destination, choosing the left value on a tie.
+5. Copy the remainder when one half runs out.
+
+## Try it
+
+Choose which half contributes the next value. Equal values must come from the left half first to keep the sort stable.
+
+## Complexity
+
+The recursion has log₂ n levels. Each level performs linear merging work, giving O(n log n) time even for already sorted data. The temporary arrays and recursion require O(n) auxiliary space overall.
+
+## Code
+
+The four implementations use the same split-and-merge invariant. The highlighted line follows the current operation.
+
+## When to use
+
+Use merge sort when stable ordering and predictable worst-case performance matter, or when merging external sorted runs.
+
+## Interview pitfalls
+
+Half-open intervals simplify boundaries. Choosing from the right on a tie loses stability. Array merge sort is not in-place: account for the temporary buffer.
+
+## Quiz
+
+Check the invariant, stability rule and memory cost below. Continue to other sorting lessons after completing this quiz.

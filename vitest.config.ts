@@ -7,7 +7,14 @@ if (!process.env.DATABASE_URL && local.DATABASE_URL)
   process.env.DATABASE_URL = local.DATABASE_URL;
 export default defineConfig({
   plugins: [react()],
-  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
+  resolve: {
+    alias: {
+      'server-only': fileURLToPath(
+        new URL('./tests/server-only.ts', import.meta.url),
+      ),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],

@@ -4,7 +4,9 @@ import { Revision } from '@/components/revision';
 export const metadata = { title: 'Spaced repetition' };
 export default async function RevisionPage() {
   const cards = [];
-  for (const meta of catalog.filter((l) => l.isFree)) {
+  for (const meta of catalog.filter(
+    (l) => l.isFree && l.status !== 'planned',
+  )) {
     const { quiz } = await loadLesson(meta);
     cards.push(
       ...quiz.map((q) => ({

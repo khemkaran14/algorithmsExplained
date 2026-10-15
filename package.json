@@ -18,7 +18,10 @@
     "db:migrate": "prisma migrate deploy",
     "test:lighthouse": "lhci autorun",
     "setup:local": "node scripts/init-local-env.mjs",
-    "content:check": "tsx scripts/content-check.ts"
+    "content:check": "tsx scripts/content-check.ts",
+    "content:generate-catalog": "tsx scripts/generate-catalog.ts",
+    "content:free-ratio": "tsx scripts/free-ratio.ts",
+    "content:check:ready": "tsx scripts/content-check.ts --allow-planned"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",

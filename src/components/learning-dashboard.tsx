@@ -113,7 +113,7 @@ export function LearningDashboard({ signedIn }: { signedIn: boolean }) {
           );
         })}
       </div>
-      <CatalogGrid lessons={catalog} />
+      <CatalogGrid lessons={catalog.filter((l) => l.status !== 'planned')} />
     </>
   );
 }

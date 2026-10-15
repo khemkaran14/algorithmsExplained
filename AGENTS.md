@@ -23,3 +23,11 @@ Validate and commit each implementation phase; externally blocked acceptance che
 ## Learning data
 
 `src/learning` contains validated local progress, monotonic account merging and SM-2 scheduling. Anonymous `/learn` is public; `/account` requires a real Auth.js session. Progress writes require same-origin requests. Keep browser data scoped to its account owner and clear it on sign-out. Quizzes are graded server-side when authenticated; never use XP as an entitlement. End-to-end session fixtures live only in test code and create real database sessions; production has no test-login route.
+
+## Content and billing boundaries
+
+Public catalog metadata lives separately from server-only lesson MDX, quizzes and visualizer loaders. Check access before calling `loadLesson`, `loadQuiz` or `serverLessonData`; never import paid generators in client code. Public flagship engines are explicitly always free. Paid players receive authorized snapshots and request new inputs through the protected frames route.
+
+`pnpm content:generate-catalog` applies module ordering and documented free-budget overrides. `pnpm content:free-ratio` enforces the global budget and a free sample in every module. During Phases 4–6 authoring, `pnpm content:check:ready` reports implemented and planned counts. Strict `pnpm content:check` must pass for every lesson before curriculum completion; it intentionally fails planned entries. Do not describe metadata stubs as completed lessons.
+
+Billing lives in `src/payments`. Never trust client prices, claim payment success from Checkout.js alone, reactivate refunded access, recycle payable coupon reservations, or log secrets/signatures. Test fixtures use synthetic provider messages and real test database sessions; they do not establish external provider validation. Legal templates and business details require operator review before launch.

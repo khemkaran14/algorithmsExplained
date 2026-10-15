@@ -59,6 +59,7 @@ export async function loadLesson(meta: LessonMeta) {
 }
 const quizLoaders: Record<string, () => Promise<{ default: QuizQuestion[] }>> =
   {
+    'merge-sort': () => import('../../content/dsa/sorting/merge-sort/quiz'),
     'big-o': () => import('../../content/dsa/foundations/big-o/quiz'),
     'bubble-sort': () => import('../../content/dsa/sorting/bubble-sort/quiz'),
     'binary-search': () =>
