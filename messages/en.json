@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "explore": "Explore tracks",
+    "signIn": "Sign in"
+  },
+  "home": {
+    "eyebrow": "A LITTLE LESS THEORY. A LOT MORE AHA.",
+    "title": "Big ideas.\nMade visible.",
+    "description": "A new way to learn algorithms, system design, databases, and cloud. Watch the pieces move. Understand why they work.",
+    "cta": "Find your starting point",
+    "secondary": "Explore the roadmap",
+    "tracks": "Four tracks. One curious mind.",
+    "tracksDescription": "From your first array to your next architecture interview.",
+    "foundation": "The foundation is here. The interactive lessons are up next.",
+    "preview": "A glimpse of what's coming",
+    "bubble": "Bubble sort",
+    "previewNote": "Illustrative preview \u00b7 interactive player arrives in Phase 2",
+    "pricingTitle": "Learn without the interruptions.",
+    "pricingDescription": "No ads. Free lessons in every module. Planned lifetime access to all lessons for {price}.",
+    "pricingNote": "Payments and paid lessons are not available yet.",
+    "map": "THE LEARNING MAP",
+    "steps": "SMALL STEPS. REAL UNDERSTANDING.",
+    "foundationStep": "Foundation & accounts",
+    "engineStep": "Animation engine & first five lessons",
+    "progressStep": "Try mode, quizzes & progress"
+  },
+  "tracks": {
+    "dsa": {
+      "title": "Data structures & algorithms",
+      "description": "Turn abstract patterns into practical problem-solving skills.",
+      "topics": "Arrays \u00b7 Trees \u00b7 Graphs \u00b7 Dynamic programming"
+    },
+    "system": {
+      "title": "System design",
+      "description": "See how small building blocks become systems at scale.",
+      "topics": "Caching \u00b7 Queues \u00b7 Replication \u00b7 Case studies"
+    },
+    "database": {
+      "title": "Database principles",
+      "description": "Look beneath the query and understand your data.",
+      "topics": "Indexes \u00b7 Transactions \u00b7 Joins \u00b7 Isolation"
+    },
+    "cloud": {
+      "title": "Cloud, connected",
+      "description": "Learn the architecture, then map it to AWS and GCP.",
+      "topics": "Compute \u00b7 Networking \u00b7 Storage \u00b7 Reliability"
+    }
+  },
+  "auth": {
+    "title": "Your next aha starts here.",
+    "description": "Sign in to prepare your learning account.",
+    "google": "Continue with Google",
+    "email": "Email address",
+    "send": "Email me a sign-in link",
+    "unavailable": "Sign-in is not configured yet. Add the provider credentials described in the setup guide.",
+    "back": "Back to home",
+    "signOut": "Sign out"
+  },
+  "dashboard": {
+    "title": "Your learning space",
+    "description": "Your account is ready. Lessons and progress tracking will arrive in the next phases.",
+    "browse": "Browse the learning tracks"
+  },
+  "footer": {
+    "note": "Built for curious minds. Phase 1 preview."
+  },
+  "common": {
+    "skip": "Skip to content",
+    "theme": "Toggle color theme",
+    "loading": "Loading your learning space\u2026",
+    "error": "Something went wrong.",
+    "retry": "Try again",
+    "notFound": "Let\u2019s find your way back.",
+    "uncharted": "404 / Uncharted territory",
+    "home": "Return to home",
+    "comingSoon": "Coming soon \u2197",
+    "now": "Now",
+    "next": "Next"
+  }
+}

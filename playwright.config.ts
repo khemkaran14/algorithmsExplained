@@ -1,0 +1,30 @@
+import { defineConfig, devices } from '@playwright/test';
+export default defineConfig({
+  testDir: './tests/e2e',
+  fullyParallel: true,
+  retries: process.env.CI ? 2 : 0,
+  reporter: 'list',
+  use: {
+    launchOptions: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
+      ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH }
+      : {},
+    baseURL: 'http://127.0.0.1:3000',
+    trace: 'retain-on-failure',
+  },
+  projects: [
+    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
+    {
+      name: 'mobile',
+      use: { ...devices['iPhone SE'], defaultBrowserType: 'chromium' },
+    },
+  ],
+  webServer: {
+    command: 'pnpm start',
+    url: 'http://127.0.0.1:3000',
+    reuseExistingServer: !process.env.CI,
+    env: {
+      AUTH_SECRET: 'test-only-not-for-production-000000000000000000',
+      AUTH_URL: 'http://127.0.0.1:3000',
+    },
+  },
+});
