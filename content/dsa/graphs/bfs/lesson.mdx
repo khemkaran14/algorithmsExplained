@@ -1,0 +1,40 @@
+# Breadth-first search
+
+## Hook
+
+Ripples on a pond reach nearby points before distant ones.
+
+## Watch
+
+Use the player above to run, pause, scrub, or step backwards through a deterministic trace.
+
+## How it works
+
+1. Enqueue the start node and mark it discovered.
+2. Remove the oldest queued node.
+3. Enqueue its undiscovered neighbors.
+4. Continue until the queue is empty.
+
+## Try it
+
+Switch to Try mode and predict each operation before revealing its result.
+
+## Complexity
+
+Each reachable vertex and adjacency edge is processed once. Use best, average and worst presets to compare measured counters. The chart plots actual reads and comparisons for n = 8, 16, 32 and 64.
+
+## Code
+
+Choose JavaScript, Python, Java or C++ in the synchronized code panel.
+
+## When to use
+
+Shortest paths in unweighted graphs and level-order traversal.
+
+## Interview pitfalls
+
+Mark discovered nodes when enqueuing, not when dequeuing, to avoid duplicates.
+
+## Quiz
+
+Complete the three questions below, then use the module navigation to choose your next lesson.

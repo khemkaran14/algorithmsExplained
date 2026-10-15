@@ -14,8 +14,8 @@ Keep components small, use strict types, no unjustified any. Never log secrets. 
 
 ## Adding lessons (Phase 2 onward)
 
-Use content/<track>/<module>/<slug>/{lesson.mdx,visualizer.ts,quiz.ts,meta.ts,code/}. Generator frames must be deterministic serializable snapshots; unit-test each generator. Provide four language snippets, complexity, presets and input validation. Do not mark content complete until the planned content validator and all lesson sections exist. No lessons are implemented in Phase 1.
+Use content/<track>/<module>/<slug>/{lesson.mdx,visualizer.ts,quiz.ts,meta.ts,code/}. Generator frames must be deterministic serializable snapshots; unit-test each generator. Provide four language snippets, complexity, presets and input validation. Do not mark content complete until the planned content validator and all lesson sections exist. Five flagship lessons now exist; see src/engine for the pure generators.
 
 ## Phase gate
 
-Complete and validate each phase before the next; update docs/DECISIONS.md, CHANGELOG.md and this file. Real provider sign-in requires external credentials and must not be replaced by a production auth bypass.
+Validate and commit each implementation phase; externally blocked acceptance checks stay pending while independent work continues under the user’s latest instruction; update docs/DECISIONS.md, CHANGELOG.md and this file. Real provider sign-in requires external credentials and must not be replaced by a production auth bypass.

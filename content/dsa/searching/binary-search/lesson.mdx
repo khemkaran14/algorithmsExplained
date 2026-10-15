@@ -1,0 +1,40 @@
+# Binary search
+
+## Hook
+
+Like opening a dictionary in the middle, each comparison rules out half the remaining pages.
+
+## Watch
+
+Use the player above to run, pause, scrub, or step backwards through a deterministic trace.
+
+## How it works
+
+1. Start with sorted values.
+2. Compare the middle value to the target.
+3. Keep only the half that could contain the target.
+4. Stop at a match or an empty interval.
+
+## Try it
+
+Switch to Try mode and predict each operation before revealing its result.
+
+## Complexity
+
+Every comparison halves the remaining interval. Use best, average and worst presets to compare measured counters. The chart plots actual reads and comparisons for n = 8, 16, 32 and 64.
+
+## Code
+
+Choose JavaScript, Python, Java or C++ in the synchronized code panel.
+
+## When to use
+
+Searching sorted random-access data.
+
+## Interview pitfalls
+
+An unsorted input breaks the invariant; off-by-one boundaries cause missed values.
+
+## Quiz
+
+Complete the three questions below, then use the module navigation to choose your next lesson.

@@ -5,6 +5,8 @@ const config = [
   {
     ignores: [
       '.next/**',
+      'content/**/code/**',
+      'content/**/code/**',
       '.lighthouseci/**',
       'node_modules/**',
       'next-env.d.ts',

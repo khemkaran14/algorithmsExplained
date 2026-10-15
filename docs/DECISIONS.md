@@ -9,3 +9,8 @@
 
 - Pin next-intl 4.3.12: later releases eagerly load an SWC native extractor whose trusted-cache requirements are incompatible with this cloud filesystem. No artifact verification is disabled.
 - Sign-in is dynamically rendered so provider settings are read at runtime. Standalone startup binds all container interfaces and includes static assets.
+
+- The user authorized finishing all phases autonomously. Continue independent implementation while external credential/network checks remain pending; never replace those checks with fake success or call a phase accepted before its acceptance evidence exists.
+- Frame history uses a bounded LRU snapshot cache and deterministic recomputation for old frames; large traces are capped at 30,000 frames. Flagship graph input is a labeled binary tree so BFS has a deterministic editable topology; general graph editing follows in the playground.
+
+- Prisma uses the stable Rust-free query client (`engineType = "client"`) with @prisma/adapter-pg 6.19.3. Its opt-in JavaScript schema engine avoids blocked binary downloads. A build-time-only alias pins the migration adapter to 7.10.1 to fix PostgreSQL catalog NAME type handling; the application runtime remains on matching Prisma 6.19.3 packages. Migration and real adapter session/token tests pass. No downloaded artifact was used without verification. Reevaluate the experimental schema-engine flag before production migration operations.

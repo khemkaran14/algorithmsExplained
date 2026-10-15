@@ -2,11 +2,14 @@
 import { randomUUID } from 'node:crypto';
 import { describe, it, expect } from 'vitest';
 import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 
 describe.skipIf(!process.env.DATABASE_URL)('Auth.js PostgreSQL adapter', () => {
   it('persists and revokes sessions and consumes magic-link tokens once', async () => {
-    const db = new PrismaClient();
+    const db = new PrismaClient({
+      adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+    });
     const adapter = PrismaAdapter(db);
     const email = `test-${randomUUID()}@example.com`;
     let userId: string | undefined;

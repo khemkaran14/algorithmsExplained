@@ -1,0 +1,385 @@
+'use client';
+import { useEffect, useMemo, useState } from 'react';
+import { useStore } from 'zustand';
+import { Play, Pause, SkipBack, SkipForward, RotateCcw } from 'lucide-react';
+import { createPlayerStore } from '@/engine/player-store';
+import { Timeline } from '@/engine/timeline';
+import { freeVisualizers } from '@/engine/registry';
+import { LANGUAGES, type Lang } from '@/engine/types';
+import type { CodeLines } from '@/content/load';
+import { Button } from '@/components/ui/button';
+import { VisualCanvas, VisualLegend } from './visual-canvas';
+export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
+  const visualizer = freeVisualizers[id];
+  const [input, setInput] = useState(visualizer.presets.average);
+  const [raw, setRaw] = useState(JSON.stringify(input));
+  const [error, setError] = useState('');
+  const [size, setSize] = useState(8);
+  const [lang, setLang] = useState<Lang>('javascript');
+  const [tab, setTab] = useState('visual');
+  const timeline = useMemo(
+    () => new Timeline(visualizer, input),
+    [visualizer, input],
+  );
+  const store = useMemo(() => createPlayerStore(timeline.length), [timeline]);
+  const state = useStore(store);
+  const current = timeline.get(state.index);
+  useEffect(() => {
+    if (!state.playing) return;
+    const timer = setInterval(() => {
+      const s = store.getState();
+      if (s.index >= s.length - 1) {
+        s.pause();
+        return;
+      }
+      store.setState({ index: s.index + 1 });
+    }, 800 / state.speed);
+    return () => clearInterval(timer);
+  }, [state.playing, state.speed, store]);
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      const el = event.target;
+      if (
+        el instanceof HTMLElement &&
+        (el.isContentEditable ||
+          ['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON', 'A'].includes(el.tagName))
+      )
+        return;
+      const s = store.getState();
+      if (event.code === 'Space') {
+        event.preventDefault();
+        s.toggle();
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        s.step(1);
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        s.step(-1);
+      } else if (event.key.toLowerCase() === 'r') s.restart();
+      else if ('12345'.includes(event.key) && event.key.length === 1)
+        s.setSpeed([0.25, 0.5, 1, 2, 4][Number(event.key) - 1]);
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [store]);
+  function load(next: unknown) {
+    try {
+      const parsed = visualizer.validateInput(next);
+      setInput(parsed);
+      setRaw(JSON.stringify(parsed));
+      setError('');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Invalid input');
+    }
+  }
+  const chart = useMemo(
+    () =>
+      [8, 16, 32, 64].map((n) => {
+        const sample = visualizer.presets.random(
+          id === 'bfs' ? Math.min(n, 16) : n,
+          42,
+        );
+        let count = 0;
+        for (const f of visualizer.generate(sample))
+          count = f.counters.comparisons + f.counters.reads;
+        return { n: sample.length, count };
+      }),
+    [visualizer, id],
+  );
+  const chartMax = Math.max(...chart.map((p) => p.count), 1);
+  return (
+    <section aria-label="Interactive lesson player" className="space-y-5">
+      <div className="flex flex-wrap gap-2 rounded-2xl border border-[var(--border)] p-3">
+        {(['best', 'average', 'worst'] as const).map((p) => (
+          <Button
+            key={p}
+            variant="outline"
+            onClick={() => load(visualizer.presets[p])}
+          >
+            {p[0].toUpperCase() + p.slice(1)} case
+          </Button>
+        ))}
+        <Button
+          variant="outline"
+          onClick={() => load(visualizer.presets.random(size, Date.now()))}
+        >
+          Random
+        </Button>
+        <label className="flex min-w-32 flex-1 items-center gap-2 text-sm">
+          Size {size}
+          <input
+            aria-label="Input size"
+            className="min-w-0 flex-1"
+            type="range"
+            min="1"
+            max={id === 'bfs' ? 16 : 64}
+            value={size}
+            onChange={(e) => setSize(Number(e.target.value))}
+          />
+        </label>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            load(raw);
+          }}
+          className="flex w-full flex-wrap gap-2"
+        >
+          <label className="sr-only" htmlFor={`custom-${id}`}>
+            Custom input
+          </label>
+          <input
+            id={`custom-${id}`}
+            className="min-w-0 flex-1 rounded-xl border border-[var(--border)] bg-[var(--background)] p-3 font-mono text-sm"
+            value={raw}
+            onChange={(e) => setRaw(e.target.value)}
+            aria-invalid={Boolean(error)}
+            aria-describedby={`input-error-${id}`}
+          />
+          <Button variant="outline">Load input</Button>
+        </form>
+        <p
+          id={`input-error-${id}`}
+          role={error ? 'alert' : undefined}
+          className="text-sm text-red-600 dark:text-red-300"
+        >
+          {error}
+        </p>
+      </div>
+      <div
+        className="flex flex-wrap gap-2 lg:hidden"
+        role="tablist"
+        aria-label="Player panels"
+      >
+        {['visual', 'code', 'variables'].map((t) => (
+          <button
+            id={`tab-${id}-${t}`}
+            aria-controls={`panel-${id}-${t}`}
+            key={t}
+            role="tab"
+            aria-selected={tab === t}
+            onClick={() => setTab(t)}
+            className={`rounded-lg border border-[var(--border)] px-4 py-2 text-sm ${tab === t ? 'bg-[var(--surface)]' : ''}`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+      <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
+        <div
+          id={`panel-${id}-visual`}
+          role="tabpanel"
+          aria-labelledby={`tab-${id}-visual`}
+          className={`${tab === 'visual' ? 'block' : 'hidden'} min-w-0 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 lg:block`}
+        >
+          <VisualCanvas frame={current} />
+          <VisualLegend />
+          <p
+            className="mt-5 min-h-14 border-t border-[var(--border)] pt-4 text-sm"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {current.narration}
+          </p>
+        </div>
+        <div
+          id={`panel-${id}-code`}
+          role="tabpanel"
+          aria-labelledby={`tab-${id}-code`}
+          className={`${tab === 'code' ? 'block' : 'hidden'} min-w-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-[#0d1117] text-zinc-100 lg:block`}
+        >
+          <label className="flex items-center justify-between border-b border-zinc-700 px-4 py-3 text-sm">
+            Code language
+            <select
+              aria-label="Code language"
+              value={lang}
+              onChange={(e) => setLang(e.target.value as Lang)}
+              className="rounded bg-zinc-800 p-2"
+            >
+              {LANGUAGES.map((l) => (
+                <option key={l} value={l}>
+                  {l}
+                </option>
+              ))}
+            </select>
+          </label>
+          <pre
+            className="max-h-80 overflow-auto p-3 text-xs leading-7"
+            tabIndex={0}
+            aria-label="Synchronized code"
+          >
+            <code>
+              {code[lang].map((tokens, i) => (
+                <span
+                  key={i}
+                  className={`block ${i + 1 === current.codeLine[lang] ? 'border-l-2 border-lime-300 bg-zinc-800' : 'border-l-2 border-transparent'}`}
+                  aria-current={
+                    i + 1 === current.codeLine[lang] ? 'step' : undefined
+                  }
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mr-4 inline-block w-5 select-none text-right text-zinc-500"
+                  >
+                    {i + 1}
+                  </span>
+                  {tokens.map((token, j) => (
+                    <span key={j} style={{ color: token.color }}>
+                      {token.content}
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div
+        className="sticky bottom-0 z-20 rounded-2xl border border-[var(--border)] bg-[var(--background)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg"
+        aria-label="Playback controls"
+      >
+        <div className="mb-3 flex flex-wrap items-center justify-center gap-2">
+          <Button
+            variant="outline"
+            aria-label="Restart"
+            onClick={state.restart}
+          >
+            <RotateCcw size={18} />
+          </Button>
+          <Button
+            variant="outline"
+            aria-label="Step back"
+            disabled={state.index === 0}
+            onClick={() => state.step(-1)}
+          >
+            <SkipBack size={18} />
+          </Button>
+          <Button
+            aria-label={state.playing ? 'Pause' : 'Play'}
+            disabled={state.index === state.length - 1}
+            onClick={state.toggle}
+          >
+            {state.playing ? <Pause size={18} /> : <Play size={18} />}
+          </Button>
+          <Button
+            variant="outline"
+            aria-label="Step forward"
+            disabled={state.index === state.length - 1}
+            onClick={() => state.step(1)}
+          >
+            <SkipForward size={18} />
+          </Button>
+          <label className="flex items-center gap-1 text-xs">
+            Speed
+            <select
+              aria-label="Playback speed"
+              value={state.speed}
+              onChange={(e) => state.setSpeed(Number(e.target.value))}
+              className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2"
+            >
+              {[0.25, 0.5, 1, 2, 4].map((s) => (
+                <option key={s} value={s}>
+                  {s}×
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div className="flex items-center gap-3">
+          <input
+            className="min-w-0 flex-1 accent-lime-600"
+            type="range"
+            min="0"
+            max={state.length - 1}
+            value={state.index}
+            onChange={(e) => state.seek(Number(e.target.value))}
+            aria-label="Animation timeline"
+          />
+          <output
+            className="w-20 text-right font-mono text-xs"
+            aria-label="Current frame"
+          >
+            {state.index + 1} / {state.length}
+          </output>
+        </div>
+      </div>
+      <div
+        id={`panel-${id}-variables`}
+        role="tabpanel"
+        aria-labelledby={`tab-${id}-variables`}
+        className={`${tab === 'variables' ? 'block' : 'hidden'} grid gap-4 sm:grid-cols-2 lg:grid`}
+      >
+        <section className="rounded-2xl border border-[var(--border)] p-4">
+          <h2 className="mb-3 text-sm font-semibold">Live variables</h2>
+          <dl className="flex flex-wrap gap-4 font-mono text-xs">
+            {Object.entries(current.variables).map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-[var(--muted)]">{k}</dt>
+                <dd>{String(v)}</dd>
+              </div>
+            ))}
+          </dl>
+          {current.callStack && (
+            <ol>
+              {current.callStack.map((s, i) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ol>
+          )}
+        </section>
+        <section className="rounded-2xl border border-[var(--border)] p-4">
+          <h2 className="mb-3 text-sm font-semibold">Operation counters</h2>
+          <dl className="flex flex-wrap gap-4 font-mono text-xs">
+            {Object.entries(current.counters).map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-[var(--muted)]">{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </div>
+      <details className="rounded-2xl border border-[var(--border)] p-5" open>
+        <summary className="cursor-pointer font-semibold">
+          Complexity · {visualizer.complexity.worst}
+        </summary>
+        <dl className="my-4 grid grid-cols-2 gap-3 font-mono text-sm sm:grid-cols-4">
+          {Object.entries(visualizer.complexity)
+            .filter(([k]) => ['best', 'average', 'worst', 'space'].includes(k))
+            .map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-xs text-[var(--muted)]">{k}</dt>
+                <dd>{String(v)}</dd>
+              </div>
+            ))}
+        </dl>
+        <p className="mb-4 text-sm text-[var(--muted)]">
+          {visualizer.complexity.why}
+        </p>
+        <div
+          role="img"
+          aria-label="Measured reads plus comparisons by input size"
+          className="space-y-2"
+        >
+          {chart.map((p, i) => (
+            <div key={i} className="flex items-center gap-3 text-xs">
+              <span className="w-12 font-mono">n={p.n}</span>
+              <div
+                className="h-5 min-w-1 rounded bg-lime-600"
+                style={{ width: `${Math.max(1, (p.count / chartMax) * 70)}%` }}
+              />
+              <span className="font-mono">{p.count}</span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 text-xs text-[var(--muted)]">
+          Measured reads + comparisons, seed 42. Graph samples are capped at 16
+          nodes.
+        </p>
+      </details>
+      <p className="text-xs text-[var(--muted)]">
+        Keyboard: Space play/pause · ←/→ step · R restart · 1–5 speed. Reduced
+        motion disables transitions.
+      </p>
+    </section>
+  );
+}

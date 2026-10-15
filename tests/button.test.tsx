@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { fireEvent } from '@testing-library/react';
@@ -12,7 +13,7 @@ describe('Button', () => {
   it('renders a link without nesting interactive elements', () => {
     render(
       <Button asChild>
-        <a href="/learn">Start</a>
+        <Link href="/learn">Start</Link>
       </Button>,
     );
     expect(screen.getByRole('link', { name: 'Start' })).toHaveAttribute(

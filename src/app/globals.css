@@ -70,3 +70,27 @@ button:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+.lesson-prose h1 {
+  display: none;
+}
+.lesson-prose h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.lesson-prose p,
+.lesson-prose li {
+  color: var(--muted);
+  line-height: 1.8;
+}
+.lesson-prose ol {
+  list-style: decimal;
+  padding-left: 1.4rem;
+}
+.lesson-prose pre {
+  overflow: auto;
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
