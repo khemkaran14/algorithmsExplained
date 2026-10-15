@@ -1,0 +1,40 @@
+# Recursion Basics
+
+## Hook
+
+A line of helpers each asks the next helper a smaller question, then combines the answer on the way back.
+
+## Watch
+
+Let a smaller problem answer first. Explore the validated presets and edit the input to check a boundary case.
+
+## How it works
+
+1. Push the current factorial call.
+2. Return one at the base case.
+3. Multiply the smaller factorial by the current n.
+4. Pop the call before returning to its caller.
+
+## Try it
+
+Predict each decision before advancing. The player checks against the real model and explains why an alternative move fails.
+
+## Complexity
+
+Factorial makes n nested calls and n−1 multiplications. Its active call stack grows linearly with n. The chart labels identify actual counters or explicitly modeled recurrence work; display snapshots are not charged to the underlying algorithm.
+
+## Code
+
+Switch among JavaScript, Python, Java and C++. The active conceptual stage and live variables connect the code to the trace.
+
+## When to use
+
+Use recursion when a problem has a clear smaller subproblem and a reachable base case.
+
+## Interview pitfalls
+
+A missing or unreachable base case prevents termination. Stack depth matters even when the arithmetic work is simple.
+
+## Quiz
+
+Test the invariant and cost model below, then explain the result on a different preset.

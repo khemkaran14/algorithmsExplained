@@ -1,0 +1,40 @@
+# Deque
+
+## Hook
+
+A double-ended line allows arrivals and departures at both entrances.
+
+## Watch
+
+Either end can be the right end. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Keep both head and tail links.
+2. Push at the selected end.
+3. Pop at the selected end.
+4. Repair both endpoints when the deque becomes empty.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+A doubly linked implementation performs each end operation in O(1) time and stores O(n) nodes. Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use it for double-ended scheduling, sliding-window candidates and work-stealing concepts.
+
+## Interview pitfalls
+
+An array-backed front insertion may be linear. The implementation choice must support the claimed end-operation bounds.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

@@ -1,0 +1,40 @@
+# Radix Sort
+
+## Hook
+
+Sort envelopes by the last digit of a postcode, then the next digit, preserving order within each digit group.
+
+## Watch
+
+Sort one digit at a time. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Shift keys by the minimum to make digits nonnegative.
+2. Count one base-ten digit.
+3. Use prefix counts and reverse traversal to place values stably.
+4. Repeat from least to most significant digit.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+For d digits and base b, stable digit passes cost O(d(n+b)) time and O(n+b) extra space.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use it for fixed-width or bounded integer keys when stable digit passes are practical.
+
+## Interview pitfalls
+
+An unstable digit pass destroys the ordering established by earlier passes. Signed inputs need deliberate handling.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

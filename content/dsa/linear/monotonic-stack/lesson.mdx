@@ -1,0 +1,40 @@
+# Monotonic Stack
+
+## Hook
+
+Keep a stack of unanswered height questions; a taller arrival resolves the shorter questions on top.
+
+## Watch
+
+Discard a question when its answer arrives. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Store unresolved indices in nonincreasing value order.
+2. Pop while the new value is strictly greater than the top.
+3. Record the new value as each popped index’s next-greater answer.
+4. Push the current index; unresolved answers remain empty.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+Each index is pushed once and popped at most once, so the whole pass is O(n), even if one value triggers many pops. Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use monotonic stacks for next-greater/smaller queries, span problems and histogram reasoning.
+
+## Interview pitfalls
+
+Equal values do not satisfy a strictly greater query. Store indices to distinguish duplicates; an empty answer is different from a valid numeric value such as -1.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

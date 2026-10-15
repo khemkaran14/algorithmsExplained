@@ -1,0 +1,40 @@
+# Strings
+
+## Hook
+
+A row of printed symbols can hide multiple encoded units inside one visible character.
+
+## Watch
+
+A character is not always one code unit. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Decode the sequence into Unicode code points.
+2. Compare code-point count with UTF-16 code-unit length.
+3. Traverse the code points without splitting surrogate pairs.
+4. Remember that grapheme clusters may contain several code points.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+Traversal is linear in the encoded input. Materializing all code points takes linear space; repeatedly copying immutable prefixes can be quadratic. Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use code-point-aware iteration for Unicode traversal. Use grapheme segmentation for cursor movement and user-perceived character limits.
+
+## Interview pitfalls
+
+JavaScript and Java use UTF-16. Python strings expose code points; C++ std::string is a byte container and needs explicit decoding. A code point is not always a visible character.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

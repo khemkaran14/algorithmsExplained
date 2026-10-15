@@ -1,0 +1,40 @@
+# Interpolation Search
+
+## Hook
+
+When house numbers are evenly spaced, the number itself gives you a good guess of how far down the street to look.
+
+## Watch
+
+Estimate where a value should live. Change the target and input in the JSON input editor.
+
+## How it works
+
+1. Check whether the target lies inside the endpoint values.
+2. Estimate its position from the relative value range.
+3. Probe and shrink the interval.
+4. Handle equal endpoint values without dividing by zero.
+
+## Try it
+
+Predict the next comparison or retained interval, then use the real trace to check the move.
+
+## Complexity
+
+Uniformly distributed keys can give O(log log n) average behavior. Highly skewed distributions can degrade to O(n).
+
+## Code
+
+Follow the active stage in JavaScript, Python, Java or C++. Search intervals and probe variables stay visible beside the animation.
+
+## When to use
+
+Use it only when sorted numeric keys have a useful relationship between value and position.
+
+## Interview pitfalls
+
+A zero denominator and skewed distributions need explicit handling; the estimate must stay inside the active interval.
+
+## Quiz
+
+Answer the questions below, then try absent targets, duplicates and boundary positions.

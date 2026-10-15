@@ -1,0 +1,39 @@
+# Selection Sort
+
+## Hook
+
+Like choosing the shortest person from each remaining part of a line, selection sort fixes one position per pass.
+
+## Watch
+
+Find one minimum at a time. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Keep a sorted prefix and an unsorted suffix.
+2. Scan the suffix for its minimum.
+3. Swap that minimum into the first unsorted position.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+The comparison count stays quadratic even for a sorted input. Only at most n−1 swaps are needed.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use it when writes are expensive and the input is tiny. It is usually slower than insertion sort on nearly sorted data.
+
+## Interview pitfalls
+
+Swapping a distant minimum can reorder equal-key records; this version is not stable.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

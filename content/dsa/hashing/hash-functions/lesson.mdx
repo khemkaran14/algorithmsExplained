@@ -1,0 +1,39 @@
+# Hash Functions
+
+## Hook
+
+A coat-check ticket chooses a rack, but two coats can still share a rack.
+
+## Watch
+
+Compress a key, then check equality. Follow changing buckets, bits or owner links using step forward and back.
+
+## How it works
+
+1. Initialize an accumulator to zero.
+2. Mix each ASCII character using 31h+code.
+3. Reduce modulo the bucket count.
+
+## Try it
+
+Predict the next bucket, matching key, membership conclusion or successor owner. Use a collision-heavy preset and explain what changes.
+
+## Complexity
+
+O(L) time and O(1) auxiliary space. A good table hash spreads ordinary keys; it does not prevent a determined attacker. This polynomial example is deliberately noncryptographic.
+
+## Code
+
+The reference implementations show the core operation in four languages. Bloom-filter snippets accept a hash-position function so insertion and queries share exactly the same hash family. Ring snippets show the successor lookup used for both initial assignment and reassignment.
+
+## When to use
+
+Use table hashing to choose a candidate bucket before comparing full keys.
+
+## Interview pitfalls
+
+Hash equality does not prove key equality.
+
+## Quiz
+
+Check the invariant, cost model and boundary conditions below.

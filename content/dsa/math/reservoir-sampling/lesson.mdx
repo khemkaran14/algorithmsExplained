@@ -1,0 +1,39 @@
+# Reservoir Sampling
+
+## Hook
+
+Keep a small display shelf while boxes keep arriving, giving every box the same eventual chance to stay.
+
+## Watch
+
+A fair sample from a stream of unknown length. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Fill the first k slots.
+2. For item i, draw uniformly from indices zero through i.
+3. Replace reservoir slot j only if j&lt;k.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+One pass takes O(n) time and O(k) space. At step i, the new item enters with probability k/(i+1), preserving every item’s equal inclusion probability. The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it when data arrives as a stream and the total length cannot be stored or known in advance.
+
+## Interview pitfalls
+
+Sampling positions is different from deduplicating equal values. The seeded generator is reproducible for teaching, not cryptographically secure randomness.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.

@@ -1,0 +1,40 @@
+# Binary Search Tree
+
+## Hook
+
+A sorted family of signposts sends smaller keys left and larger keys right.
+
+## Watch
+
+Order keys, then follow one branch. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Compare with the current node.
+2. Insert into the chosen subtree.
+3. Search using the same comparisons.
+4. Delete using a child replacement or inorder successor.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(h) per operation; h can reach n. The tree preserves strict left&lt;root&lt;right ordering and stores duplicate keys once. Random insertion often gives logarithmic height, while sorted insertion creates a chain.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use for ordered dynamic sets; choose a balanced variant when worst-case guarantees matter.
+
+## Interview pitfalls
+
+Two-child deletion must remove the successor from its old location.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

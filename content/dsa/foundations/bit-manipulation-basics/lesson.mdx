@@ -1,0 +1,40 @@
+# Bit Manipulation Basics
+
+## Hook
+
+A stencil selects one light switch without disturbing its neighbors.
+
+## Watch
+
+One mask. Four useful operations. Explore the validated presets and edit the input to check a boundary case.
+
+## How it works
+
+1. Build the mask 1 shifted by the bit index.
+2. Test with AND.
+3. Set with OR, clear with AND of the inverse, and toggle with XOR.
+4. Count set bits by repeatedly clearing the lowest one.
+
+## Try it
+
+Predict each decision before advancing. The player checks against the real model and explains why an alternative move fails.
+
+## Complexity
+
+Fixed-width machine-word masks take constant time in the word-RAM model. Arbitrary-precision numbers require accounting for their bit length. The chart labels identify actual counters or explicitly modeled recurrence work; display snapshots are not charged to the underlying algorithm.
+
+## Code
+
+Switch among JavaScript, Python, Java and C++. The active conceptual stage and live variables connect the code to the trace.
+
+## When to use
+
+Use masks for flags, compact state and bitset-style reasoning.
+
+## Interview pitfalls
+
+JavaScript bit operators coerce to signed 32-bit values; arbitrary shifts and arbitrary-precision integers need separate handling. This view is limited to unsigned bytes.
+
+## Quiz
+
+Test the invariant and cost model below, then explain the result on a different preset.

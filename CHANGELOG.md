@@ -30,3 +30,11 @@
 - Paid Merge Sort lesson is delivered only after entitlement checks; public JavaScript contains no paid generator or narration.
 - Complete 201-entry curriculum metadata and reproducible free allocation: 41 free lessons (20.40%). Six lessons are implemented at this checkpoint; 195 remain explicitly planned for Phases 5/6.
 - Validation: 31 unit/integration tests and 16 desktop/mobile browser tests pass, including signatures, refunds, repeated events, coupon reservations, protected content and invoice downloads. Real Razorpay test-mode checkout remains credential-dependent.
+
+## 2026-10-16 — Phase 5 curriculum checkpoint
+
+- Expanded implemented curriculum from 6 to 69 lessons across foundations, sequences, sorting, searching, math, hashing and trees, with authored explanations, quizzes and four-language reference code.
+- Added validated structured inputs, server-generated random presets, custom operation metrics, graph/matrix/list/heap/hash/Hanoi renderers and the protected variant-loading foundation.
+- Added deterministic correctness and invariant coverage: 190 unit/integration tests pass. Production build passes. Four-language syntax checking passes for all 69 implemented lessons. Desktop/mobile browser checks pass (22 tests), including playground progress isolation, protected comparison and keyboard-accessible search.
+- Added the free-input playground, synchronized two/three-sort comparison, and Ctrl/Command-K curriculum search. Graph generators have correctness coverage and are awaiting lesson authoring before registration.
+- Full Phase 5/6 acceptance remains pending: 132 catalog entries are still planned. External Google/Resend/Razorpay acceptance checks require operator test credentials.

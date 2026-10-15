@@ -1,0 +1,40 @@
+# Avl Tree
+
+## Hook
+
+A leaning shelf is rotated into balance while preserving the order of its books.
+
+## Watch
+
+Repair height where it first becomes unbalanced. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Insert using BST ordering.
+2. Recompute subtree heights.
+3. Detect a height difference above one.
+4. Apply LL, RR, LR or RL repair.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(log n) insertion and lookup. Every committed AVL node has left and right heights differing by at most one. Single and double rotations preserve inorder key order. The interactive operation here is insertion.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use for ordered data with frequent lookups and a strict logarithmic height bound.
+
+## Interview pitfalls
+
+Update the lower rotated node’s height before its new parent.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

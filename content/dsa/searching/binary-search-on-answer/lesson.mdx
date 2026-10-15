@@ -1,0 +1,40 @@
+# Binary Search On Answer
+
+## Hook
+
+Pack a row of boxes into a limited number of vans without changing their order; ask how large each van must be.
+
+## Watch
+
+Search capacities instead of positions. Change the target and input in the JSON input editor.
+
+## How it works
+
+1. Bound capacity between the largest weight and the total weight.
+2. Greedily count contiguous groups for a candidate capacity.
+3. If the candidate is feasible, try a smaller one.
+4. Otherwise increase the lower bound.
+
+## Try it
+
+Predict the next comparison or retained interval, then use the real trace to check the move.
+
+## Complexity
+
+A monotone feasibility predicate lets binary search find the minimum capacity. Each candidate scans n weights; the total is O(n log S) for capacity range S.
+
+## Code
+
+Follow the active stage in JavaScript, Python, Java or C++. Search intervals and probe variables stay visible beside the animation.
+
+## When to use
+
+Use it for minimum feasible capacity, scheduling and allocation problems with monotone predicates.
+
+## Interview pitfalls
+
+Nonnegative weights and contiguity are essential here. Feasibility uses at most the allowed number of groups, not exactly that many nonempty groups in the greedy check.
+
+## Quiz
+
+Answer the questions below, then try absent targets, duplicates and boundary positions.

@@ -5,3 +5,4 @@ playwright-report
 test-results
 
 .lighthouseci
+content/**/code/**

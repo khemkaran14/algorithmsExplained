@@ -1,3 +1,4 @@
+import { LessonSearch } from '@/components/lesson-search';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { NextIntlClientProvider } from 'next-intl';
@@ -43,11 +44,18 @@ export default async function RootLayout({
               </Link>
               <nav
                 aria-label="Main navigation"
-                className="flex items-center gap-4 text-sm"
+                className="flex flex-wrap items-center gap-3 text-sm"
               >
                 <Link href="/#tracks" className="hidden sm:block">
                   {t('nav.explore')}
                 </Link>
+                <Link href="/playground" className="hidden md:block">
+                  Playground
+                </Link>
+                <Link href="/compare" className="hidden md:block">
+                  Compare
+                </Link>
+                <LessonSearch />
                 <Link href="/sign-in">{t('nav.signIn')}</Link>
                 <ThemeToggle />
               </nav>

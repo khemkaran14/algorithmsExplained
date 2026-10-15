@@ -1,0 +1,40 @@
+# Sorting Algorithm Race
+
+## Hook
+
+Give three runners identical starting blocks, then compare their progress and effort rather than their names.
+
+## Watch
+
+Same input. Different amounts of work. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Give Bubble, Merge and Quick the same input.
+2. Advance one trace frame for each active algorithm per tick.
+3. Keep finished runners visible while others continue.
+4. Compare measured comparisons, reads and writes.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+One visual tick is one generator frame, not a calibrated processor cycle. Counters explain work; wall-clock conclusions need benchmarks.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use the race to explore sorted, reversed and random inputs and challenge assumptions about a single fastest algorithm.
+
+## Interview pitfalls
+
+Do not compare algorithms on different inputs or interpret animation speed as a benchmark. Quick sort here uses a last-element Lomuto pivot.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

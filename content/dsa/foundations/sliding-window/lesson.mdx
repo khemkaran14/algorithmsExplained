@@ -1,0 +1,39 @@
+# Sliding Window
+
+## Hook
+
+Move a camera across a row of numbers: one value enters while one leaves.
+
+## Watch
+
+Update the total instead of rebuilding it. Explore the validated presets and edit the input to check a boundary case.
+
+## How it works
+
+1. Add the incoming value.
+2. Once the window is full, subtract the value leaving the left side.
+3. Compare each completed fixed-width sum with the best so far.
+
+## Try it
+
+Predict each decision before advancing. The player checks against the real model and explains why an alternative move fails.
+
+## Complexity
+
+Every value enters once and leaves at most once, giving O(n) time. Negative values are valid because the width is fixed. The chart labels identify actual counters or explicitly modeled recurrence work; display snapshots are not charged to the underlying algorithm.
+
+## Code
+
+Switch among JavaScript, Python, Java and C++. The active conceptual stage and live variables connect the code to the trace.
+
+## When to use
+
+Use it for fixed-size moving aggregates. Variable-size monotone windows require a separate proof.
+
+## Interview pitfalls
+
+Initialize the best sum for negative inputs correctly. A fixed-width sum problem is different from a window maximum-element problem.
+
+## Quiz
+
+Test the invariant and cost model below, then explain the result on a different preset.

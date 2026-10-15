@@ -18,10 +18,11 @@
     "db:migrate": "prisma migrate deploy",
     "test:lighthouse": "lhci autorun",
     "setup:local": "node scripts/init-local-env.mjs",
-    "content:check": "tsx scripts/content-check.ts",
+    "content:check": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts",
     "content:generate-catalog": "tsx scripts/generate-catalog.ts",
     "content:free-ratio": "tsx scripts/free-ratio.ts",
-    "content:check:ready": "tsx scripts/content-check.ts --allow-planned"
+    "content:check:ready": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --allow-planned",
+    "content:generate-index": "tsx scripts/generate-content-index.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
@@ -49,6 +50,7 @@
     "razorpay": "^2.9.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "server-only": "^0.0.1",
     "shiki": "^4.5.0",
     "tailwind-merge": "^3.3.0",
     "zod": "^4.1.0",

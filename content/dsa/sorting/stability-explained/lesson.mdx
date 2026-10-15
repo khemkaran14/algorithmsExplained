@@ -1,0 +1,39 @@
+# Stability Explained
+
+## Hook
+
+Two students with the same score should keep their earlier attendance order when a stable sort orders the scores.
+
+## Watch
+
+Equal keys still have an order. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Attach an original-position label to each key.
+2. Compare keys while carrying their labels with them.
+3. Move strictly larger records and leave equal records in order.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+Stability is an ordering property, not a time bound. This demonstration uses stable insertion sort, with O(n²) worst-case time.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use stability for multi-key sorting, event processing and preserving meaningful tie order.
+
+## Interview pitfalls
+
+Sorted numeric keys alone cannot prove stability; inspect the original-position labels on equal keys.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

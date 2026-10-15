@@ -1,0 +1,40 @@
+# Lfu Cache
+
+## Hook
+
+A small library keeps popular books and evicts the least frequently borrowed, oldest tied book.
+
+## Watch
+
+Count use, then break ties by recency. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Track a frequency for each cached key.
+2. Move hits to the next frequency bucket.
+3. Keep keys in recency order inside each bucket.
+4. Evict the oldest key from the minimum-frequency bucket.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+Frequency buckets and a minimum-frequency pointer avoid scanning every key. Hash lookups and local bucket updates are expected O(1), using O(k) space. The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it when access frequency predicts usefulness and retaining history is appropriate.
+
+## Interview pitfalls
+
+A frequency-only tie rule is incomplete. This model chooses LRU within a frequency bucket, and a newly loaded key starts at frequency one.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.

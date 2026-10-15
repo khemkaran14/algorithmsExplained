@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from 'node:util';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -10,6 +11,7 @@ const files: Record<Lang, string> = {
   cpp: 'cpp.cpp',
 };
 async function main() {
+  const { compile } = await import('@mdx-js/mdx');
   let errors = 0;
   let planned = 0;
   const allowPlanned = process.argv.includes('--allow-planned');
@@ -39,6 +41,7 @@ async function main() {
         meta.slug,
       );
       const mdx = await readFile(path.join(base, 'lesson.mdx'), 'utf8');
+      await compile(mdx, { outputFormat: 'function-body' });
       for (const section of [
         'Hook',
         'Watch',
@@ -77,13 +80,15 @@ async function main() {
           if (!f.narration || !f.state || !f.counters)
             throw new Error('Incomplete frame');
           for (const lang of Object.keys(lines) as Lang[])
-            if (f.codeLine[lang] < 1 || f.codeLine[lang] > lines[lang])
+            if (
+              !Number.isInteger(f.codeLine[lang]) ||
+              f.codeLine[lang] < 1 ||
+              f.codeLine[lang] > lines[lang]
+            )
               throw new Error(
                 `${lang} code line ${f.codeLine[lang]} is outside snippet`,
               );
-          if (
-            JSON.stringify(JSON.parse(JSON.stringify(f))) !== JSON.stringify(f)
-          )
+          if (!isDeepStrictEqual(JSON.parse(JSON.stringify(f)), f))
             throw new Error('Nonserializable frame');
         }
       }

@@ -132,7 +132,7 @@ test('a signed captured webhook grants access once, while an invalid signature g
     await page.goto('/learn/dsa/sorting/merge-sort');
     await expect(page.getByLabel('Interactive lesson player')).toBeVisible();
     await expect(
-      page.getByText(privateNarration, { exact: true }),
+      page.locator('p[aria-live]').filter({ hasText: privateNarration }),
     ).toBeVisible();
     const invoice = await page.request.get(`/api/invoices/${payment.id}`);
     expect(invoice.status()).toBe(200);

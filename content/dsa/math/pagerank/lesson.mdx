@@ -1,0 +1,40 @@
+# Pagerank
+
+## Hook
+
+A random surfer follows links most of the time and occasionally jumps to a random page.
+
+## Watch
+
+Follow links without losing probability. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Start with uniform probability.
+2. Reserve teleportation weight for every vertex.
+3. Redistribute rank from pages without outgoing links.
+4. Distribute each linked page’s remaining weight over its outgoing links.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+I sparse power iterations cost O(I(V+E)) time and O(V+E) space. Damping below one helps the random-surfer distribution converge. The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it to study link-based importance and random walks on directed networks.
+
+## Interview pitfalls
+
+Dangling rank must be redistributed instead of deleted. Rank is a network statistic, not a measure of factual truth or personal worth.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.

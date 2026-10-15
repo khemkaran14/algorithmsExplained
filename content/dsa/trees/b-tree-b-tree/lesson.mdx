@@ -1,0 +1,40 @@
+# B Tree B Tree
+
+## Hook
+
+A filing cabinet stores several sorted dividers per drawer and adds a new level when a drawer overflows.
+
+## Watch
+
+Split pages without breaking sorted routing. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Insert by separator intervals.
+2. Split pages above three keys.
+3. Promote a middle separator.
+4. In B+ mode keep data in linked leaves and copy routing separators.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(log_b n) page visits; O(n) storage. This order-four insertion model allows at most three keys per page. B-tree internal keys are data; B+ internal separators are routing copies, and equality follows the right child. Leaf links support ordered scans.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use to understand disk indexes, high branching factors and page-oriented storage.
+
+## Interview pitfalls
+
+A B+ internal separator match is not a data hit; continue to its leaf. This lesson demonstrates insertion and lookup, not deletion rebalancing.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

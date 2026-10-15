@@ -31,3 +31,7 @@ Public catalog metadata lives separately from server-only lesson MDX, quizzes an
 `pnpm content:generate-catalog` applies module ordering and documented free-budget overrides. `pnpm content:free-ratio` enforces the global budget and a free sample in every module. During Phases 4–6 authoring, `pnpm content:check:ready` reports implemented and planned counts. Strict `pnpm content:check` must pass for every lesson before curriculum completion; it intentionally fails planned entries. Do not describe metadata stubs as completed lessons.
 
 Billing lives in `src/payments`. Never trust client prices, claim payment success from Checkout.js alone, reactivate refunded access, recycle payable coupon reservations, or log secrets/signatures. Test fixtures use synthetic provider messages and real test database sessions; they do not establish external provider validation. Legal templates and business details require operator review before launch.
+
+## Phase 5 authoring checkpoint
+
+69 lessons currently have content and generators. Shared server-only lesson families live in `src/server/visualizers`. Structured inputs are validated per lesson; never coerce arbitrary JSON into numeric arrays. `scripts/check-snippets.py` syntax-checks all four reference languages. Keep snippet directories excluded from automated formatting so code-line mappings remain stable. All 12 tree generators have invariant tests and complete lesson references. Playground runs do not write learning progress; comparisons authorize every selected lesson before loading any protected content.

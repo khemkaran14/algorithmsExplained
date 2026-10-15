@@ -1,5 +1,5 @@
 import { catalog } from '@/content/catalog';
-import { loadLesson } from '@/content/load';
+import { loadQuiz } from '@/content/load';
 import { Revision } from '@/components/revision';
 export const metadata = { title: 'Spaced repetition' };
 export default async function RevisionPage() {
@@ -7,7 +7,7 @@ export default async function RevisionPage() {
   for (const meta of catalog.filter(
     (l) => l.isFree && l.status !== 'planned',
   )) {
-    const { quiz } = await loadLesson(meta);
+    const quiz = await loadQuiz(meta);
     cards.push(
       ...quiz.map((q) => ({
         id: `${meta.slug}:${q.id}`,

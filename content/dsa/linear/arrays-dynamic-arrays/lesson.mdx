@@ -1,0 +1,40 @@
+# Arrays Dynamic Arrays
+
+## Hook
+
+A shelf gains a larger replacement whenever all its slots are occupied.
+
+## Watch
+
+Space to grow, one doubling at a time. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Track logical length separately from allocated capacity.
+2. When full, allocate twice the capacity.
+3. Copy every existing value into the larger buffer.
+4. Append the new value into the first free slot.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+One append can copy n values, but geometric resizing makes the total copying across n appends linear, giving O(1) amortized append. Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use dynamic arrays for indexed access and append-heavy sequences. Index lookup is O(1); inserting in the middle still shifts values.
+
+## Interview pitfalls
+
+Amortized O(1) is not a worst-case guarantee for each append. Spare allocated slots are not logical elements.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

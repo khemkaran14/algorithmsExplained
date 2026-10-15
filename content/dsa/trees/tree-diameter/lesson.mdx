@@ -1,0 +1,40 @@
+# Tree Diameter
+
+## Hook
+
+Walk to a far edge of a tree-shaped trail network, then measure the longest route from there.
+
+## Watch
+
+Find one farthest endpoint, then the other. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Build undirected adjacency.
+2. Find a farthest node from root zero.
+3. Traverse again from that endpoint.
+4. Recover the unique path to the new farthest node.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(n) time and space. For an unweighted tree, the two-traversal method finds a diameter. Length counts edges, so a single-node tree has diameter zero. The connected, acyclic input constraint is essential.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use for longest shortest paths in trees and endpoint-based distance reasoning.
+
+## Interview pitfalls
+
+The same two-BFS rule does not solve diameter for every arbitrary graph.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

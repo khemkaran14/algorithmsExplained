@@ -1,0 +1,39 @@
+# Prefix Sums
+
+## Hook
+
+A meter records cumulative usage; subtract two readings to learn usage between them.
+
+## Watch
+
+Subtract the past you do not need. Explore the validated presets and edit the input to check a boundary case.
+
+## How it works
+
+1. Store zero before the first value.
+2. Build prefix[i+1]=prefix[i]+value[i].
+3. Answer [left,right) as prefix[right]−prefix[left].
+
+## Try it
+
+Predict each decision before advancing. The player checks against the real model and explains why an alternative move fails.
+
+## Complexity
+
+A linear preprocessing pass and O(n) storage support constant-time range-sum queries. Empty ranges and ranges starting at zero use the same formula. The chart labels identify actual counters or explicitly modeled recurrence work; display snapshots are not charged to the underlying algorithm.
+
+## Code
+
+Switch among JavaScript, Python, Java and C++. The active conceptual stage and live variables connect the code to the trace.
+
+## When to use
+
+Use it for many static range sums, differences and cumulative aggregates.
+
+## Interview pitfalls
+
+Prefix indices count elements before a boundary. Inclusive/exclusive endpoint confusion causes off-by-one errors; changing inputs invalidates the precomputed sums.
+
+## Quiz
+
+Test the invariant and cost model below, then explain the result on a different preset.

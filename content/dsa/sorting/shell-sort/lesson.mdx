@@ -1,0 +1,39 @@
+# Shell Sort
+
+## Hook
+
+Straighten a shelf by fixing distant misplaced books before making adjacent adjustments.
+
+## Watch
+
+Move far, then fine-tune. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Choose a gap and insertion-sort every gap-separated subsequence.
+2. Reduce the gap using integer halving.
+3. Finish with gap one so the whole array is sorted.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+Shell sort depends on its gap sequence. Integer-halving gaps have a quadratic worst-case bound.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use it as a small in-place alternative when stability is unnecessary; prefer better bounded sorts for large adversarial inputs.
+
+## Interview pitfalls
+
+Bounds depend on the gap sequence; do not claim a universal O(n log n) worst case.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

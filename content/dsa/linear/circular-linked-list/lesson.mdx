@@ -1,0 +1,40 @@
+# Circular Linked List
+
+## Hook
+
+People seated around a table have a next neighbor even at the point where a straight list would end.
+
+## Watch
+
+The last clue leads back to the first. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Keep a tail whose next link points to head.
+2. Append a node while preserving the closing link.
+3. Traverse until the head is reached again.
+4. Repair the circle after deletion, including the one-node case.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+A tail pointer supports O(1) append. A key search can visit every node once, so it is O(n). Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use circular lists for round-robin traversal and repeated cyclic scheduling.
+
+## Interview pitfalls
+
+A traversal that waits for null will never stop in a nonempty circle. The single remaining node points to itself.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

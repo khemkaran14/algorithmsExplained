@@ -1,0 +1,40 @@
+# Primality Test
+
+## Hook
+
+A rectangular arrangement of tiles has a short side no longer than the square root of its area.
+
+## Watch
+
+A small factor proves a large claim false. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Reject numbers below two.
+2. Try two, then odd candidate divisors.
+3. A zero remainder proves compositeness.
+4. If no divisor up to √n exists, report prime.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+Trial division needs O(√n) divisions in the worst case and constant auxiliary space. This is an exact small-integer teaching method, not a large cryptographic primality tester. The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it for modest isolated integers; use a sieve for many bounded queries and established probabilistic tests for large integers.
+
+## Interview pitfalls
+
+Do not test all the way to n, do not call one prime, and avoid overflowing divisor\*divisor in a general fixed-width implementation.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.

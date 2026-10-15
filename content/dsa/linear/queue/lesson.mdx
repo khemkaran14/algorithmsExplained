@@ -1,0 +1,39 @@
+# Queue
+
+## Hook
+
+A ticket counter serves the person who has waited the longest.
+
+## Watch
+
+The first arrival leaves first. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Enqueue at the tail.
+2. Dequeue at the head.
+3. Clear both pointers after removing the final node.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+A linked implementation with head and tail changes a constant number of links per enqueue or dequeue. Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use FIFO queues for breadth-first traversal, work scheduling and buffering.
+
+## Interview pitfalls
+
+Using an array operation that shifts every remaining value can turn a nominal dequeue into O(n) work.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

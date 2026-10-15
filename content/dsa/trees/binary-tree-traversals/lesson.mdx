@@ -1,0 +1,40 @@
+# Binary Tree Traversals
+
+## Hook
+
+Tour the same building by entering rooms before, between or after visiting their wings.
+
+## Watch
+
+Choose when to visit the root. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Treat the array as complete-tree level order.
+2. Emit root before children for preorder.
+3. Emit between left and right for inorder.
+4. Emit after children for postorder, or use FIFO level order.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(n) time; O(h) DFS stack or O(w) level frontier. Traversal order changes the output without changing the tree. The input is a complete binary tree, not an implicit BST; inorder is sorted only if the tree already satisfies BST ordering.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use preorder for structural serialization, postorder for bottom-up computation and BFS for layers.
+
+## Interview pitfalls
+
+Do not infer BST ordering merely because the tree is binary.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

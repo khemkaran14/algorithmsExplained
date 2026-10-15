@@ -1,0 +1,39 @@
+# Hash Table With Chaining
+
+## Hook
+
+Each numbered drawer holds several keys; search inside only the selected drawer.
+
+## Watch
+
+Give collisions their own chain. Follow changing buckets, bits or owner links using step forward and back.
+
+## How it works
+
+1. Normalize negative key remainders.
+2. Search the selected chain for equality.
+3. Insert distinct keys, then demonstrate removal.
+
+## Try it
+
+Predict the next bucket, matching key, membership conclusion or successor owner. Use a collision-heavy preset and explain what changes.
+
+## Complexity
+
+Expected O(1+α) lookup, worst O(n), O(n+m) space. The load factor α=n/m describes the average chain length, assuming reasonably distributed hashes. The demonstration uses set semantics.
+
+## Code
+
+The reference implementations show the core operation in four languages. Bloom-filter snippets accept a hash-position function so insertion and queries share exactly the same hash family. Ring snippets show the successor lookup used for both initial assignment and reassignment.
+
+## When to use
+
+Use chaining when predictable deletion and flexible bucket occupancy matter.
+
+## Interview pitfalls
+
+Do not remove an entire bucket when deleting one colliding key.
+
+## Quiz
+
+Check the invariant, cost model and boundary conditions below.

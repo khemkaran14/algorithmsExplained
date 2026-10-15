@@ -1,0 +1,40 @@
+# Tim Sort Overview
+
+## Hook
+
+Instead of re-sorting every book, find the shelf sections that are already ordered and merge them.
+
+## Watch
+
+Reuse order that is already there. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Detect an ascending or strictly descending natural run.
+2. Reverse descending runs without reversing equal-key order.
+3. Keep the detected runs in their original adjacent order.
+4. Merge adjacent runs until only one remains.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+This teaching subset combines natural-run detection and stable adjacent merges. Production TimSort additionally extends short runs, applies run-stack invariants and uses galloping.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use the concept to understand adaptive library sorting and why real-world partly sorted data can be cheap.
+
+## Interview pitfalls
+
+This is an overview model, not a reimplementation of CPython or Java TimSort. Descending detection must be strict to preserve equal-key stability.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

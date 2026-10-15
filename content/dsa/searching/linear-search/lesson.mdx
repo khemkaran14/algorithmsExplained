@@ -1,0 +1,39 @@
+# Linear Search
+
+## Hook
+
+Look through a shuffled pile of letters until you find the address you need.
+
+## Watch
+
+Find it one value at a time. Change the target and input in the JSON input editor.
+
+## How it works
+
+1. Inspect the next value.
+2. Compare it with the target.
+3. Stop at the first match, or report that every value was checked.
+
+## Try it
+
+Predict the next comparison or retained interval, then use the real trace to check the move.
+
+## Complexity
+
+The best case is a first-position match. An absent target needs n comparisons, so average and worst cases are linear.
+
+## Code
+
+Follow the active stage in JavaScript, Python, Java or C++. Search intervals and probe variables stay visible beside the animation.
+
+## When to use
+
+Use it on unsorted or tiny sequences, or when sequential access is the natural interface.
+
+## Interview pitfalls
+
+Do not claim logarithmic time without a sorted-search invariant. This implementation returns the first matching index.
+
+## Quiz
+
+Answer the questions below, then try absent targets, duplicates and boundary positions.

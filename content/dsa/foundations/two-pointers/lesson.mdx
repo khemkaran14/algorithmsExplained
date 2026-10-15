@@ -1,0 +1,40 @@
+# Two Pointers
+
+## Hook
+
+Two people at opposite ends of a sorted shelf move inward until their chosen book weights add to the target.
+
+## Watch
+
+Move only the endpoint that can help. Explore the validated presets and edit the input to check a boundary case.
+
+## How it works
+
+1. Start at both ends of an ascending array.
+2. Compare the endpoint sum with the target.
+3. If too small, advance the left pointer.
+4. If too large, retreat the right pointer.
+
+## Try it
+
+Predict each decision before advancing. The player checks against the real model and explains why an alternative move fails.
+
+## Complexity
+
+Each endpoint moves in one direction and crosses at most n positions, so a failed search is linear with constant auxiliary space. The chart labels identify actual counters or explicitly modeled recurrence work; display snapshots are not charged to the underlying algorithm.
+
+## Code
+
+Switch among JavaScript, Python, Java and C++. The active conceptual stage and live variables connect the code to the trace.
+
+## When to use
+
+Use this pattern for sorted pair sums and other problems with a monotone endpoint argument.
+
+## Interview pitfalls
+
+Sorted order is essential for this sum argument, and one position cannot be used twice.
+
+## Quiz
+
+Test the invariant and cost model below, then explain the result on a different preset.

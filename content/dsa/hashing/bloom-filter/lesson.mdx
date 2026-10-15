@@ -1,0 +1,40 @@
+# Bloom Filter
+
+## Hook
+
+Several stamps represent each guest; another guest can accidentally leave all the same stamps.
+
+## Watch
+
+A zero bit proves absence. Follow changing buckets, bits or owner links using step forward and back.
+
+## How it works
+
+1. Set k positions per inserted key.
+2. Probe positions for a query.
+3. Any zero proves absence.
+4. All ones mean possibly present.
+
+## Try it
+
+Predict the next bucket, matching key, membership conclusion or successor owner. Use a collision-heavy preset and explain what changes.
+
+## Complexity
+
+O(k) bit probes per operation and O(m) bits. An insert-only filter has no false negatives; shared bits create false positives. The animation includes an exact membership oracle solely to expose that distinction. Double hashing uses an odd step with a power-of-two bit count.
+
+## Code
+
+The reference implementations show the core operation in four languages. Bloom-filter snippets accept a hash-position function so insertion and queries share exactly the same hash family. Ring snippets show the successor lookup used for both initial assignment and reassignment.
+
+## When to use
+
+Use a filter before an expensive exact lookup when a false positive only causes extra work.
+
+## Interview pitfalls
+
+Never treat possible membership as proof. Clearing ordinary Bloom bits can create false negatives.
+
+## Quiz
+
+Check the invariant, cost model and boundary conditions below.

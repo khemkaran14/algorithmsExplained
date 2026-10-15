@@ -1,0 +1,40 @@
+# Open Addressing
+
+## Hook
+
+When a parking bay is occupied, a fixed search rule chooses the next candidate.
+
+## Watch
+
+Follow a probe sequence, not a linked chain. Follow changing buckets, bits or owner links using step forward and back.
+
+## How it works
+
+1. Hash into the first slot.
+2. Advance by linear, quadratic or double-hash probes.
+3. Stop at an empty slot or the same key.
+4. Bound attempts even when a probe sequence cannot reach every slot.
+
+## Try it
+
+Predict the next bucket, matching key, membership conclusion or successor owner. Use a collision-heavy preset and explain what changes.
+
+## Complexity
+
+Expected O(1) at low load; worst O(m) insertion, O(m) space. Linear probing clusters; quadratic probing may visit only a subset of slots. With a prime capacity and nonzero step, double hashing visits every slot before repeating.
+
+## Code
+
+The reference implementations show the core operation in four languages. Bloom-filter snippets accept a hash-position function so insertion and queries share exactly the same hash family. Ring snippets show the successor lookup used for both initial assignment and reassignment.
+
+## When to use
+
+Use open addressing for compact tables with controlled load and a careful deletion policy.
+
+## Interview pitfalls
+
+Deletion needs tombstones or reinsertion; this insert-only model does not pretend clearing a slot preserves lookup chains.
+
+## Quiz
+
+Check the invariant, cost model and boundary conditions below.

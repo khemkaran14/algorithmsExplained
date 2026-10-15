@@ -1,3 +1,5 @@
+export type JsonValue =
+  string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
 export const LANGUAGES = ['javascript', 'python', 'java', 'cpp'] as const;
 export type Lang = (typeof LANGUAGES)[number];
 export type Mark =
@@ -14,13 +16,23 @@ export type VisualState = {
     | 'grid'
     | 'architecture'
     | 'bits'
-    | 'string';
+    | 'string'
+    | 'linked-list'
+    | 'queue'
+    | 'heap'
+    | 'hash-table'
+    | 'matrix'
+    | 'recursion-tree'
+    | 'hanoi'
+    | 'ring';
   values: number[];
   labels?: string[];
   nodes?: { id: string; label: string; x: number; y: number }[];
   edges?: { from: string; to: string; label?: string }[];
   rows?: number[][];
-  result?: string | number | number[];
+  cellLabels?: string[][];
+  directed?: boolean;
+  result?: JsonValue;
   provider?: 'aws' | 'gcp';
 };
 export type Counters = {
@@ -41,6 +53,7 @@ export type Frame<S = VisualState> = {
   action?: { prompt: string; choices: string[]; answer: string; hint: string };
 };
 export type ComplexityInfo = {
+  metric?: { label: string; keys: string[] };
   best: string;
   average: string;
   worst: string;
@@ -51,6 +64,11 @@ export type ComplexityInfo = {
 };
 export interface Visualizer<Input = number[], S = VisualState> {
   id: string;
+  presetLabels?: { best: string; average: string; worst: string };
+  inputHint?: string;
+  maxSize?: number;
+  variantTitle?: string;
+  variants?: Record<string, { title: string; visualizer: Visualizer<unknown> }>;
   generate(input: Input): Generator<Frame<S>>;
   presets: {
     best: Input;

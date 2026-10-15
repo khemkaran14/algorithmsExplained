@@ -1,0 +1,40 @@
+# Red Black Tree
+
+## Hook
+
+Red links join keys into a logical multi-key page; black links separate its levels.
+
+## Watch
+
+Use color to encode a balanced search tree. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Insert a red leaf.
+2. Rotate a right-leaning red link left.
+3. Rotate consecutive left-red links right.
+4. Flip two red child links and force the root black.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(log n) insertion and lookup. This left-leaning red-black insertion model represents a 2–3 tree. At every committed insertion, the root is black, no red node has a red child, and all root-to-null paths contain the same number of black nodes.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use balanced ordered maps where logarithmic operations and moderate balancing work are useful.
+
+## Interview pitfalls
+
+This lesson uses the LLRB variant. Ordinary red-black implementations can use different repair cases.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

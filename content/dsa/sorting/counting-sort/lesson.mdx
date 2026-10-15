@@ -1,0 +1,39 @@
+# Counting Sort
+
+## Hook
+
+Count socks of each size, then lay the piles out from the smallest size to the largest.
+
+## Watch
+
+Count keys instead of comparing them. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Find the integer key range.
+2. Count each key in its frequency bucket.
+3. Emit each key as often as its bucket records.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+The work is O(n+k), where k is the key range. A huge sparse range can cost more than a comparison sort.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use it for dense bounded integer keys. Offset by the minimum to handle negative keys.
+
+## Interview pitfalls
+
+This frequency-output variant sorts keys but does not demonstrate stable payload placement. A stable record sort needs prefix offsets and an output array.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

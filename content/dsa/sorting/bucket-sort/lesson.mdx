@@ -1,0 +1,40 @@
+# Bucket Sort
+
+## Hook
+
+Sort mail into postcode bags, organize each bag, then concatenate the bags in postcode order.
+
+## Watch
+
+Spread values into small neighborhoods. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Map each value into one of roughly √n range buckets.
+2. Keep equal-key arrival order inside each bucket.
+3. Insertion-sort each bucket.
+4. Concatenate the buckets by index.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+With well-spread input the buckets stay small, while one crowded bucket can require O(n²) insertion work.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use it when the input distribution is understood and buckets can remain balanced.
+
+## Interview pitfalls
+
+Uniform distribution is an assumption, not a guarantee. Clamp the maximum value into the final bucket.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

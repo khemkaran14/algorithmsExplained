@@ -1,0 +1,40 @@
+# Load Factor Rehashing
+
+## Hook
+
+When the filing cabinet grows, old folders must be placed using the new drawer count.
+
+## Watch
+
+A larger table needs new bucket choices. Follow changing buckets, bits or owner links using step forward and back.
+
+## How it works
+
+1. Check projected load before insertion.
+2. Allocate a geometrically larger table.
+3. Recompute every existing key’s destination.
+4. Insert the new distinct key.
+
+## Try it
+
+Predict the next bucket, matching key, membership conclusion or successor owner. Use a collision-heavy preset and explain what changes.
+
+## Complexity
+
+Amortized expected O(1) insertion; O(n) one rehash. Capacities grow as 2m+1, so total transfers across n insertions form a geometric series. This implementation grows before projected load exceeds 0.75.
+
+## Code
+
+The reference implementations show the core operation in four languages. Bloom-filter snippets accept a hash-position function so insertion and queries share exactly the same hash family. Ring snippets show the successor lookup used for both initial assignment and reassignment.
+
+## When to use
+
+Use geometric resizing to keep ordinary hash-table operations efficient over a growing workload.
+
+## Interview pitfalls
+
+Copying buckets to the same indices is incorrect because modulo depends on capacity.
+
+## Quiz
+
+Check the invariant, cost model and boundary conditions below.

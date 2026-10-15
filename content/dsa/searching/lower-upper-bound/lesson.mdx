@@ -1,0 +1,40 @@
+# Lower Upper Bound
+
+## Hook
+
+A dictionary can contain many entries beginning with the same word; find both the first matching page and the first page after them.
+
+## Watch
+
+Find the whole equal-key range. Change the target and input in the JSON input editor.
+
+## How it works
+
+1. Use a half-open interval [low, high).
+2. Lower bound keeps the first value greater than or equal to the target.
+3. Upper bound keeps the first value strictly greater than the target.
+4. Subtract the boundaries to count equal keys.
+
+## Try it
+
+Predict the next comparison or retained interval, then use the real trace to check the move.
+
+## Complexity
+
+Both searches halve the interval, giving O(log n) total time and constant auxiliary space.
+
+## Code
+
+Follow the active stage in JavaScript, Python, Java or C++. Search intervals and probe variables stay visible beside the animation.
+
+## When to use
+
+Use boundaries for duplicate ranges, insertion positions, rank queries and counting equal keys in sorted arrays.
+
+## Interview pitfalls
+
+The upper boundary can equal n. Never index it without checking; lower and upper predicates differ by equality.
+
+## Quiz
+
+Answer the questions below, then try absent targets, duplicates and boundary positions.

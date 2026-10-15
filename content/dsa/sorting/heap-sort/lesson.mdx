@@ -1,0 +1,40 @@
+# Heap Sort
+
+## Hook
+
+Use a tournament bracket that keeps the winner at the top, then rebuild the tournament after each winner leaves.
+
+## Watch
+
+Always take the largest remaining key. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Build a max heap bottom up.
+2. Exchange its root with the final unsorted value.
+3. Shrink the active heap.
+4. Sift the new root down until heap order is restored.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+Heap construction is O(n), followed by n extractions costing O(log n) each.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use it when worst-case O(n log n) and constant auxiliary space matter more than stability or locality.
+
+## Interview pitfalls
+
+Children at 2i+1 and 2i+2 must remain inside the active heap, not the full backing array.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

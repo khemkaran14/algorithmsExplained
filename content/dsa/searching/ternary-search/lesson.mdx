@@ -1,0 +1,39 @@
+# Ternary Search
+
+## Hook
+
+Open a sorted reference book near one third and two thirds, then keep the region that can contain the target.
+
+## Watch
+
+Two probes. Three possible regions. Change the target and input in the JSON input editor.
+
+## How it works
+
+1. Choose two third-points inside the interval.
+2. Check both candidates.
+3. Discard the left, middle or right regions that cannot match.
+
+## Try it
+
+Predict the next comparison or retained interval, then use the real trace to check the move.
+
+## Complexity
+
+Ternary search on a sorted array is O(log n), but its extra comparisons usually offer no advantage over binary search. This differs from ternary optimization on unimodal functions.
+
+## Code
+
+Follow the active stage in JavaScript, Python, Java or C++. Search intervals and probe variables stay visible beside the animation.
+
+## When to use
+
+Use it to understand multi-probe interval reduction; use binary search for ordinary sorted-array lookup unless benchmarks justify another choice.
+
+## Interview pitfalls
+
+Do not mix sorted-array lookup with unimodal continuous optimization; they use different invariants and stopping rules.
+
+## Quiz
+
+Answer the questions below, then try absent targets, duplicates and boundary positions.

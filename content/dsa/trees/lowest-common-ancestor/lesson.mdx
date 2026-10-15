@@ -1,0 +1,40 @@
+# Lowest Common Ancestor
+
+## Hook
+
+Two people walk toward the root of a family tree until their routes meet.
+
+## Watch
+
+Align depths before climbing together. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Compute depths from valid parent pointers.
+2. Raise the deeper node.
+3. Raise both nodes at equal depth.
+4. Stop at their first equal ancestor.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(h) single query; O(n) stored parent/depth data. The ancestor may equal either queried node. This parent-pointer teaching method is O(h), not a binary-lifting implementation. The root points to -1.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use for a few ancestor queries when parent pointers are already available.
+
+## Interview pitfalls
+
+A node is its own ancestor in this convention; do not move above root zero.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

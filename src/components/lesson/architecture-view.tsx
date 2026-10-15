@@ -1,0 +1,56 @@
+'use client';
+import { ReactFlow, Background, Controls, MarkerType } from '@xyflow/react';
+import { useReducedMotion } from 'framer-motion';
+import type { Frame } from '@/engine/types';
+import '@xyflow/react/dist/style.css';
+export default function ArchitectureView({ frame }: { frame: Frame }) {
+  const reduced = useReducedMotion();
+  const nodes = (frame.state.nodes ?? []).map((n) => ({
+    id: n.id,
+    position: { x: n.x, y: n.y },
+    data: { label: n.label },
+    style: {
+      background: frame.highlights.some((h) => h.id === n.id)
+        ? '#bef264'
+        : 'var(--background)',
+      color: frame.highlights.some((h) => h.id === n.id)
+        ? '#18230d'
+        : 'var(--foreground)',
+      border: '1px solid var(--border)',
+      borderRadius: 12,
+      padding: 8,
+      width: 140,
+      fontSize: 12,
+    },
+  }));
+  const edges = (frame.state.edges ?? []).map((e, i) => ({
+    id: `${e.from}-${e.to}-${i}`,
+    source: e.from,
+    target: e.to,
+    label: e.label,
+    animated:
+      !reduced && frame.highlights.some((h) => h.id === `${e.from}->${e.to}`),
+    markerEnd: { type: MarkerType.ArrowClosed },
+    style: { stroke: 'var(--muted)' },
+    labelStyle: { fill: 'var(--foreground)', fontSize: 10 },
+    labelBgStyle: { fill: 'var(--background)' },
+  }));
+  return (
+    <div className="h-80 w-full rounded-xl" aria-label={frame.narration}>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        fitView
+        nodesDraggable={false}
+        nodesConnectable={false}
+        panOnScroll
+        zoomOnScroll={false}
+        minZoom={0.2}
+        maxZoom={2}
+      >
+        <Background />
+        <Controls showInteractive={false} />
+      </ReactFlow>
+    </div>
+  );
+}

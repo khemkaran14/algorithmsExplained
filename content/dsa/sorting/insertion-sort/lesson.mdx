@@ -1,0 +1,39 @@
+# Insertion Sort
+
+## Hook
+
+Insert a playing card into your already ordered hand by sliding larger cards aside.
+
+## Watch
+
+Make room for the next value. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Hold the next key outside the sorted prefix.
+2. Shift strictly larger keys one position right.
+3. Place the key into the newly opened slot.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+A sorted prefix needs one comparison per insertion. Reverse order can shift all earlier keys, giving quadratic work.
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use it for small arrays, nearly sorted inputs and short runs inside hybrid sorts.
+
+## Interview pitfalls
+
+Shift only strictly larger keys to preserve stability; do not lose the held key.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

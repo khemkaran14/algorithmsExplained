@@ -1,0 +1,40 @@
+# Master Theorem
+
+## Hook
+
+A company splits a job among smaller teams at each level; total effort depends on whether leaves, every level or the top dominate.
+
+## Watch
+
+Compare the leaves with the work above them. Explore the validated presets and edit the input to check a boundary case.
+
+## How it works
+
+1. Describe T(n)=aT(n/b)+n^k with a valid power-of-b input.
+2. Compute each level’s node count and subproblem size.
+3. Sum the work shown at each level.
+4. Compare k with log_b(a) to identify the theorem case.
+
+## Try it
+
+Predict each decision before advancing. The player checks against the real model and explains why an alternative move fails.
+
+## Complexity
+
+For polynomial f(n)=n^k, compare k with log_b(a). Smaller k gives leaf-dominated work; equality adds a logarithmic factor; larger k gives root-dominated work and satisfies the polynomial regularity condition. The chart labels identify actual counters or explicitly modeled recurrence work; display snapshots are not charged to the underlying algorithm.
+
+## Code
+
+Switch among JavaScript, Python, Java and C++. The active conceptual stage and live variables connect the code to the trace.
+
+## When to use
+
+Use it for recurrences that fit equal-sized subproblems with the theorem’s assumptions.
+
+## Interview pitfalls
+
+It does not automatically apply to unequal subproblem sizes, nonpolynomial f(n), or missing regularity conditions. The preset labels are theorem cases, not input orderings.
+
+## Quiz
+
+Test the invariant and cost model below, then explain the result on a different preset.

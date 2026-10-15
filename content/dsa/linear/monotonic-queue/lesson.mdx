@@ -1,0 +1,40 @@
+# Monotonic Queue
+
+## Hook
+
+Remove an older contender when a newer contender is at least as strong and will stay eligible longer.
+
+## Watch
+
+Keep only candidates that can still win. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Expire indices that leave the sliding window.
+2. Discard back candidates no greater than the incoming value.
+3. Append the incoming index.
+4. Read each completed window’s maximum from the front.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+Every index enters once and leaves at most once. The logical deque uses O(k) window space; the JavaScript array model periodically compacts expired slots. Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use it for sliding-window maximum/minimum problems with a fixed moving interval.
+
+## Interview pitfalls
+
+Remove expired indices before reading the maximum. Values alone cannot identify when duplicate candidates expire.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

@@ -1,0 +1,40 @@
+# Singly Linked List
+
+## Hook
+
+Follow a treasure hunt where each clue gives only the location of the next clue.
+
+## Watch
+
+Every value knows its next neighbor. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Keep head and tail node identities.
+2. Append by changing the old tail’s next link.
+3. Search by following next links.
+4. Delete the first matching node by bypassing it and repairing head or tail.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+Appending with a tail pointer is O(1). Searching by key is O(n); deleting after a known predecessor is O(1). Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use linked lists when stable node identities and local link updates matter more than random indexing and memory locality.
+
+## Interview pitfalls
+
+Deleting the head or final node requires updating end pointers. Equal values still belong to distinct nodes.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

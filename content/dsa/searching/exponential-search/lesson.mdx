@@ -1,0 +1,39 @@
+# Exponential Search
+
+## Hook
+
+Walk 1, 2, 4 and 8 doors down a street until you pass the address, then search between the last two stops.
+
+## Watch
+
+Find the neighborhood before the address. Change the target and input in the JSON input editor.
+
+## How it works
+
+1. Check the first position.
+2. Double the upper bound until it reaches or passes the target.
+3. Binary-search the bounded interval.
+
+## Try it
+
+Predict the next comparison or retained interval, then use the real trace to check the move.
+
+## Complexity
+
+A target near position i needs O(log(i+1)) probes, capped at O(log n) for a finite array.
+
+## Code
+
+Follow the active stage in JavaScript, Python, Java or C++. Search intervals and probe variables stay visible beside the animation.
+
+## When to use
+
+Use it for sorted data when the target may be near the front or a logical upper bound is initially unknown.
+
+## Interview pitfalls
+
+Clamp every doubling bound before indexing a finite array. The binary phase must include both ends of the bracket.
+
+## Quiz
+
+Answer the questions below, then try absent targets, duplicates and boundary positions.

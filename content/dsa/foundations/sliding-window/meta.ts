@@ -11,6 +11,6 @@ const meta = {
   isFree: false,
   prerequisites: [],
   tags: ['foundations', 'dsa'],
-  status: 'planned',
+  status: 'ready',
 } as const;
 export default meta;

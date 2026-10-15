@@ -1,0 +1,39 @@
+# Euclidean Gcd
+
+## Hook
+
+Cut two ribbons into equal pieces; removing whole copies of the shorter ribbon does not change the largest shared piece size.
+
+## Watch
+
+Keep the divisors. Shrink the numbers. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Compute a mod b.
+2. Replace a with b and b with the remainder.
+3. Stop when b is zero.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+Each Euclidean remainder reduces the positive operands quickly; consecutive Fibonacci numbers give the long-run logarithmic bound. The algorithm convention here returns zero for gcd(0,0). The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it for simplifying fractions, modular arithmetic and divisibility reasoning.
+
+## Interview pitfalls
+
+Avoid division by zero by testing b first. The demonstration accepts nonnegative integers; signed minimum values need care when taking absolute values.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.

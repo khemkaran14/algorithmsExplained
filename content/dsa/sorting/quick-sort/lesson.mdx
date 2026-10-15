@@ -1,0 +1,40 @@
+# Quick Sort
+
+## Hook
+
+Pick a reference book, move smaller titles to one side and larger titles to the other, then organize each side.
+
+## Watch
+
+Put a pivot in its place. Run best, average, worst and seeded random inputs; the animation is a reversible execution trace.
+
+## How it works
+
+1. Choose the final value as a Lomuto pivot.
+2. Move values no greater than the pivot into a left partition.
+3. Place the pivot between its partitions.
+4. Recursively sort the two remaining intervals.
+
+## Try it
+
+Pause at each decision and predict the operation before revealing its result. Input arrays are limited to 64 bounded integers.
+
+## Complexity
+
+Balanced partitions give O(n log n) expected work, while repeated extreme pivots give O(n²).
+
+## Code
+
+Choose a language in the code panel. The highlighted stage follows the trace; counters record the visualized reads, writes, comparisons and swaps.
+
+## When to use
+
+Use it for fast in-place array sorting when average performance matters; choose randomized or robust pivots in production.
+
+## Interview pitfalls
+
+This default is Lomuto with a last-element pivot. Sorted or equal-valued inputs can be adversarial; do not confuse Hoare return boundaries with pivot positions.
+
+## Quiz
+
+Test the invariant and complexity below, then compare another algorithm on the same input.

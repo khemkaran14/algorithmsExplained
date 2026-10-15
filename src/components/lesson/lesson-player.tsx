@@ -7,7 +7,7 @@ import { createPlayerStore } from '@/engine/player-store';
 import { Timeline } from '@/engine/timeline';
 import { freeVisualizers } from '@/engine/registry';
 import type { RemoteLessonData } from '@/content/server-registry';
-import { randomNumbers, validateNumbers } from '@/engine/helpers';
+import { randomNumbers } from '@/engine/helpers';
 import type { Visualizer } from '@/engine/types';
 import { LANGUAGES, type Lang } from '@/engine/types';
 import type { CodeLines } from '@/content/load';
@@ -17,20 +17,31 @@ export function LessonPlayer({
   id,
   code,
   remote,
+  trackProgress = true,
 }: {
   id: string;
   code: CodeLines;
   remote?: RemoteLessonData;
+  trackProgress?: boolean;
 }) {
   const [remoteData, setRemoteData] = useState(remote);
-  const visualizer = useMemo<Visualizer>(
+  const visualizer = useMemo<Visualizer<unknown>>(
     () =>
       remoteData
         ? {
             id,
             complexity: remoteData.complexity,
             presets: { ...remoteData.presets, random: randomNumbers },
-            validateInput: validateNumbers,
+            validateInput(raw: unknown) {
+              if (typeof raw === 'string') {
+                try {
+                  return JSON.parse(raw) as unknown;
+                } catch {
+                  throw new Error('Enter valid JSON for this lesson.');
+                }
+              }
+              return raw;
+            },
             *generate() {
               yield* remoteData.frames;
             },
@@ -38,7 +49,9 @@ export function LessonPlayer({
         : freeVisualizers[id],
     [remoteData, id],
   );
-  const [input, setInput] = useState(visualizer.presets.average);
+  const [input, setInput] = useState<unknown>(
+    remoteData?.input ?? visualizer.presets.average,
+  );
   const [raw, setRaw] = useState(JSON.stringify(input));
   const [error, setError] = useState('');
   const [size, setSize] = useState(8);
@@ -54,9 +67,11 @@ export function LessonPlayer({
   const state = useStore(store);
   const current = timeline.get(state.index);
   useEffect(() => {
-    if (state.index > 0) updateProgress(id, { lastFrame: state.index });
-  }, [id, state.index]);
+    if (trackProgress && state.index > 0)
+      updateProgress(id, { lastFrame: state.index });
+  }, [id, state.index, trackProgress]);
   useEffect(() => {
+    if (!trackProgress) return;
     const started = Date.now();
     let last = started;
     const timer = setInterval(() => {
@@ -74,7 +89,7 @@ export function LessonPlayer({
       last = now;
     }, 15000);
     return () => clearInterval(timer);
-  }, [id]);
+  }, [id, trackProgress]);
   function nextChallenge() {
     for (
       let i = state.index + (current.action ? 1 : 0);
@@ -128,7 +143,11 @@ export function LessonPlayer({
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
   }, [store, mode]);
-  async function load(next: unknown) {
+  async function load(
+    next: unknown,
+    random?: { kind: 'random'; size: number; seed: number },
+    variant?: string,
+  ) {
     try {
       const parsed = visualizer.validateInput(next);
       if (remoteData) {
@@ -137,7 +156,11 @@ export function LessonPlayer({
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ input: parsed }),
+            body: JSON.stringify(
+              random
+                ? { preset: random, variant: variant ?? remoteData?.variant }
+                : { input: parsed, variant: variant ?? remoteData?.variant },
+            ),
           },
         );
         const data = await response.json();
@@ -148,9 +171,13 @@ export function LessonPlayer({
               : 'This lesson could not be loaded.',
           );
         setRemoteData(data as RemoteLessonData);
+        setInput((data as RemoteLessonData).input);
+        setRaw(JSON.stringify((data as RemoteLessonData).input));
       }
-      setInput(parsed);
-      setRaw(JSON.stringify(parsed));
+      if (!remoteData) {
+        setInput(parsed);
+        setRaw(JSON.stringify(parsed));
+      }
       setError('');
       setFeedback('');
     } catch (e) {
@@ -168,7 +195,7 @@ export function LessonPlayer({
         let count = 0;
         for (const f of visualizer.generate(sample))
           count = f.counters.comparisons + f.counters.reads;
-        return { n: sample.length, count };
+        return { n: Array.isArray(sample) ? sample.length : n, count };
       }),
     [visualizer, id, remoteData],
   );
@@ -182,12 +209,17 @@ export function LessonPlayer({
             variant="outline"
             onClick={() => load(visualizer.presets[p])}
           >
-            {p[0].toUpperCase() + p.slice(1)} case
+            {remoteData?.presetLabels?.[p] ??
+              `${p[0].toUpperCase() + p.slice(1)} case`}
           </Button>
         ))}
         <Button
           variant="outline"
-          onClick={() => load(visualizer.presets.random(size, Date.now()))}
+          onClick={() =>
+            remoteData
+              ? load(undefined, { kind: 'random', size, seed: Date.now() })
+              : load(visualizer.presets.random(size, Date.now()))
+          }
         >
           Random
         </Button>
@@ -198,11 +230,32 @@ export function LessonPlayer({
             className="min-w-0 flex-1"
             type="range"
             min="1"
-            max={id === 'bfs' ? 16 : 64}
+            max={remoteData?.maxSize ?? (id === 'bfs' ? 16 : 64)}
             value={size}
             onChange={(e) => setSize(Number(e.target.value))}
           />
         </label>
+        {remoteData?.variants && (
+          <label className="flex w-full items-center gap-3 text-sm">
+            Variant
+            <select
+              className="rounded-lg border border-[var(--border)] bg-[var(--background)] p-2"
+              value={remoteData.variant ?? 'default'}
+              onChange={(e) => void load(undefined, undefined, e.target.value)}
+            >
+              {remoteData.variants.map((v) => (
+                <option key={v.id} value={v.id}>
+                  {v.title}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+        {remoteData?.inputHint && (
+          <p className="w-full text-xs text-[var(--muted)]">
+            {remoteData.inputHint}
+          </p>
+        )}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -348,7 +401,7 @@ export function LessonPlayer({
             aria-label="Synchronized code"
           >
             <code>
-              {code[lang].map((tokens, i) => (
+              {(remoteData?.code ?? code)[lang].map((tokens, i) => (
                 <span
                   key={i}
                   className={`block ${i + 1 === current.codeLine[lang] ? 'border-l-2 border-lime-300 bg-zinc-800' : 'border-l-2 border-transparent'}`}
@@ -497,7 +550,7 @@ export function LessonPlayer({
         </p>
         <div
           role="img"
-          aria-label="Measured reads plus comparisons by input size"
+          aria-label={`${visualizer.complexity.metric?.label ?? 'Measured reads plus comparisons'} by input size`}
           className="space-y-2"
         >
           {chart.map((p, i) => (
@@ -512,8 +565,10 @@ export function LessonPlayer({
           ))}
         </div>
         <p className="mt-3 text-xs text-[var(--muted)]">
-          Measured reads + comparisons, seed 42. Graph samples are capped at 16
-          nodes.
+          {visualizer.complexity.metric?.label ??
+            'Measured reads + comparisons'}
+          , seed 42. Plotted sample sizes respect each lesson’s explicit input
+          limits.
         </p>
       </details>
       <p className="text-xs text-[var(--muted)]">

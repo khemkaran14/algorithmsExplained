@@ -1,0 +1,40 @@
+# Heap Priority Queue
+
+## Hook
+
+A tournament winner sits above its defeated children, while unrelated branches need not be ordered.
+
+## Watch
+
+Keep the largest key at the root. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Append a new leaf.
+2. Swim it above smaller parents.
+3. Extract the maximum root.
+4. Replace it with the final leaf and sink toward the larger child.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(log n) insertion/extraction; O(1) peek. A complete binary tree gives logarithmic height. The array stores children at 2i+1 and 2i+2. Repeated extraction returns descending order.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use when repeatedly choosing the highest-priority item matters more than globally sorting every item.
+
+## Interview pitfalls
+
+A heap array is not a sorted array; only parent-child order is guaranteed.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

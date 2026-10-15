@@ -1,0 +1,40 @@
+# Lru Cache
+
+## Hook
+
+A small desk keeps recently used books close; the book untouched for longest returns to storage.
+
+## Watch
+
+Evict the key that has waited longest. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Look up the requested key.
+2. Move a hit to the most-recent end.
+3. On a full-cache miss, remove the oldest key.
+4. Load the missed key as the newest entry.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+An insertion-ordered hash map or hash map plus doubly linked list gives expected O(1) access and O(k) capacity. The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it when recent access predicts near-future use and simple eviction is desirable.
+
+## Interview pitfalls
+
+A full scan to find the oldest key changes the access bound. Frequency and recency are different policies.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.

@@ -1,0 +1,40 @@
+# Circular Queue
+
+## Hook
+
+The hand on a clock wraps to the beginning instead of extending the dial.
+
+## Watch
+
+Reuse a fixed buffer without moving its contents. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Track head, tail and size.
+2. Reject or make room before enqueuing into a full buffer.
+3. Advance each pointer modulo capacity.
+4. Use size to distinguish full from empty.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+Enqueue and dequeue are O(1); the reserved buffer uses O(k) capacity. This demonstration dequeues when full so wraparound becomes visible. Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use bounded circular buffers for predictable-capacity queues, streaming and producer-consumer designs with an explicit concurrency protocol.
+
+## Interview pitfalls
+
+Head equal to tail is ambiguous without a size or extra-slot convention. Never silently overwrite unread data unless overwrite behavior is part of the design.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

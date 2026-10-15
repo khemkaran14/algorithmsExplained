@@ -1,0 +1,40 @@
+# Consistent Hashing
+
+## Hook
+
+Place server tokens around a circular road; each key belongs to its next clockwise token.
+
+## Watch
+
+Change ownership only at changed ranges. Follow changing buckets, bits or owner links using step forward and back.
+
+## How it works
+
+1. Hash virtual server tokens onto a ring.
+2. Find the clockwise successor of each key.
+3. Add or remove all tokens for one physical server.
+4. Move only keys whose successor owner changes.
+
+## Try it
+
+Predict the next bucket, matching key, membership conclusion or successor owner. Use a collision-heavy preset and explain what changes.
+
+## Complexity
+
+O(log v) lookup after sorting v virtual tokens. Virtual tokens improve balance without guaranteeing it for tiny samples. Adding a server moves keys to that server; removing one moves only its former keys. The teaching hash is reproducible, not adversarially secure.
+
+## Code
+
+The reference implementations show the core operation in four languages. Bloom-filter snippets accept a hash-position function so insertion and queries share exactly the same hash family. Ring snippets show the successor lookup used for both initial assignment and reassignment.
+
+## When to use
+
+Use a ring to study distributed partition ownership and virtual-node balance.
+
+## Interview pitfalls
+
+Ownership is separate from replication, durability, failure detection and consistency. Modulo node count is a different placement scheme.
+
+## Quiz
+
+Check the invariant, cost model and boundary conditions below.

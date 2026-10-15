@@ -1,0 +1,40 @@
+# Fenwick Tree
+
+## Hook
+
+Each index keeps the subtotal for a precisely sized group ending there.
+
+## Watch
+
+Let the lowest set bit name a block. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Use one-based storage indices.
+2. Build low-bit interval sums.
+3. Update with i += i & -i.
+4. Query prefixes with i -= i & -i and subtract two prefixes.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(log n) update/query; O(n) space. Fenwick blocks partition each prefix into powers of two. The original value array remains zero-based; the index adds one during updates.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use for compact prefix sums and point-add updates.
+
+## Interview pitfalls
+
+A zero-based update loop using i += i & -i can get stuck at zero.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

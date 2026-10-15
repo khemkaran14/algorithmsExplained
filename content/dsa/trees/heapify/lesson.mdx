@@ -1,0 +1,40 @@
+# Heapify
+
+## Hook
+
+Most tournament matches are near the leaves, so very few need a long repair.
+
+## Watch
+
+Repair parents from the bottom up. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Keep the input array in complete-tree order.
+2. Start at the final internal node.
+3. Sink each node toward its larger child.
+4. Finish with a valid max heap.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(n) construction; O(1) auxiliary repair workspace. Nodes at height h number about n/2^(h+1). Summing their possible h-step repairs gives O(n), even though one root repair can take O(log n).
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use to initialize a priority queue from an existing batch.
+
+## Interview pitfalls
+
+Repeated insertion is O(n log n) worst-case; bottom-up heapify has the stronger linear build bound.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

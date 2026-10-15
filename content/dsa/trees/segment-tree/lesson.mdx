@@ -1,0 +1,40 @@
+# Segment Tree
+
+## Hook
+
+A warehouse subtotal can be assembled from a few complete shelf groups.
+
+## Watch
+
+Combine disjoint intervals. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Build leaf values and internal sums.
+2. Apply a point-add update.
+3. Repair one path to the root.
+4. Consume disjoint blocks inside a half-open query.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(log n) update/query; O(n) space. The iterative sum tree pads to the next power of two. Only boundary paths need splitting during a range query. Empty half-open ranges return zero.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use for associative range aggregates with point updates.
+
+## Interview pitfalls
+
+Use the aggregate’s identity for padding and keep [left,right) boundaries consistent.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

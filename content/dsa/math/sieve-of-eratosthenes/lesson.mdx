@@ -1,0 +1,40 @@
+# Sieve Of Eratosthenes
+
+## Hook
+
+Mark every seat number divisible by a smaller prime; the unmarked seats are the ones that no smaller factor can explain.
+
+## Watch
+
+Cross out multiples. Keep the primes. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Mark zero and one as nonprime.
+2. Choose the next unmarked candidate p.
+3. Start crossing out multiples at p².
+4. Stop choosing factors after √n.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+The sieve uses O(n) memory and O(n log log n) marking work. Starting at p² avoids redoing smaller multiples solely to rediscover them. The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it to find every prime up to a moderate bound, especially before many primality queries.
+
+## Interview pitfalls
+
+A single-number test and a sieve solve different workloads. Zero and one are not prime, and p itself must not be crossed out.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.

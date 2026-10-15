@@ -24,3 +24,9 @@
 - Receipts use a durable outbox and authenticated retry job. PDF invoices remain accessible to their owner after refund. Uncertain refund responses stay pending until provider reconciliation, preventing an unsafe automatic retry.
 - The supplied curriculum contains 201 lesson entries. Per-module 20% ceiling allocations exceed the global free budget when summed. Use the specification's permitted, commented manual overrides to reconcile rounding to 41/201 (20.40%), preserving every module's free sample and all flagship free lessons. `content:generate-catalog` reproduces this decision, and `content:free-ratio` enforces the 18–22% total.
 - During curriculum authoring, metadata marks unavailable lessons `planned`. `content:check:ready` explicitly reports and skips these planned lessons for early-phase CI; strict `content:check` fails until every lesson is complete and becomes the release gate in Phase 6. A planned lesson never displays a fake visualizer or a completion claim.
+
+### Expanded lesson inputs and checkpoints (2026-10-16)
+
+Server-authorized players accept validated per-lesson JSON rather than requiring every concept to look like an integer array. Counters identify the operation being plotted. Exact exponentiation returns decimal strings, unreachable states use JSON null, and randomness is seeded for repeatable teaching traces. TimSort overview explicitly demonstrates natural-run merging, not a claim of complete CPython TimSort. Continue curriculum authoring in reviewable checkpoints; planned metadata does not satisfy the strict full-catalog content gate.
+
+Reference snippets stay outside automatic formatting because physical line locations are part of code synchronization. C++ exact powers use a dependency-free decimal magnitude helper. Scrollable visualizations are keyboard focusable.

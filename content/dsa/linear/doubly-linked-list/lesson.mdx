@@ -1,0 +1,40 @@
+# Doubly Linked List
+
+## Hook
+
+Each carriage in a train connects to both the carriage before it and the one after it.
+
+## Watch
+
+Two links. Two directions. Track the pointer, capacity or index variables as each operation executes.
+
+## How it works
+
+1. Store previous and next links.
+2. Repair both directions when inserting.
+3. Search for a key if its node is not already known.
+4. Delete a known node by joining its previous and next neighbors.
+
+## Try it
+
+Predict the next comparison, end operation or capacity decision. Inputs and full/empty cases are validated before a trace begins.
+
+## Complexity
+
+A known node can be removed in O(1), but locating it by key still costs O(n). Each node stores an extra previous link. Visualization snapshots are separate from the data structure’s logical operation costs.
+
+## Code
+
+Select one of four complete reference snippets. Their data representation may differ by language, but each preserves the stated invariant.
+
+## When to use
+
+Use it for deques and caches that already have a direct reference to the node being moved or removed.
+
+## Interview pitfalls
+
+Repair both neighbor links and the head/tail pointers. Forgetting one direction leaves a broken invariant.
+
+## Quiz
+
+Test the operation invariant and complexity below; then load a boundary case and explain each counter change.

@@ -1,0 +1,40 @@
+# Trie
+
+## Hook
+
+A directory shares the route to similar names before their letters diverge.
+
+## Watch
+
+Share a prefix, preserve each word ending. Inspect the changing tree, variables and operation counters before stepping backward to compare states.
+
+## How it works
+
+1. Follow one edge per character.
+2. Create missing edges during insertion.
+3. Mark terminal words separately.
+4. Query either exact membership or prefix existence.
+
+## Try it
+
+Predict the branch, repair, visited node or range block. Try the single-element case, then use a larger seeded input.
+
+## Complexity
+
+O(L) insertion/query; O(total stored characters) space. Each edge consumes one lowercase character. A node can exist as a prefix without representing a full stored word. The star marks a terminal node.
+
+## Code
+
+The four language references show the underlying operations. The teaching scene uses bounded, validated inputs; standalone callers must respect the stated structure and index assumptions.
+
+## When to use
+
+Use for autocomplete prefixes and character-based dictionaries.
+
+## Interview pitfalls
+
+Searching for a prefix and searching for an exact word require different terminal checks.
+
+## Quiz
+
+Explain the invariant and one boundary case before checking your answers.

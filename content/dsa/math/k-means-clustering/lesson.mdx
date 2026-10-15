@@ -1,0 +1,40 @@
+# K Means Clustering
+
+## Hook
+
+Move meeting points toward the people who currently find them nearest.
+
+## Watch
+
+Assign, average, repeat. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Initialize centers with a reproducible farthest-first heuristic.
+2. Assign every point to its nearest center.
+3. Move each nonempty center to its assigned mean.
+4. Stop when assignments stabilize or the iteration budget ends.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+Lloyd iterations cost O(I·n·k·d). Squared error does not increase after a complete assignment/mean update, but different initialization can produce different local optima. The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it for compact roughly spherical numeric clusters when squared Euclidean distance is meaningful.
+
+## Interview pitfalls
+
+Choose k deliberately, scale features appropriately, and do not interpret local convergence as a global optimum. An empty cluster retains its previous center in this model.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.

@@ -1,12 +1,12 @@
 import type { Frame, Visualizer } from './types';
 // Sample snapshots are bounded. Missing frames are deterministically recomputed,
 // so backwards scrubbing never mutates algorithm state or keeps an unbounded log.
-export class Timeline {
+export class Timeline<Input = number[]> {
   readonly length: number;
   private cache = new Map<number, Frame>();
   constructor(
-    private visualizer: Visualizer,
-    private input: number[],
+    private visualizer: Visualizer<Input>,
+    private input: Input,
     private capacity = 256,
   ) {
     let count = 0;

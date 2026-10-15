@@ -1,0 +1,40 @@
+# Fast Exponentiation
+
+## Hook
+
+Build a large power from powers representing 1, 2, 4 and 8 repetitions rather than multiplying once for every repetition.
+
+## Watch
+
+Square the work down to exponent bits. Edit the validated input or seeded preset to explore a different case.
+
+## How it works
+
+1. Start the accumulator at one.
+2. Multiply it by the current power when the low exponent bit is set.
+3. Halve the remaining exponent.
+4. Square the power for the next bit.
+
+## Try it
+
+Predict the next arithmetic decision, cache victim, sample replacement or cluster assignment before revealing it.
+
+## Complexity
+
+The algorithm uses O(log exponent) multiplications. Exact big integers are used, so the cost of each multiplication also grows with operand size. The chart names its counted or modeled work rather than pretending animation duration is a benchmark.
+
+## Code
+
+The four reference languages show the core operation; numeric bounds and state assumptions match the input help. Exact power examples use arbitrary-precision integers.
+
+## When to use
+
+Use it for exact powers and as the foundation of modular exponentiation.
+
+## Interview pitfalls
+
+Do not use floating-point results when exact large integers are required. This integer routine uses the empty-product convention that exponent zero returns one.
+
+## Quiz
+
+Check the invariant and cost model, then explain one boundary case using the live counters.
