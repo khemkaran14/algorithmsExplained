@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { catalog, lessonUrl } from '@/content/catalog';
 import { loadLesson } from '@/content/load';
+import { Quiz, LessonNotebook } from '@/components/lesson/quiz';
 import { LessonPlayer } from '@/components/lesson/lesson-player';
 export async function generateMetadata({
   params,
@@ -33,7 +34,7 @@ export default async function LessonPage({
         <Link href="/pricing">Unlock all lessons</Link>
       </section>
     );
-  const { Content, code } = await loadLesson(meta);
+  const { Content, code, quiz } = await loadLesson(meta);
   const next = catalog[(catalog.indexOf(meta) + 1) % catalog.length];
   return (
     <article className="mx-auto max-w-6xl px-4 pb-16 pt-8">
@@ -60,6 +61,8 @@ export default async function LessonPage({
       <div className="lesson-prose my-12 max-w-3xl">
         <Content />
       </div>
+      <Quiz slug={meta.slug} questions={quiz} />
+      <LessonNotebook slug={meta.slug} />
       <Link
         className="inline-block rounded-xl border border-[var(--border)] p-4"
         href={lessonUrl(next)}

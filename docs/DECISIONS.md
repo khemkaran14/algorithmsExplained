@@ -14,3 +14,7 @@
 - Frame history uses a bounded LRU snapshot cache and deterministic recomputation for old frames; large traces are capped at 30,000 frames. Flagship graph input is a labeled binary tree so BFS has a deterministic editable topology; general graph editing follows in the playground.
 
 - Prisma uses the stable Rust-free query client (`engineType = "client"`) with @prisma/adapter-pg 6.19.3. Its opt-in JavaScript schema engine avoids blocked binary downloads. A build-time-only alias pins the migration adapter to 7.10.1 to fix PostgreSQL catalog NAME type handling; the application runtime remains on matching Prisma 6.19.3 packages. Migration and real adapter session/token tests pass. No downloaded artifact was used without verification. Reevaluate the experimental schema-engine flag before production migration operations.
+
+- Streak dates use UTC consistently. Progress merging preserves completion, the best score, maximum frame/time, and the earliest completion date. Repeated merges do not duplicate lesson XP. Notes use timestamp conflict resolution and browser learning data records its account owner.
+- Provider credentials remain external acceptance prerequisites. Browser merge tests seed actual Auth.js database sessions, exercise protected session reads and persistence, and are reported separately from real Google/email sign-in.
+- The learning migration also prepares the remaining payment, coupon, certificate and flashcard tables so later routes can use a single coherent model; no payment feature was enabled by schema creation alone.

@@ -1,7 +1,7 @@
 const quiz = [
   {
     id: 'complexity',
-    question: 'What is the typical complexity of big-o notation?',
+    question: 'What is the time complexity of the single-pass sum shown here?',
     choices: ['O(n)', 'O(n\u00b3)', 'O(2\u207f)'],
     answer: 0,
     explanation: 'A single pass takes linear time.',

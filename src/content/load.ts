@@ -66,3 +66,9 @@ const quizLoaders: Record<string, () => Promise<{ default: QuizQuestion[] }>> =
     stack: () => import('../../content/dsa/linear/stack/quiz'),
     bfs: () => import('../../content/dsa/graphs/bfs/quiz'),
   };
+
+export async function loadQuiz(meta: LessonMeta) {
+  const loader = quizLoaders[meta.slug];
+  if (!loader) throw new Error('Unknown quiz');
+  return (await loader()).default;
+}

@@ -19,3 +19,7 @@ Use content/<track>/<module>/<slug>/{lesson.mdx,visualizer.ts,quiz.ts,meta.ts,co
 ## Phase gate
 
 Validate and commit each implementation phase; externally blocked acceptance checks stay pending while independent work continues under the user’s latest instruction; update docs/DECISIONS.md, CHANGELOG.md and this file. Real provider sign-in requires external credentials and must not be replaced by a production auth bypass.
+
+## Learning data
+
+`src/learning` contains validated local progress, monotonic account merging and SM-2 scheduling. Anonymous `/learn` is public; `/account` requires a real Auth.js session. Progress writes require same-origin requests. Keep browser data scoped to its account owner and clear it on sign-out. Quizzes are graded server-side when authenticated; never use XP as an entitlement. End-to-end session fixtures live only in test code and create real database sessions; production has no test-login route.

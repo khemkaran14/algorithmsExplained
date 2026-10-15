@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import { readLearning, updateProgress } from '@/learning/local';
 import { useStore } from 'zustand';
 import { Play, Pause, SkipBack, SkipForward, RotateCcw } from 'lucide-react';
 import { createPlayerStore } from '@/engine/player-store';
@@ -17,6 +18,8 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
   const [size, setSize] = useState(8);
   const [lang, setLang] = useState<Lang>('javascript');
   const [tab, setTab] = useState('visual');
+  const [mode, setMode] = useState<'watch' | 'try'>('watch');
+  const [feedback, setFeedback] = useState('');
   const timeline = useMemo(
     () => new Timeline(visualizer, input),
     [visualizer, input],
@@ -25,7 +28,44 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
   const state = useStore(store);
   const current = timeline.get(state.index);
   useEffect(() => {
-    if (!state.playing) return;
+    if (state.index > 0) updateProgress(id, { lastFrame: state.index });
+  }, [id, state.index]);
+  useEffect(() => {
+    const started = Date.now();
+    let last = started;
+    const timer = setInterval(() => {
+      const now = Date.now();
+      if (document.visibilityState === 'visible') {
+        const saved = readLearning().progress[id];
+        updateProgress(id, {
+          timeSpentSec: Math.min(
+            86400,
+            (saved?.timeSpentSec ?? 0) +
+              Math.min(30, Math.floor((now - last) / 1000)),
+          ),
+        });
+      }
+      last = now;
+    }, 15000);
+    return () => clearInterval(timer);
+  }, [id]);
+  function nextChallenge() {
+    for (
+      let i = state.index + (current.action ? 1 : 0);
+      i < timeline.length;
+      i++
+    ) {
+      if (timeline.get(i).action) {
+        state.seek(i);
+        setFeedback('');
+        return;
+      }
+    }
+    setFeedback('You reached the end of the challenges. Try another input.');
+  }
+
+  useEffect(() => {
+    if (!state.playing || mode === 'try') return;
     const timer = setInterval(() => {
       const s = store.getState();
       if (s.index >= s.length - 1) {
@@ -35,7 +75,7 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
       store.setState({ index: s.index + 1 });
     }, 800 / state.speed);
     return () => clearInterval(timer);
-  }, [state.playing, state.speed, store]);
+  }, [state.playing, state.speed, store, mode]);
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       const el = event.target;
@@ -48,7 +88,7 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
       const s = store.getState();
       if (event.code === 'Space') {
         event.preventDefault();
-        s.toggle();
+        if (mode === 'watch') s.toggle();
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
         s.step(1);
@@ -61,13 +101,14 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
-  }, [store]);
+  }, [store, mode]);
   function load(next: unknown) {
     try {
       const parsed = visualizer.validateInput(next);
       setInput(parsed);
       setRaw(JSON.stringify(parsed));
       setError('');
+      setFeedback('');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Invalid input');
     }
@@ -171,7 +212,61 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
           aria-labelledby={`tab-${id}-visual`}
           className={`${tab === 'visual' ? 'block' : 'hidden'} min-w-0 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 lg:block`}
         >
+          <div className="mb-4 flex gap-2" aria-label="Learning mode">
+            {(['watch', 'try'] as const).map((m) => (
+              <Button
+                key={m}
+                variant={mode === m ? 'default' : 'outline'}
+                aria-pressed={mode === m}
+                onClick={() => {
+                  setMode(m);
+                  state.pause();
+                  setFeedback('');
+                }}
+              >
+                {m === 'watch' ? 'Watch' : 'Try it yourself'}
+              </Button>
+            ))}
+          </div>
           <VisualCanvas frame={current} />
+          {mode === 'try' && (
+            <section className="my-4 rounded-xl border border-[var(--border)] p-4">
+              <h3 className="mb-3 font-medium">
+                {current.action?.prompt ?? 'Find the next decision point.'}
+              </h3>
+              {current.action ? (
+                <div className="flex flex-wrap gap-2">
+                  {current.action.choices.map((choice) => (
+                    <Button
+                      key={choice}
+                      variant="outline"
+                      onClick={() => {
+                        if (choice === current.action?.answer) {
+                          setFeedback('✓ Correct. Watch what happens next.');
+                          state.step(1);
+                        } else setFeedback('Not yet. ' + current.action?.hint);
+                      }}
+                    >
+                      {choice}
+                    </Button>
+                  ))}
+                  <Button
+                    variant="outline"
+                    onClick={() => setFeedback(current.action?.hint ?? '')}
+                  >
+                    Hint
+                  </Button>
+                </div>
+              ) : (
+                <Button variant="outline" onClick={nextChallenge}>
+                  Find next challenge
+                </Button>
+              )}
+              <p className="mt-3 text-sm" role="status">
+                {feedback}
+              </p>
+            </section>
+          )}
           <VisualLegend />
           <p
             className="mt-5 min-h-14 border-t border-[var(--border)] pt-4 text-sm"
@@ -255,7 +350,7 @@ export function LessonPlayer({ id, code }: { id: string; code: CodeLines }) {
           </Button>
           <Button
             aria-label={state.playing ? 'Pause' : 'Play'}
-            disabled={state.index === state.length - 1}
+            disabled={state.index === state.length - 1 || mode === 'try'}
             onClick={state.toggle}
           >
             {state.playing ? <Pause size={18} /> : <Play size={18} />}

@@ -21,8 +21,8 @@ test('landing, theme, accessible navigation and honest auth state', async ({
     'Sign-in is not configured',
   );
 });
-test('private dashboard redirects anonymous visitors', async ({ page }) => {
-  await page.goto('/learn');
+test('private account redirects anonymous visitors', async ({ page }) => {
+  await page.goto('/account');
   await expect(page).toHaveURL(/sign-in/);
 });
 test('320px layout has no horizontal overflow', async ({ page }) => {

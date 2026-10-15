@@ -14,3 +14,11 @@
 - Big-O, Bubble Sort, Binary Search, Stack and BFS lessons with MDX, presets, four-language highlighted code, counters and measured complexity charts.
 - Twenty unit/integration tests pass, including real PostgreSQL session/token persistence; mobile player browser tests pass.
 - Prisma generation and foundation migration are now verified. Real OAuth/email sign-in and hosted CI remain external checks.
+
+## 0.3.0 — Learning and progress
+
+- Try mode checks actual generator moves, explains mistakes and offers hints; quizzes grade on device and on the server for signed-in users.
+- Guest progress merges idempotently into database-backed accounts; scores, notes, bookmarks, XP, streaks and badges persist.
+- Public dashboard, learning paths and SM-2 revision cards; account isolation protects notes across sign-ins and clears local account data on sign-out.
+- Full Prisma platform schema and migration; standalone packaging includes the generated WASM compiler.
+- Validation: 24 unit/integration tests, 12 desktop/mobile browser tests and all five current lesson content checks pass. Browser account tests use actual database sessions; real Google/Resend delivery remains unverified.

@@ -118,7 +118,7 @@ export function VisualCanvas({ frame }: { frame: Frame }) {
           const kind = mark(String(i));
           return (
             <motion.g
-              key={i}
+              key={`${value}-${state.values.slice(0, i).filter((v) => v === value).length}`}
               animate={{ x, y }}
               transition={{ duration: reduced ? 0 : 0.18 }}
             >
