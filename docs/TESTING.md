@@ -60,3 +60,10 @@ Browser suites cover desktop/mobile, accessibility scans on sampled pages, anony
 - Prisma client missing: run `pnpm db:generate` after installing dependencies.
 - Browser checks conflict with development: stop `pnpm dev`; build before running Playwright.
 - Missing provider keys: free lessons still work; sign-in/purchase testing requires your own test-provider configuration.
+
+## Account privacy and administration
+
+- In `/account`, download account data and confirm it contains your learning records without OAuth/session tokens. Download any needed invoices before deletion.
+- Use a disposable account to test the typed deletion confirmation. Confirm sign-out, inability to export afterward and removal of learning data. Deletion revokes access; retained payment records are unlinked and deletion does not issue a refund.
+- Sign in once with the intended operator account, set `ADMIN_EMAIL` securely, then run `pnpm seed:admin`. The command requires exactly one existing matching account and does not create one.
+- In `/admin`, search/paginate users, receipts and coupons, filter payment status and check the global free report (41/201, 20.40%). Toggle a test coupon and verify new orders respect its state. Existing payable orders retain their server-calculated amount.

@@ -23,7 +23,37 @@ const files: Record<Lang, string> = {
   java: 'java.java',
   cpp: 'cpp.cpp',
 };
-export async function loadLesson(meta: LessonMeta) {
+// Content is immutable within a production artifact. This bounded cache contains
+// static authored material only; callers still authorize before using this loader.
+const lessonCache = new Map<
+  string,
+  Promise<Awaited<ReturnType<typeof loadLessonSource>>>
+>();
+export function loadLesson(meta: LessonMeta) {
+  const known = catalog.find(
+    (item) =>
+      item.slug === meta.slug &&
+      item.module === meta.module &&
+      item.track === meta.track,
+  );
+  if (!known) throw new Error('Unknown lesson');
+  if (process.env.NODE_ENV !== 'production') return loadLessonSource(known);
+  const cached = lessonCache.get(known.slug);
+  if (cached) {
+    lessonCache.delete(known.slug);
+    lessonCache.set(known.slug, cached);
+    return cached;
+  }
+  const pending = loadLessonSource(known).catch((error) => {
+    if (lessonCache.get(known.slug) === pending) lessonCache.delete(known.slug);
+    throw error;
+  });
+  lessonCache.set(known.slug, pending);
+  if (lessonCache.size > 64)
+    lessonCache.delete(lessonCache.keys().next().value!);
+  return pending;
+}
+async function loadLessonSource(meta: LessonMeta) {
   // Callers MUST authorize before invoking this loader. Public metadata is separate.
   if (
     !catalog.some(

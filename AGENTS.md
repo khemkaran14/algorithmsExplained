@@ -61,3 +61,9 @@ All 201 lessons are authored: DSA 112, System Design 35, Databases 21, Cloud 33.
 ## Request protection
 
 Middleware supplies fresh CSP nonces to both Next's request renderer and response headers; pass the nonce to any explicit inline script. Browser Zod schemas use `src/lib/validation.ts` so parsing never probes eval. Do not weaken production CSP to work around a library probe. Rate limits use atomic shared Redis windows in production; only explicit local-preview memory mode may run without Upstash. Never trust arbitrary forwarded IP headers. Body limits count raw bytes while streaming; webhooks retain their signature check and larger explicit cap. `/api/health` reveals only coarse readiness. Logging helpers accept fixed events/coarse error categories, never requests or Error objects.
+
+## Account and admin features
+
+Account export/deletion use authenticated, same-origin routes with an explicit deletion phrase. Exports whitelist profile/learning/purchase fields and exclude sign-in tokens. User deletion cascades private data and leaves payment reconciliation records with a null user link. Never run destructive tests against real accounts; fixtures have generated IDs. `pnpm seed:admin` promotes one existing account selected by ADMIN_EMAIL, never creates an account or bypass route. Admin pages recheck the stored role, validate filters, paginate stably, and report the global free ratio. Coupon disable does not alter existing payable orders.
+
+Production lessons stream their header before model/code preparation. Static lesson results have a bounded server-only cache; access checks precede the loader. Search loads public catalog data and result links only when opened. Mobile code token DOM mounts when its tab is opened. Lighthouse uses three mobile runs with median category thresholds of 90 for landing and the free Bubble Sort lesson; do not weaken these checks or use optimistic aggregation to hide failures.

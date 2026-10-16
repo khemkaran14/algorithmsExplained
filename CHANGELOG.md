@@ -85,3 +85,11 @@
 - Added per-request nonce CSP, security headers, redacted structured application/Auth.js logging and a cached database/request-protection readiness endpoint.
 - Configured browser validation to avoid Zod's eval capability probe under CSP. Production build, lint/types/format and 486 tests pass. Existing 38 browser scenarios pass; both dedicated CSP/readiness browser checks pass after the non-JIT correction.
 - Production launch requires a shared Upstash store. Local standalone testing uses `RATE_LIMIT_MODE=memory`. Remaining production features and release audits continue.
+
+## 2026-10-16 — Account controls, admin browsing and performance
+
+- Added private account exports, confirmed account deletion, payment-record unlinking and an existing-account admin seed command.
+- Added stable admin pagination/search, status filters, aggregate analytics, the free-ratio report and coupon activation controls.
+- Streamed lesson headers, bounded caching of static authored material, loaded search data/results on demand and deferred hidden mobile code token DOM. Code scrolling follows the active reference line.
+- Full suite passes 489 tests; all 44 browser scenarios pass for account/admin changes, followed by 12 affected browser checks after loading optimizations. Production build, lint/types/format pass. Three-run mobile Lighthouse medians pass enforced 90-point thresholds: landing performance 94, Bubble Sort 90; both accessibility 100, best practices 96 and SEO 100.
+- Learning feature completion, final source synchronization, additional production features and launch preparation remain in progress.

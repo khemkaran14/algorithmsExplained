@@ -1,5 +1,4 @@
-import { z } from 'zod';
-// CSP forbids Function/eval in the browser. Use Zod's supported non-JIT parser
-// before constructing shared progress schemas, avoiding even its eval probe.
-z.config({ jitless: true });
-export { z };
+import { config } from 'zod/v4/core';
+// Configure the shared parser before constructing browser schemas. Import this
+// module for its side effect; do not re-export the complete Zod namespace.
+config({ jitless: true });

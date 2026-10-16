@@ -1,3 +1,4 @@
+import { AccountPrivacy } from '@/components/account-privacy';
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import { SignOutButton } from '@/components/sign-out-button';
@@ -49,6 +50,7 @@ export default async function Account() {
         )}
       </section>
       <LearningDashboard signedIn />
+      <AccountPrivacy />
     </section>
   );
 }

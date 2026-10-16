@@ -72,6 +72,16 @@ export function LessonPlayer({
   );
   const [lang, setLang] = useState<Lang>('javascript');
   const [tab, setTab] = useState('visual');
+  const [desktop, setDesktop] = useState(false);
+  const codePanel = useRef<HTMLPreElement>(null);
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 1024px)');
+    const update = () => setDesktop(media.matches);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+
   const [mode, setMode] = useState<'watch' | 'try'>('watch');
   const [feedback, setFeedback] = useState('');
   const timeline = useMemo(
@@ -81,6 +91,18 @@ export function LessonPlayer({
   const store = useMemo(() => createPlayerStore(timeline.length), [timeline]);
   const state = useStore(store);
   const current = timeline.get(state.index);
+  const activeCodeLine = current.codeLine[lang];
+  useEffect(() => {
+    const panel = codePanel.current;
+    if (!panel || !(desktop || tab === 'code')) return;
+    const top = (activeCodeLine - 1) * 28 + 12;
+    if (
+      top < panel.scrollTop ||
+      top + 28 > panel.scrollTop + panel.clientHeight
+    )
+      panel.scrollTop = Math.max(0, top - panel.clientHeight / 3);
+  }, [activeCodeLine, lang, desktop, tab]);
+
   useEffect(() => {
     if (trackProgress && state.index > 0)
       updateProgress(id, { lastFrame: state.index });
@@ -503,35 +525,40 @@ export function LessonPlayer({
                 ))}
               </select>
             </label>
-            <pre
-              className="max-h-80 overflow-auto p-3 text-xs leading-7"
-              tabIndex={0}
-              aria-label="Synchronized code"
-            >
-              <code>
-                {(remoteData?.code ?? code)[lang].map((tokens, i) => (
-                  <span
-                    key={i}
-                    className={`block ${i + 1 === current.codeLine[lang] ? 'border-l-2 border-lime-300 bg-zinc-800' : 'border-l-2 border-transparent'}`}
-                    aria-current={
-                      i + 1 === current.codeLine[lang] ? 'step' : undefined
-                    }
-                  >
+            {desktop || tab === 'code' ? (
+              <pre
+                ref={codePanel}
+                className="max-h-80 overflow-auto p-3 text-xs leading-7"
+                tabIndex={0}
+                aria-label="Synchronized code"
+              >
+                <code>
+                  {(remoteData?.code ?? code)[lang].map((tokens, i) => (
                     <span
-                      aria-hidden="true"
-                      className="mr-4 inline-block w-5 select-none text-right text-zinc-400"
+                      key={i}
+                      className={`block ${i + 1 === current.codeLine[lang] ? 'border-l-2 border-lime-300 bg-zinc-800' : 'border-l-2 border-transparent'}`}
+                      aria-current={
+                        i + 1 === current.codeLine[lang] ? 'step' : undefined
+                      }
                     >
-                      {i + 1}
-                    </span>
-                    {tokens.map((token, j) => (
-                      <span key={j} style={{ color: token.color }}>
-                        {token.content}
+                      <span
+                        aria-hidden="true"
+                        className="mr-4 inline-block w-5 select-none text-right text-zinc-400"
+                      >
+                        {i + 1}
                       </span>
-                    ))}
-                  </span>
-                ))}
-              </code>
-            </pre>
+                      {tokens.map((token, j) => (
+                        <span key={j} style={{ color: token.color }}>
+                          {token.content}
+                        </span>
+                      ))}
+                    </span>
+                  ))}
+                </code>
+              </pre>
+            ) : (
+              <div className="h-80" aria-hidden="true" />
+            )}
           </div>
         </div>
         <div

@@ -23,17 +23,18 @@ type Props = {
     value: number;
     usedCount: number;
     maxUses: number;
+    active: boolean;
   }[];
 };
 export function AdminPanel({ users, payments, coupons }: Props) {
   const router = useRouter();
   const [message, setMessage] = useState(''),
     [busy, setBusy] = useState(false);
-  async function send(path: string, body: unknown) {
+  async function send(path: string, body: unknown, method = 'POST') {
     setBusy(true);
     try {
       const response = await fetch(path, {
-        method: 'POST',
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
@@ -126,16 +127,35 @@ export function AdminPanel({ users, payments, coupons }: Props) {
           A coupon use is reserved when its order is created. Abandoned orders
           retain reservations to prevent overspending the usage limit.
         </p>
+        <p className="mt-3 text-xs text-[var(--muted)]">
+          Disabling prevents new orders; existing payable orders keep their
+          original price.
+        </p>
         <ul className="mt-4 space-y-2 text-sm">
           {coupons.map((c) => (
             <li key={c.id}>
-              {c.code} · {c.value} {c.kind} · {c.usedCount}/{c.maxUses} used
+              {c.code} · {c.value} {c.kind} · {c.usedCount}/{c.maxUses} used ·{' '}
+              {c.active ? 'Active' : 'Disabled'}{' '}
+              <Button
+                variant="outline"
+                disabled={busy}
+                onClick={() =>
+                  void send(
+                    '/api/admin/coupons',
+                    { id: c.id, active: !c.active },
+                    'PATCH',
+                  )
+                }
+              >
+                {c.active ? 'Disable' : 'Enable'} {c.code}
+              </Button>
             </li>
           ))}
         </ul>
       </section>
       <section>
-        <h2 className="mb-4 text-2xl font-semibold">Recent payments</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Payments · current page</h2>
+        {!payments.length && <p>No payments match these filters.</p>}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
@@ -181,7 +201,8 @@ export function AdminPanel({ users, payments, coupons }: Props) {
         </div>
       </section>
       <section>
-        <h2 className="mb-4 text-2xl font-semibold">Accounts · first 50</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Accounts · current page</h2>
+        {!users.length && <p>No accounts match these filters.</p>}
         <ul className="space-y-3 text-sm">
           {users.map((u) => (
             <li

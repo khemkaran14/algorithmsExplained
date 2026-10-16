@@ -19,6 +19,22 @@ test('production CSP permits lesson interaction with unique nonces and health re
   expect(csp).toContain("frame-ancestors 'none'");
   await page.getByRole('button', { name: 'Step forward', exact: true }).click();
   await expect(page.getByLabel('Current frame')).toContainText('2 /');
+  await page
+    .getByRole('button', { name: 'Search lessons (Ctrl or Command K)' })
+    .click();
+  await page.getByLabel('Search title, concept or tag').fill('bubble');
+  await expect(
+    page.getByRole('link', { name: /Bubble sort.*dsa/ }),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Close', exact: true }).click();
+  const codeTab = page.getByRole('tab', { name: 'code', exact: true });
+  if (await codeTab.isVisible()) await codeTab.click();
+  await page
+    .getByLabel('Code language', { exact: true })
+    .selectOption('python');
+  const code = page.getByLabel('Synchronized code');
+  await expect(code).toBeVisible();
+  await expect(code.locator('[aria-current="step"]')).toBeVisible();
   violations.push(
     ...(await page.evaluate(
       () =>

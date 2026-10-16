@@ -28,7 +28,8 @@
     "content:check:system-design": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --track=system-design",
     "content:check:databases": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --track=databases",
     "audit:security": "pnpm audit --audit-level high",
-    "content:check:cloud": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --track=cloud"
+    "content:check:cloud": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --track=cloud",
+    "seed:admin": "tsx scripts/seed-admin.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",

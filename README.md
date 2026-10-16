@@ -21,7 +21,7 @@ pnpm dev
 
 Open **http://localhost:3000**. If already cloned, run `git pull origin main` first. `pnpm setup:local` creates a private `.env` with random local database/session secrets and preserves an existing file. Do not commit `.env`.
 
-You can browse and test free lessons without external credentials. Start at `/learn`, `/playground` or `/compare`. `/learn` is public; `/account` requires sign-in. Paid lessons remain locked until a captured payment grants access. Planned lessons are labelled honestly and have no player.
+You can browse and test free lessons without external credentials. Start at `/learn`, `/playground` or `/compare`. `/learn` is public; `/account` requires sign-in. Paid lessons remain locked until a captured payment grants access. All 201 curriculum entries are authored.
 
 ## Optional provider configuration
 
@@ -40,20 +40,20 @@ pnpm format:check
 pnpm lint
 pnpm typecheck
 pnpm test
-pnpm content:check:ready
+pnpm content:check
 pnpm content:free-ratio
 pnpm build
 pnpm exec playwright install --with-deps chromium
 pnpm test:e2e
 ```
 
-Use a disposable local test database for tests: integration/browser suites create and remove fixture users and payments. Close any development server on port 3000 before running browser checks, so Playwright starts the intended production build. `pnpm content:check` is the strict final catalog gate and intentionally fails while planned lessons remain. Four-language references can additionally be syntax-checked with `python3 scripts/check-snippets.py` (requires Python 3, JDK 17+ and g++ with C++17).
+Use a disposable local test database for tests: integration/browser suites create and remove fixture users and payments. Close any development server on port 3000 before running browser checks, so Playwright starts the intended production build. `pnpm content:check` is the strict catalog gate and must pass for all 201 lessons. Four-language references can additionally be syntax-checked with `python3 scripts/check-snippets.py` (requires Python 3, JDK 17+ and g++ with C++17).
 
-For a production-build preview, run `pnpm build`, then `pnpm start`. Deployment is a later step.
+For a production-build preview, run `pnpm build`, then `RATE_LIMIT_MODE=memory pnpm start`. Deployment is a later step.
 
 ## Container preview
 
-After local migrations and filling `.env`, run `docker compose --profile app up --build -d`. Run migrations from the host/build environment; the application image contains runtime dependencies only. Production domains, database backups, business/legal details and live payment configuration still require the deployment and launch review.
+After local migrations and filling `.env`, run `RATE_LIMIT_MODE=memory docker compose --profile app up --build -d`. Run migrations from the host/build environment; the application image contains runtime dependencies only. Production domains, database backups, business/legal details and live payment configuration still require the deployment and launch review.
 
 ### Production request protection
 

@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+import type { LessonMeta } from '@/content/catalog';
 export const dynamic = 'force-dynamic';
 import { canReadLesson } from '@/payments/access';
 import { serverLessonData } from '@/content/server-registry';
@@ -46,9 +48,6 @@ export default async function LessonPage({
       </section>
     );
   if (!(await canReadLesson(meta))) return <LockedLesson meta={meta} />;
-  const { Content, code, quiz } = await loadLesson(meta);
-  const playerData = await serverLessonData(meta);
-  const localPlayer = meta.isFree && Object.hasOwn(freeVisualizers, meta.slug);
   const next = catalog[(catalog.indexOf(meta) + 1) % catalog.length];
   return (
     <article className="mx-auto max-w-6xl px-4 pb-16 pt-8">
@@ -72,6 +71,33 @@ export default async function LessonPage({
         </h1>
         <p className="mt-3 text-lg text-[var(--muted)]">{meta.description}</p>
       </div>
+      <Suspense
+        fallback={
+          <div className="min-h-[52rem] rounded-2xl border border-[var(--border)] p-6">
+            <p role="status">Loading interactive lesson…</p>
+          </div>
+        }
+      >
+        <LessonBody meta={meta} />
+      </Suspense>
+      <Link
+        className="inline-block rounded-xl border border-[var(--border)] p-4"
+        href={lessonUrl(next)}
+      >
+        Next: {next.title} →
+      </Link>
+    </article>
+  );
+}
+
+async function LessonBody({ meta }: { meta: LessonMeta }) {
+  const [{ Content, code, quiz }, playerData] = await Promise.all([
+    loadLesson(meta),
+    serverLessonData(meta),
+  ]);
+  const localPlayer = meta.isFree && Object.hasOwn(freeVisualizers, meta.slug);
+  return (
+    <>
       <LessonPlayer
         key={meta.slug}
         id={meta.slug}
@@ -84,12 +110,6 @@ export default async function LessonPage({
       </div>
       <Quiz key={`quiz-${meta.slug}`} slug={meta.slug} questions={quiz} />
       <LessonNotebook key={`notes-${meta.slug}`} slug={meta.slug} />
-      <Link
-        className="inline-block rounded-xl border border-[var(--border)] p-4"
-        href={lessonUrl(next)}
-      >
-        Next: {next.title} →
-      </Link>
-    </article>
+    </>
   );
 }

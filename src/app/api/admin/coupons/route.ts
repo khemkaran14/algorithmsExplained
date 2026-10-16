@@ -35,3 +35,20 @@ export async function POST(request: Request) {
     return json({ id: coupon.id, code: coupon.code }, 201);
   });
 }
+
+export async function PATCH(request: Request) {
+  return api(async () => {
+    requireSameOrigin(request);
+    await requireAdmin();
+    const data = z
+      .object({ id: z.string().min(1).max(128), active: z.boolean() })
+      .strict()
+      .parse(await readJson(request));
+    const result = await db.coupon.updateMany({
+      where: { id: data.id },
+      data: { active: data.active },
+    });
+    if (!result.count) throw new ApiError(404, 'Coupon not found.');
+    return json({ updated: true });
+  });
+}
