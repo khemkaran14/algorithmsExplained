@@ -12,6 +12,6 @@ const meta = {
   isFree: true,
   prerequisites: [],
   tags: ['capstone', 'cloud'],
-  status: 'planned',
+  status: 'ready',
 } as const;
 export default meta;

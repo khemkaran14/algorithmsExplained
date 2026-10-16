@@ -207,6 +207,7 @@ export const secrets: Visualizer<z.infer<typeof schema>> = {
           status = 'pending-version-created';
         }
       } else if (op.kind === 'configure-target') {
+        validated = false;
         if (pending === null) status = 'no-pending-version';
         else if (!op.success)
           status = 'target-configuration-failed-current-unchanged';

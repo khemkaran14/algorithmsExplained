@@ -1,0 +1,41 @@
+# Route 53 Cloud Dns
+
+## Hook
+
+A DNS change is not an instruction to erase every resolver’s cache.
+
+## Watch
+
+Load the average scenario and step through the initial state before playing. Read the variables and final result, then switch to the worst scenario. Pause before a decision and predict which explicit condition determines the next action.
+
+## How it works
+
+Two resolvers keep independent positive and negative entries until the original TTL expires. Authoritative changes and later TTL edits do not rewrite existing expirations. Health filtering applies only to fresh answers; a cached unhealthy endpoint remains visible until expiry. No records yields modeled NXDOMAIN, while no healthy answer is a different state.
+
+### AWS and GCP comparison
+
+AWS: Route 53 routing concepts. Google Cloud: Cloud DNS authoritative-record concepts. Select the provider mapping before loading input. Product names identify concepts; they do not create resources, imply identical APIs or promise equivalent service guarantees.
+
+## Try it
+
+Resolve at A, change the authoritative record and resolve at B. Compare A before and after its original TTL. Then test a previously cached NXDOMAIN entry. In Try mode, choose the next modeled decision and use the hint to inspect its preconditions. Explain a changed result using the actual input rather than the provider logo.
+
+## Complexity
+
+The player displays the model's operation metric and declared bounds. Compare best, average and worst presets before changing only one parameter. Simulation operation counts are different from provider quotas, cloud bills, throughput benchmarks and wall-clock service latency.
+
+## Code
+
+References show one resolver’s positive/negative cache. The player maintains two resolvers and authoritative change history. All four languages show local reference logic rather than provider SDK calls. Validate inputs and account for the unmodeled production concerns before adapting a reference.
+
+## When to use
+
+Use this scenario when reviewing Route 53 routing concepts or Cloud DNS authoritative-record concepts: identify the workload assumption, failure boundary and evidence needed for the selected design. Record one alternative and the constraint it changes.
+
+## Interview pitfalls
+
+Recursive caching, DNSSEC, failover/routing features and error-response caching are richer than this exercise. Route 53 health-routing and Google Cloud DNS integrations are not identical products.
+
+## Quiz
+
+Answer the mechanism question, distinguish the exercise from a real cloud operation, and justify a controlled failure experiment. Re-run the scenario if your prediction disagrees with the traced state.

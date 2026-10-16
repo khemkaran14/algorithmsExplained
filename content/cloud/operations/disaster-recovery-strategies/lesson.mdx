@@ -1,0 +1,41 @@
+# Disaster Recovery Strategies
+
+## Hook
+
+A recovery site can be healthy while its last copied data is old.
+
+## Watch
+
+Load the average scenario and step through the initial state before playing. Read the variables and final result, then switch to the worst scenario. Pause before a decision and predict which explicit condition determines the next action.
+
+## How it works
+
+Cross-region copies complete after a declared delay and stop when the primary quorum is unavailable. Promotion fences the old primary. Backup restore uses the last completed periodic snapshot instead. Detection, promotion and restoration take model ticks; RPO counts lost acknowledged writes.
+
+### AWS and GCP comparison
+
+AWS: AWS cross-region replication / backup concepts. Google Cloud: Google Cloud cross-region replication / backup concepts. Select the provider mapping before loading input. Product names identify concepts; they do not create resources, imply identical APIs or promise equivalent service guarantees.
+
+## Try it
+
+Fail the primary region between snapshots. Compare cross-region promotion and backup restore, then increase copy delay and inspect the actual lost record IDs. In Try mode, choose the next modeled decision and use the hint to inspect its preconditions. Explain a changed result using the actual input rather than the provider logo.
+
+## Complexity
+
+The player displays the model's operation metric and declared bounds. Compare best, average and worst presets before changing only one parameter. Simulation operation counts are different from provider quotas, cloud bills, throughput benchmarks and wall-clock service latency.
+
+## Code
+
+The references show the recovery gate using an already completed snapshot. Transfer cancellation and per-write accounting are visible in the player. All four languages show local reference logic rather than provider SDK calls. Validate inputs and account for the unmodeled production concerns before adapting a reference.
+
+## When to use
+
+Use this scenario when reviewing AWS cross-region replication / backup concepts or Google Cloud cross-region replication / backup concepts: identify the workload assumption, failure boundary and evidence needed for the selected design. Record one alternative and the constraint it changes.
+
+## Interview pitfalls
+
+RPO is lost records and RTO model ticks, not a provider time guarantee. Copies still in flight at primary failure do not become magically complete. Recovery needs tested procedures and real backup retention.
+
+## Quiz
+
+Answer the mechanism question, distinguish the exercise from a real cloud operation, and justify a controlled failure experiment. Re-run the scenario if your prediction disagrees with the traced state.

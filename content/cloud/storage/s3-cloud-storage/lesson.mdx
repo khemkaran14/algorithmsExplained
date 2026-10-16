@@ -1,0 +1,41 @@
+# S3 Cloud Storage
+
+## Hook
+
+Deleting a versioned object and deleting a specific version are different operations.
+
+## Watch
+
+Load the average scenario and step through the initial state before playing. Read the variables and final result, then switch to the worst scenario. Pause before a decision and predict which explicit condition determines the next action.
+
+## How it works
+
+The AWS-style model creates a delete marker for an unqualified delete; deleting that marker may reveal an older version. The GCP-style model removes the live generation without creating a marker, and archived generations do not automatically become live. Conditional model tokens reject stale writes; archived expiry uses time since becoming noncurrent.
+
+### AWS and GCP comparison
+
+AWS: S3 version / delete-marker concepts. Google Cloud: Cloud Storage object generations. Select the provider mapping before loading input. Product names identify concepts; they do not create resources, imply identical APIs or promise equivalent service guarantees.
+
+## Try it
+
+Put two values, delete the live object and inspect provider behavior. Explicitly remove a version, then try a stale compare-token write. Never paste real application data into this practice model. In Try mode, choose the next modeled decision and use the hint to inspect its preconditions. Explain a changed result using the actual input rather than the provider logo.
+
+## Complexity
+
+The player displays the model's operation metric and declared bounds. Compare best, average and worst presets before changing only one parameter. Simulation operation counts are different from provider quotas, cloud bills, throughput benchmarks and wall-clock service latency.
+
+## Code
+
+References show one key with versioning enabled and no lifecycle expiry. Conditional writes and archive-expiry history remain in the player. All four languages show local reference logic rather than provider SDK calls. Validate inputs and account for the unmodeled production concerns before adapting a reference.
+
+## When to use
+
+Use this scenario when reviewing S3 version / delete-marker concepts or Cloud Storage object generations: identify the workload assumption, failure boundary and evidence needed for the selected design. Record one alternative and the constraint it changes.
+
+## Interview pitfalls
+
+Tokens are teaching SHA-256 values, not real ETags or native generation-match conditions. Lifecycle policy, retention locks, replication and permissions need provider-specific design.
+
+## Quiz
+
+Answer the mechanism question, distinguish the exercise from a real cloud operation, and justify a controlled failure experiment. Re-run the scenario if your prediction disagrees with the traced state.

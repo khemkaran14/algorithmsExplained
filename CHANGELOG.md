@@ -72,3 +72,9 @@
 - Authored ten Cloud lessons with AWS/GCP comparisons, four-language references and validated controls; 178 of 201 lessons are ready. Additional Cloud models remain unregistered drafts pending lesson authoring.
 - Updated vulnerable dependencies, added explicit compatibility tests and enforced the dependency audit in CI. Audit reports zero advisories; the production build and existing 36 desktop/mobile checks pass after dependency changes.
 - Moved standard complexity-chart sample generation off the initial browser render and bounded token-palette caching. Mobile lesson performance remains an open release check.
+
+## 2026-10-16 — Complete Cloud authoring checkpoint
+
+- Added the remaining 23 Cloud lessons; all 201 catalog entries now have nine-section explanations, quizzes, deterministic interactive models and four-language references.
+- Added AWS/GCP comparisons across failure domains, autoscaling, serverless, containers, storage, routing, IAM, encryption, secrets, event routing, distributed consistency, observability, infrastructure drift, canaries, cost and the three-tier capstone.
+- Strict content validation passes with zero planned entries; all 33 Cloud reference sets compile. Validation: 475 tests, production build, formatting/lint/types, strict content/free-budget checks and desktop/mobile browser scenarios pass. Production source synchronization, additional product features and performance acceptance remain open.

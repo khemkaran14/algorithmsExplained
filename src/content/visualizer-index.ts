@@ -316,22 +316,68 @@ export const visualizerLoaders: Record<
     import('../../content/databases/principles/database-caching/visualizer'),
   'cloud-service-models': () =>
     import('../../content/cloud/basics/cloud-service-models/visualizer'),
+  'regions-availability-zones': () =>
+    import('../../content/cloud/basics/regions-availability-zones/visualizer'),
   'shared-responsibility': () =>
     import('../../content/cloud/basics/shared-responsibility/visualizer'),
   'ec2-compute-engine': () =>
     import('../../content/cloud/compute/ec2-compute-engine/visualizer'),
+  'auto-scaling-managed-instance-groups': () =>
+    import('../../content/cloud/compute/auto-scaling-managed-instance-groups/visualizer'),
+  'lambda-cloud-run': () =>
+    import('../../content/cloud/compute/lambda-cloud-run/visualizer'),
+  'ecs-eks-gke': () =>
+    import('../../content/cloud/compute/ecs-eks-gke/visualizer'),
+  'containers-kubernetes-basics': () =>
+    import('../../content/cloud/compute/containers-kubernetes-basics/visualizer'),
+  's3-cloud-storage': () =>
+    import('../../content/cloud/storage/s3-cloud-storage/visualizer'),
+  'ebs-persistent-disk': () =>
+    import('../../content/cloud/storage/ebs-persistent-disk/visualizer'),
+  'efs-filestore': () =>
+    import('../../content/cloud/storage/efs-filestore/visualizer'),
   'rds-aurora-cloud-sql': () =>
     import('../../content/cloud/databases/rds-aurora-cloud-sql/visualizer'),
   'dynamodb-firestore-bigtable': () =>
     import('../../content/cloud/databases/dynamodb-firestore-bigtable/visualizer'),
   'elasticache-memorystore': () =>
     import('../../content/cloud/databases/elasticache-memorystore/visualizer'),
+  'spanner-overview': () =>
+    import('../../content/cloud/databases/spanner-overview/visualizer'),
+  'vpc-subnets-routes-nat': () =>
+    import('../../content/cloud/networking/vpc-subnets-routes-nat/visualizer'),
+  'security-groups-nacls-firewall-rules': () =>
+    import('../../content/cloud/networking/security-groups-nacls-firewall-rules/visualizer'),
   'alb-cloud-load-balancing': () =>
     import('../../content/cloud/networking/alb-cloud-load-balancing/visualizer'),
+  'route-53-cloud-dns': () =>
+    import('../../content/cloud/networking/route-53-cloud-dns/visualizer'),
   'cloudfront-cloud-cdn': () =>
     import('../../content/cloud/networking/cloudfront-cloud-cdn/visualizer'),
   'sqs-sns-pub-sub': () =>
     import('../../content/cloud/messaging/sqs-sns-pub-sub/visualizer'),
+  'eventbridge-eventarc': () =>
+    import('../../content/cloud/messaging/eventbridge-eventarc/visualizer'),
   'step-functions-workflows': () =>
     import('../../content/cloud/messaging/step-functions-workflows/visualizer'),
+  'iam-users-roles-policies': () =>
+    import('../../content/cloud/security/iam-users-roles-policies/visualizer'),
+  'kms-cloud-kms': () =>
+    import('../../content/cloud/security/kms-cloud-kms/visualizer'),
+  'secrets-manager-secret-manager': () =>
+    import('../../content/cloud/security/secrets-manager-secret-manager/visualizer'),
+  'cloudwatch-cloud-monitoring': () =>
+    import('../../content/cloud/operations/cloudwatch-cloud-monitoring/visualizer'),
+  'infrastructure-as-code': () =>
+    import('../../content/cloud/operations/infrastructure-as-code/visualizer'),
+  'cloud-ci-cd': () =>
+    import('../../content/cloud/operations/cloud-ci-cd/visualizer'),
+  'cloud-cost-optimization': () =>
+    import('../../content/cloud/operations/cloud-cost-optimization/visualizer'),
+  'well-architected-pillars': () =>
+    import('../../content/cloud/operations/well-architected-pillars/visualizer'),
+  'disaster-recovery-strategies': () =>
+    import('../../content/cloud/operations/disaster-recovery-strategies/visualizer'),
+  'deploy-a-three-tier-app': () =>
+    import('../../content/cloud/capstone/deploy-a-three-tier-app/visualizer'),
 };

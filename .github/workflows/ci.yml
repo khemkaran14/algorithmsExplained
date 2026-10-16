@@ -22,6 +22,11 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: sudo apt-get update && sudo apt-get install -y g++ libssl-dev
       - run: pnpm install --frozen-lockfile
       - run: pnpm audit:security
       - run: pnpm db:generate
@@ -33,7 +38,9 @@ jobs:
       - run: pnpm content:check:dsa
       - run: pnpm content:check:system-design
       - run: pnpm content:check:databases
-      - run: pnpm content:check:ready
+      - run: pnpm content:check:cloud
+      - run: pnpm content:check
+      - run: python3 scripts/check-snippets.py
       - run: pnpm content:free-ratio
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium

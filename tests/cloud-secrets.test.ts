@@ -40,3 +40,16 @@ it('reader revocation affects future fetches but does not erase an already cache
   expect(r.history[2].authenticated).toBe(true);
   expect(r.history[4].status).toBe('refresh-denied-client-fails-closed');
 });
+it('reconfiguring a pending credential requires fresh validation before promotion', () => {
+  const r = run({
+    operations: [
+      { kind: 'create-pending' },
+      { kind: 'configure-target', success: true },
+      { kind: 'validate-pending', success: true },
+      { kind: 'configure-target', success: false },
+      { kind: 'promote' },
+    ],
+  });
+  expect(r.active).toBe(1);
+  expect(r.history[4].status).toBe('promotion-rejected-unvalidated');
+});

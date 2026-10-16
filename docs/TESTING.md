@@ -22,7 +22,7 @@ Open http://localhost:3000 after `pnpm dev`. Keep that origin consistent with `A
 10. Open `/learn/system-design/case-studies/url-shortener`. Edit capacity assumptions, step through the progressive architecture, then enable lost delete invalidation and inspect cached versus durable outcomes. Case API paths are design exercises, not live AlgoVerse routes.
 11. Open the free Database keys and normalization lessons. Test duplicate primary keys, an orphan foreign key and NULL. In normalization, use attributes ABC with AB → C and C → B: candidate keys AB/AC should satisfy 3NF and fail BCNF.
 12. Open the free Cloud service-model lesson, switch AWS/GCP and IaaS/PaaS/SaaS, then inspect responsibility gaps.
-13. Open a lesson labelled as being authored: expect its planned-content page, not an unfinished player. The Cloud track is still being implemented.
+13. Open the free Cloud capstone. Disable app DB identity and set cache hits to zero: completions should be zero and failures visible. Set cache hits to 100%: public cached reads should complete without a DB operation. Check AWS/GCP mapping, request accounting and the progressive architecture.
 
 ## Authenticated acceptance tests
 
@@ -48,7 +48,7 @@ A provider cannot deliver webhooks directly to localhost. Use a reachable HTTPS 
 
 ## Automated checks
 
-Run the validation commands in README against a disposable local database. Expect the implemented-content validator to report 178 authored lessons and 23 planned entries at this checkpoint. The strict full-catalog validator should remain red until all lessons are finished.
+Run the validation commands in README against a disposable local database. Expect the implemented-content validator to report 201 authored lessons and zero planned entries. The strict full-catalog validator must pass. This does not by itself close final production audits.
 
 Browser suites cover desktop/mobile, accessibility scans on sampled pages, anonymous account merging, protected content/invoices, signed webhook idempotency, playback, search, playground isolation and comparison gating. A passing accessibility sample does not establish full-site WCAG conformance. Lighthouse and full production-hardening acceptance still remain.
 

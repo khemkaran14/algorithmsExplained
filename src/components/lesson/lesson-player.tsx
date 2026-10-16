@@ -519,7 +519,7 @@ export function LessonPlayer({
                   >
                     <span
                       aria-hidden="true"
-                      className="mr-4 inline-block w-5 select-none text-right text-zinc-500"
+                      className="mr-4 inline-block w-5 select-none text-right text-zinc-400"
                     >
                       {i + 1}
                     </span>

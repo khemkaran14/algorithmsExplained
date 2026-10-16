@@ -291,22 +291,67 @@ export const quizLoaders: Record<
     import('../../content/databases/principles/database-caching/quiz'),
   'cloud-service-models': () =>
     import('../../content/cloud/basics/cloud-service-models/quiz'),
+  'regions-availability-zones': () =>
+    import('../../content/cloud/basics/regions-availability-zones/quiz'),
   'shared-responsibility': () =>
     import('../../content/cloud/basics/shared-responsibility/quiz'),
   'ec2-compute-engine': () =>
     import('../../content/cloud/compute/ec2-compute-engine/quiz'),
+  'auto-scaling-managed-instance-groups': () =>
+    import('../../content/cloud/compute/auto-scaling-managed-instance-groups/quiz'),
+  'lambda-cloud-run': () =>
+    import('../../content/cloud/compute/lambda-cloud-run/quiz'),
+  'ecs-eks-gke': () => import('../../content/cloud/compute/ecs-eks-gke/quiz'),
+  'containers-kubernetes-basics': () =>
+    import('../../content/cloud/compute/containers-kubernetes-basics/quiz'),
+  's3-cloud-storage': () =>
+    import('../../content/cloud/storage/s3-cloud-storage/quiz'),
+  'ebs-persistent-disk': () =>
+    import('../../content/cloud/storage/ebs-persistent-disk/quiz'),
+  'efs-filestore': () =>
+    import('../../content/cloud/storage/efs-filestore/quiz'),
   'rds-aurora-cloud-sql': () =>
     import('../../content/cloud/databases/rds-aurora-cloud-sql/quiz'),
   'dynamodb-firestore-bigtable': () =>
     import('../../content/cloud/databases/dynamodb-firestore-bigtable/quiz'),
   'elasticache-memorystore': () =>
     import('../../content/cloud/databases/elasticache-memorystore/quiz'),
+  'spanner-overview': () =>
+    import('../../content/cloud/databases/spanner-overview/quiz'),
+  'vpc-subnets-routes-nat': () =>
+    import('../../content/cloud/networking/vpc-subnets-routes-nat/quiz'),
+  'security-groups-nacls-firewall-rules': () =>
+    import('../../content/cloud/networking/security-groups-nacls-firewall-rules/quiz'),
   'alb-cloud-load-balancing': () =>
     import('../../content/cloud/networking/alb-cloud-load-balancing/quiz'),
+  'route-53-cloud-dns': () =>
+    import('../../content/cloud/networking/route-53-cloud-dns/quiz'),
   'cloudfront-cloud-cdn': () =>
     import('../../content/cloud/networking/cloudfront-cloud-cdn/quiz'),
   'sqs-sns-pub-sub': () =>
     import('../../content/cloud/messaging/sqs-sns-pub-sub/quiz'),
+  'eventbridge-eventarc': () =>
+    import('../../content/cloud/messaging/eventbridge-eventarc/quiz'),
   'step-functions-workflows': () =>
     import('../../content/cloud/messaging/step-functions-workflows/quiz'),
+  'iam-users-roles-policies': () =>
+    import('../../content/cloud/security/iam-users-roles-policies/quiz'),
+  'kms-cloud-kms': () =>
+    import('../../content/cloud/security/kms-cloud-kms/quiz'),
+  'secrets-manager-secret-manager': () =>
+    import('../../content/cloud/security/secrets-manager-secret-manager/quiz'),
+  'cloudwatch-cloud-monitoring': () =>
+    import('../../content/cloud/operations/cloudwatch-cloud-monitoring/quiz'),
+  'infrastructure-as-code': () =>
+    import('../../content/cloud/operations/infrastructure-as-code/quiz'),
+  'cloud-ci-cd': () =>
+    import('../../content/cloud/operations/cloud-ci-cd/quiz'),
+  'cloud-cost-optimization': () =>
+    import('../../content/cloud/operations/cloud-cost-optimization/quiz'),
+  'well-architected-pillars': () =>
+    import('../../content/cloud/operations/well-architected-pillars/quiz'),
+  'disaster-recovery-strategies': () =>
+    import('../../content/cloud/operations/disaster-recovery-strategies/quiz'),
+  'deploy-a-three-tier-app': () =>
+    import('../../content/cloud/capstone/deploy-a-three-tier-app/quiz'),
 };

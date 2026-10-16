@@ -53,3 +53,7 @@ All 21 Database lessons are authored; `pnpm content:check:databases` is a strict
 ## Cloud and dependency-security checkpoint
 
 Ten Cloud lessons are authored; the catalog has 178 ready and 23 planned entries. Remaining Cloud models are tested drafts, not complete lessons until their prose, quizzes and four-language references exist. The dependency graph has zero reported advisories at this checkpoint; see docs/DEPENDENCIES.md for compatibility overrides and the LHCI YAML patch. Both mobile Lighthouse pages pass accessibility/best-practices/SEO targets, but lesson performance remains below 90 (83 in the latest run); keep performance acceptance open. Exact source synchronization and production features remain pending.
+
+## Complete curriculum authoring checkpoint
+
+All 201 lessons are authored: DSA 112, System Design 35, Databases 21, Cloud 33. All four track validators and the strict global validator must pass in CI; no planned-content exception remains. Cloud models live in `src/server/simulations/cloud`; native provider differences are implemented explicitly where relevant (serverless concurrency and object versions), while generic wrappers identify conceptual mappings without claiming identical APIs. Four-language references declare their exact core scope in each lesson. The three-tier capstone is a local teaching model and never deploys real resources. Code-line synchronization and production acceptance remain separate open release gates.

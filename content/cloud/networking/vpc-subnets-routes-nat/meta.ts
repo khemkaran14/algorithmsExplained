@@ -12,6 +12,6 @@ const meta = {
   isFree: true,
   prerequisites: [],
   tags: ['networking', 'cloud'],
-  status: 'planned',
+  status: 'ready',
 } as const;
 export default meta;

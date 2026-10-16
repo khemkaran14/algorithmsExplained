@@ -1,0 +1,41 @@
+# Efs Filestore
+
+## Hook
+
+Two clients can overwrite each other even while using the same shared filesystem.
+
+## Watch
+
+Load the average scenario and step through the initial state before playing. Read the variables and final result, then switch to the worst scenario. Pause before a decision and predict which explicit condition determines the next action.
+
+## How it works
+
+Clients remember read values before application-level read-modify-write. Uncoordinated writes can lose a concurrent update. Cooperative advisory locks read the current value before appending; a metadata compare-and-set mode rejects a stale epoch. A network partition does not prove the lock owner is dead.
+
+### AWS and GCP comparison
+
+AWS: EFS shared filesystem concepts. Google Cloud: Filestore shared filesystem concepts. Select the provider mapping before loading input. Product names identify concepts; they do not create resources, imply identical APIs or promise equivalent service guarantees.
+
+## Try it
+
+Have two clients read the same epoch and append different suffixes. Compare unsafe overwrite, cooperative locking and a rejected stale CAS. Block a lock holder and decide what evidence is needed before releasing ownership. In Try mode, choose the next modeled decision and use the hint to inspect its preconditions. Explain a changed result using the actual input rather than the provider logo.
+
+## Complexity
+
+The player displays the model's operation metric and declared bounds. Compare best, average and worst presets before changing only one parameter. Simulation operation counts are different from provider quotas, cloud bills, throughput benchmarks and wall-clock service latency.
+
+## Code
+
+References isolate the abstract shared-file update protocol, including confirmed-crash lock release. Network reachability is modeled around it. All four languages show local reference logic rather than provider SDK calls. Validate inputs and account for the unmodeled production concerns before adapting a reference.
+
+## When to use
+
+Use this scenario when reviewing EFS shared filesystem concepts or Filestore shared filesystem concepts: identify the workload assumption, failure boundary and evidence needed for the selected design. Record one alternative and the constraint it changes.
+
+## Interview pitfalls
+
+The metadata CAS is an application abstraction, not a claim that NFS offers an atomic compare-and-append API. Real locks, leases, mounts and cache consistency require product-specific analysis.
+
+## Quiz
+
+Answer the mechanism question, distinguish the exercise from a real cloud operation, and justify a controlled failure experiment. Re-run the scenario if your prediction disagrees with the traced state.

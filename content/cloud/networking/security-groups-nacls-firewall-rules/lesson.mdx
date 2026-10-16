@@ -1,0 +1,41 @@
+# Security Groups Nacls Firewall Rules
+
+## Hook
+
+A stateful reply and a new inbound connection need different reasoning.
+
+## Watch
+
+Load the average scenario and step through the initial state before playing. Read the variables and final result, then switch to the worst scenario. Pause before a decision and predict which explicit condition determines the next action.
+
+## How it works
+
+Stateful allow-list mode admits a reverse packet only for an established accepted flow. Ordered stateless rules evaluate each direction independently, so an outbound request can pass while its reply is denied. Priority-stateful mode demonstrates explicit deny selection, including deny-first ties. These are declared policies rather than universal provider rule merging.
+
+### AWS and GCP comparison
+
+AWS: Security groups / network ACL concepts. Google Cloud: VPC firewall rule concepts. Select the provider mapping before loading input. Product names identify concepts; they do not create resources, imply identical APIs or promise equivalent service guarantees.
+
+## Try it
+
+Allow outbound destination port 443 but omit the inbound ephemeral return range in stateless mode. Compare with stateful mode, then add a higher-priority matching deny. In Try mode, choose the next modeled decision and use the hint to inspect its preconditions. Explain a changed result using the actual input rather than the provider logo.
+
+## Complexity
+
+The player displays the model's operation metric and declared bounds. Compare best, average and worst presets before changing only one parameter. Simulation operation counts are different from provider quotas, cloud bills, throughput benchmarks and wall-clock service latency.
+
+## Code
+
+References isolate ordered stateless matching and route lookup. Stateful established-flow tables remain visible in the player. All four languages show local reference logic rather than provider SDK calls. Validate inputs and account for the unmodeled production concerns before adapting a reference.
+
+## When to use
+
+Use this scenario when reviewing Security groups / network ACL concepts or VPC firewall rule concepts: identify the workload assumption, failure boundary and evidence needed for the selected design. Record one alternative and the constraint it changes.
+
+## Interview pitfalls
+
+AWS security groups, NACLs and Google VPC firewall rules differ in attachment, priorities, denies and evaluation. This exercise does not merge every vendor policy layer.
+
+## Quiz
+
+Answer the mechanism question, distinguish the exercise from a real cloud operation, and justify a controlled failure experiment. Re-run the scenario if your prediction disagrees with the traced state.

@@ -1,0 +1,41 @@
+# Deploy A Three Tier App
+
+## Hook
+
+A diagram is not deployable until traffic paths, identity and capacity agree.
+
+## Watch
+
+Load the average scenario and step through the initial state before playing. Read the variables and final result, then switch to the worst scenario. Pause before a decision and predict which explicit condition determines the next action.
+
+## How it works
+
+Public HTTPS ingress reaches private app workers only through the declared load-balancer path. Public catalog cache hits can complete without the DB; misses require both private DB reachability and an authorized workload identity. Healthy app and shared DB budgets are finite, with bounded queues. Public DB exposure is flagged as risk rather than treated as an identity grant.
+
+### AWS and GCP comparison
+
+AWS: ALB → private EC2/ECS → RDS with ElastiCache concepts. Google Cloud: Cloud Load Balancing → private app → Cloud SQL with Memorystore concepts. Select the provider mapping before loading input. Product names identify concepts; they do not create resources, imply identical APIs or promise equivalent service guarantees.
+
+## Try it
+
+Block DB identity and use zero cache hits, then compare 100% hits. Fail one app replica and account for completed, failed, rejected and pending requests. Restore private identity/path and inspect the shared DB bottleneck. In Try mode, choose the next modeled decision and use the hint to inspect its preconditions. Explain a changed result using the actual input rather than the provider logo.
+
+## Complexity
+
+The player displays the model's operation metric and declared bounds. Compare best, average and worst presets before changing only one parameter. Simulation operation counts are different from provider quotas, cloud bills, throughput benchmarks and wall-clock service latency.
+
+## Code
+
+References isolate request-path gates and the conservation invariant; the player couples them to independent app/DB queues and capacity. All four languages show local reference logic rather than provider SDK calls. Validate inputs and account for the unmodeled production concerns before adapting a reference.
+
+## When to use
+
+Use this scenario when reviewing ALB → private EC2/ECS → RDS with ElastiCache concepts or Cloud Load Balancing → private app → Cloud SQL with Memorystore concepts: identify the workload assumption, failure boundary and evidence needed for the selected design. Record one alternative and the constraint it changes.
+
+## Interview pitfalls
+
+This local capstone provisions nothing and does not deploy AlgoVerse. Production needs provider-specific IaC, TLS, secret rotation, schema migrations, backups, observability, restore drills and rollback. Cacheable data here is public catalog data only.
+
+## Quiz
+
+Answer the mechanism question, distinguish the exercise from a real cloud operation, and justify a controlled failure experiment. Re-run the scenario if your prediction disagrees with the traced state.
