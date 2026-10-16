@@ -13,6 +13,6 @@ const meta = {
   isFree: false,
   prerequisites: [],
   tags: ['fundamentals', 'system-design'],
-  status: 'planned',
+  status: 'ready',
 } as const;
 export default meta;

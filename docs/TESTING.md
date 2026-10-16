@@ -44,7 +44,7 @@ A provider cannot deliver webhooks directly to localhost. Use a reachable HTTPS 
 
 ## Automated checks
 
-Run the validation commands in README against a disposable local database. Expect the implemented-content validator to report 112 authored lessons and 89 planned entries at this checkpoint. The strict full-catalog validator should remain red until all lessons are finished.
+Run the validation commands in README against a disposable local database. Expect the implemented-content validator to report 119 authored lessons and 82 planned entries at this checkpoint. The strict full-catalog validator should remain red until all lessons are finished.
 
 Browser suites cover desktop/mobile, accessibility scans on sampled pages, anonymous account merging, protected content/invoices, signed webhook idempotency, playback, search, playground isolation and comparison gating. A passing accessibility sample does not establish full-site WCAG conformance. Lighthouse and full production-hardening acceptance still remain.
 

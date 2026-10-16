@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { readLearning, updateProgress } from '@/learning/local';
 import { useStore } from 'zustand';
 import { Play, Pause, SkipBack, SkipForward, RotateCcw } from 'lucide-react';
@@ -25,6 +25,10 @@ export function LessonPlayer({
   trackProgress?: boolean;
 }) {
   const [remoteData, setRemoteData] = useState(remote);
+  const requestRef = useRef<AbortController | null>(null);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => () => requestRef.current?.abort(), []);
+
   const visualizer = useMemo<Visualizer<unknown>>(
     () =>
       remoteData
@@ -148,6 +152,11 @@ export function LessonPlayer({
     random?: { kind: 'random'; size: number; seed: number },
     variant?: string,
   ) {
+    requestRef.current?.abort();
+    const controller = new AbortController();
+    requestRef.current = controller;
+    setLoading(true);
+    store.getState().pause();
     try {
       const parsed = visualizer.validateInput(next);
       if (remoteData) {
@@ -155,6 +164,7 @@ export function LessonPlayer({
           `/api/lessons/${encodeURIComponent(id)}/frames`,
           {
             method: 'POST',
+            signal: controller.signal,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(
               random
@@ -164,6 +174,7 @@ export function LessonPlayer({
           },
         );
         const data = await response.json();
+        if (controller.signal.aborted) return;
         if (!response.ok)
           throw new Error(
             typeof data.error === 'string'
@@ -181,7 +192,10 @@ export function LessonPlayer({
       setError('');
       setFeedback('');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Invalid input');
+      if (!controller.signal.aborted)
+        setError(e instanceof Error ? e.message : 'Invalid input');
+    } finally {
+      if (!controller.signal.aborted) setLoading(false);
     }
   }
   const chart = useMemo(
@@ -263,6 +277,77 @@ export function LessonPlayer({
           }}
           className="flex w-full flex-wrap gap-2"
         >
+          {remoteData?.controls && (
+            <fieldset className="mb-4 flex w-full flex-wrap gap-4">
+              <legend className="mb-2 font-medium">
+                Simulation parameters
+              </legend>
+              {remoteData.controls.map((control) => {
+                let values: Record<string, unknown> = {};
+                try {
+                  const parsed: unknown = JSON.parse(raw);
+                  if (
+                    parsed &&
+                    typeof parsed === 'object' &&
+                    !Array.isArray(parsed)
+                  )
+                    values = parsed as Record<string, unknown>;
+                } catch {
+                  /* Preserve editable JSON until the user applies it. */
+                }
+                const change = (value: unknown) =>
+                  setRaw(JSON.stringify({ ...values, [control.key]: value }));
+                return (
+                  <div key={control.key} className="text-sm">
+                    <label htmlFor={`control-${id}-${control.key}`}>
+                      {control.label}
+                    </label>
+                    {control.type === 'boolean' ? (
+                      <input
+                        id={`control-${id}-${control.key}`}
+                        type="checkbox"
+                        className="ml-2"
+                        checked={Boolean(values[control.key])}
+                        onChange={(e) => change(e.target.checked)}
+                      />
+                    ) : control.type === 'select' ? (
+                      <select
+                        id={`control-${id}-${control.key}`}
+                        className="ml-2 rounded border border-[var(--border)] bg-[var(--background)] p-2"
+                        value={String(
+                          values[control.key] ??
+                            control.options?.[0]?.value ??
+                            '',
+                        )}
+                        onChange={(e) => change(e.target.value)}
+                      >
+                        {control.options?.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        id={`control-${id}-${control.key}`}
+                        type="number"
+                        className="ml-2 w-24 rounded border border-[var(--border)] bg-[var(--background)] p-2"
+                        min={control.min}
+                        max={control.max}
+                        step={control.step ?? 1}
+                        value={
+                          typeof values[control.key] === 'number'
+                            ? String(values[control.key])
+                            : ''
+                        }
+                        onChange={(e) => change(Number(e.target.value))}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </fieldset>
+          )}
           <label className="sr-only" htmlFor={`custom-${id}`}>
             Custom input
           </label>
@@ -303,6 +388,11 @@ export function LessonPlayer({
           </button>
         ))}
       </div>
+      {loading && (
+        <p role="status" className="text-sm text-[var(--muted)]">
+          Preparing input…
+        </p>
+      )}
       <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
         <div
           id={`panel-${id}-visual`}

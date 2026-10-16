@@ -1,0 +1,6 @@
+class FIFO {constructor(){this.a=[];this.h=0;}get length(){return this.a.length-this.h;}push(v){this.a.push(v);}pop(){const v=this.a[this.h++];if(this.h>=64&&this.h*2>=this.a.length){this.a=this.a.slice(this.h);this.h=0;}return v;}}
+function simulate(p,dbCapacity=12,edgeCache=false){const app=new FIFO(),db=new FIFO();let state=p.seed>>>0,offered=0,completed=0,rejected=0;const draw=()=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return state%100;};
+for(let t=0;t<p.ticks;t++){const outage=p.fault!=='none'&&t>=p.failAt&&(!p.restoreAt||t<p.restoreAt),region=outage&&p.fault==='region',cacheDown=region&&!edgeCache||outage&&p.fault==='cache',dbDown=region||outage&&p.fault==='database',healthy=region?0:p.replicas-(outage&&p.fault==='service'?1:0);
+for(let i=0;i<p.requests;i++){offered++;if(edgeCache&&!cacheDown&&draw()<p.cacheHit){completed++;continue;}if(region||app.length>=p.queueLimit)rejected++;else app.push(1);}
+for(let budget=healthy*p.capacity*p.cpu;app.length&&budget>0;budget--){app.pop();if(!edgeCache&&!cacheDown&&draw()<p.cacheHit)completed++;else if(db.length>=p.queueLimit)rejected++;else db.push(1);}if(!dbDown)for(let budget=dbCapacity;db.length&&budget>0;budget--){db.pop();completed++;}}
+return {offered,completed,pending:app.length+db.length,rejected};} // All parameters are bounded/validated by the lesson.

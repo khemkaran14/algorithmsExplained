@@ -1,0 +1,39 @@
+# Pacelc
+
+## Hook
+
+When the bridge works, waiting for a second confirmation still takes time; when it fails, the availability decision changes.
+
+## Watch
+
+Coordination has a cost even without a partition. Use the parameter controls, then select Load input to rerun the deterministic model. Step backward to compare the pre-failure and post-failure state.
+
+## How it works
+
+Compare strong and eventual policies with no partition, watching modeled acknowledgment latency. Then inject a partition and compare rejected versus locally available operations.
+
+The diagram and counters are generated from actual state transitions under the shown assumptions. They are not measurements of a running cloud deployment.
+
+## Try it
+
+Predict whether a request can finish, a read must wait, or an independence assumption holds. Change one parameter at a time and explain the resulting queue, response or probability.
+
+## Complexity
+
+The player separates the simulator’s operation costs from the modeled system capacity, coordination or availability equations. More replicas cannot remove a serial dependency or an unmodelled common failure.
+
+## Code
+
+The four references implement the core bounded workload or policy calculation. Traffic references conserve completed, queued and rejected requests; response-percentile reconstruction is a separate presentation concern. Register references expose delivery explicitly so a caller can model delayed messages and partitions. They are educational models, not production distributed protocols.
+
+## When to use
+
+Use to discuss normal-operation latency/consistency choices as well as partition behavior.
+
+## Interview pitfalls
+
+The displayed latency is an operation-delay model, not a production network estimate. PACELC is a design framing, not a new consistency protocol.
+
+## Quiz
+
+Use the model’s assumptions to justify each answer.

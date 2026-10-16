@@ -204,4 +204,18 @@ export const visualizerLoaders: Record<
     import('../../content/dsa/security/digital-certificates-tls/visualizer'),
   'password-hashing-salting': () =>
     import('../../content/dsa/security/password-hashing-salting/visualizer'),
+  'how-a-request-travels': () =>
+    import('../../content/system-design/fundamentals/how-a-request-travels/visualizer'),
+  'latency-vs-throughput': () =>
+    import('../../content/system-design/fundamentals/latency-vs-throughput/visualizer'),
+  'vertical-vs-horizontal-scaling': () =>
+    import('../../content/system-design/fundamentals/vertical-vs-horizontal-scaling/visualizer'),
+  'availability-the-nines': () =>
+    import('../../content/system-design/fundamentals/availability-the-nines/visualizer'),
+  'cap-theorem': () =>
+    import('../../content/system-design/fundamentals/cap-theorem/visualizer'),
+  pacelc: () =>
+    import('../../content/system-design/fundamentals/pacelc/visualizer'),
+  'consistency-models': () =>
+    import('../../content/system-design/fundamentals/consistency-models/visualizer'),
 };

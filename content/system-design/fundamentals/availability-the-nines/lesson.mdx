@@ -1,0 +1,39 @@
+# Availability The Nines
+
+## Hook
+
+Two backup routes help only if one shared outage cannot close both.
+
+## Watch
+
+Count required successes and redundant failures. Use the parameter controls, then select Load input to rerun the deterministic model. Step backward to compare the pre-failure and post-failure state.
+
+## How it works
+
+Compare serial dependencies with independent parallel replicas, then add a common failure factor. Compute expected downtime over an explicit period.
+
+The diagram and counters are generated from actual state transitions under the shown assumptions. They are not measurements of a running cloud deployment.
+
+## Try it
+
+Predict whether a request can finish, a read must wait, or an independence assumption holds. Change one parameter at a time and explain the resulting queue, response or probability.
+
+## Complexity
+
+The player separates the simulator’s operation costs from the modeled system capacity, coordination or availability equations. More replicas cannot remove a serial dependency or an unmodelled common failure.
+
+## Code
+
+The four references implement the core bounded workload or policy calculation. Traffic references conserve completed, queued and rejected requests; response-percentile reconstruction is a separate presentation concern. Register references expose delivery explicitly so a caller can model delayed messages and partitions. They are educational models, not production distributed protocols.
+
+## When to use
+
+Use for availability budgeting while documenting independence, recovery and failure-domain assumptions.
+
+## Interview pitfalls
+
+Multiplying replica probabilities without checking common causes produces an optimistic promise, not a realistic availability estimate.
+
+## Quiz
+
+Use the model’s assumptions to justify each answer.

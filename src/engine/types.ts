@@ -62,10 +62,20 @@ export type ComplexityInfo = {
   stable?: boolean;
   inPlace?: boolean;
 };
+export type LessonControl = {
+  key: string;
+  label: string;
+  type: 'number' | 'select' | 'boolean';
+  min?: number;
+  max?: number;
+  step?: number;
+  options?: { value: string; label: string }[];
+};
 export interface Visualizer<Input = number[], S = VisualState> {
   id: string;
   presetLabels?: { best: string; average: string; worst: string };
   inputHint?: string;
+  controls?: LessonControl[];
   maxSize?: number;
   measureSize?(input: Input): number;
   variantTitle?: string;

@@ -12,6 +12,7 @@ export type RemoteLessonData = {
   input: unknown;
   inputHint?: string;
   maxSize?: number;
+  controls?: import('@/engine/types').LessonControl[];
   presetLabels?: Visualizer['presetLabels'];
   complexity: ComplexityInfo;
   presets: { best: unknown; average: unknown; worst: unknown };
@@ -82,6 +83,7 @@ export async function serverLessonData(
     frames,
     input,
     inputHint: v.inputHint,
+    controls: v.controls,
     maxSize: v.maxSize,
     presetLabels: v.presetLabels,
     complexity: v.complexity,

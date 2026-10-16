@@ -1,0 +1,6 @@
+class Register {constructor(mode='eventual'){this.mode=mode;this.nodes=[{counter:0,node:0,value:0},{counter:0,node:0,value:0}];this.pending=[];this.sessions=new Map();}compare(a,b){return a.counter-b.counter||a.node-b.node;}
+allowed(node,client,partition){return !(this.mode==='strong'&&partition)&&!(this.mode==='session'&&this.sessions.has(client)&&this.compare(this.nodes[node],this.sessions.get(client))<0);}
+write(node,client,value,partition=false){if(!this.allowed(node,client,partition))return false;const next={counter:this.nodes[node].counter+1,node,value};this.nodes[node]=next;this.sessions.set(client,next);if(this.mode==='strong')this.nodes[1-node]={...next};else this.pending.push({to:1-node,version:{...next}});return true;}
+read(node,client,partition=false){if(!this.allowed(node,client,partition))return null;const value=this.nodes[node],token=this.sessions.get(client);if(!token||this.compare(value,token)>0)this.sessions.set(client,{...value});return value.value;}
+deliver(){for(const m of this.pending)if(this.compare(m.version,this.nodes[m.to])>0)this.nodes[m.to]={...m.version};this.pending=[];}
+} // The caller models delivery delay/partitions; this is not a deployable consensus protocol.

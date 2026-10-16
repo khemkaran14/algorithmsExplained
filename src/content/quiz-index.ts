@@ -181,4 +181,17 @@ export const quizLoaders: Record<
     import('../../content/dsa/security/digital-certificates-tls/quiz'),
   'password-hashing-salting': () =>
     import('../../content/dsa/security/password-hashing-salting/quiz'),
+  'how-a-request-travels': () =>
+    import('../../content/system-design/fundamentals/how-a-request-travels/quiz'),
+  'latency-vs-throughput': () =>
+    import('../../content/system-design/fundamentals/latency-vs-throughput/quiz'),
+  'vertical-vs-horizontal-scaling': () =>
+    import('../../content/system-design/fundamentals/vertical-vs-horizontal-scaling/quiz'),
+  'availability-the-nines': () =>
+    import('../../content/system-design/fundamentals/availability-the-nines/quiz'),
+  'cap-theorem': () =>
+    import('../../content/system-design/fundamentals/cap-theorem/quiz'),
+  pacelc: () => import('../../content/system-design/fundamentals/pacelc/quiz'),
+  'consistency-models': () =>
+    import('../../content/system-design/fundamentals/consistency-models/quiz'),
 };

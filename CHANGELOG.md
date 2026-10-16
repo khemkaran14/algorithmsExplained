@@ -45,3 +45,9 @@
 - Added a visual graph input builder, free searchable complexity cheat sheet, result inspection, bounded sample sizing and stronger content checks for MDX, variants, deterministic input preservation, counters and challenges.
 - Local validation: 247 unit/integration/content-serving tests, 24 desktop/mobile browser checks, strict 112-lesson DSA validation and production build pass. All 116 reference sets (including variants) pass four-language syntax checks.
 - System Design/Databases/Cloud still account for 89 planned entries. Final source-line synchronization audit, broader production hardening and external provider acceptance remain before release.
+
+## 2026-10-16 — System Design foundations checkpoint
+
+- Added seven foundation lessons: request paths, latency/throughput, vertical/horizontal scaling, availability equations, CAP, PACELC and consistency models. Their diagrams and outcomes derive from traffic, probability and versioned-register state.
+- Added validated simulation controls, request cancellation and failure colors, plus underlying tested models for rate admission, delivery/consumer effects, cache persistence, circuit breaking, idempotency, sharding, IDs and quorum/service boundaries. These additional models are not catalog lessons until their complete authoring is registered.
+- 286 unit/integration tests and the production build pass. Existing 24 browser checks passed; both new desktop/mobile traffic/control/accessibility checks pass after correcting select label associations. Content validation passes for 119 lessons (82 planned remain); 123 four-language main/variant reference sets compile.

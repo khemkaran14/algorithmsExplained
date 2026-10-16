@@ -1,0 +1,39 @@
+# How A Request Travels
+
+## Hook
+
+A delivery passes through an address lookup, an entrance, a chosen worker and a data source.
+
+## Watch
+
+Follow the request through explicit service boundaries. Use the parameter controls, then select Load input to rerun the deterministic model. Step backward to compare the pre-failure and post-failure state.
+
+## How it works
+
+Follow client ingress, load balancing, app processing, cache lookup and database completion. This throughput model abstracts DNS/TLS and transport details rather than pretending to simulate their packets.
+
+The diagram and counters are generated from actual state transitions under the shown assumptions. They are not measurements of a running cloud deployment.
+
+## Try it
+
+Predict whether a request can finish, a read must wait, or an independence assumption holds. Change one parameter at a time and explain the resulting queue, response or probability.
+
+## Complexity
+
+The player separates the simulator’s operation costs from the modeled system capacity, coordination or availability equations. More replicas cannot remove a serial dependency or an unmodelled common failure.
+
+## Code
+
+The four references implement the core bounded workload or policy calculation. Traffic references conserve completed, queued and rejected requests; response-percentile reconstruction is a separate presentation concern. Register references expose delivery explicitly so a caller can model delayed messages and partitions. They are educational models, not production distributed protocols.
+
+## When to use
+
+Use to identify service boundaries, where latency accumulates and which tier owns a failure.
+
+## Interview pitfalls
+
+A successful app hop is not the same as a successful database-backed response.
+
+## Quiz
+
+Use the model’s assumptions to justify each answer.

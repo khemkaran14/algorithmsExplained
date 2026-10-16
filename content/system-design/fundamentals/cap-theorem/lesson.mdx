@@ -1,0 +1,39 @@
+# Cap Theorem
+
+## Hook
+
+Two disconnected order books cannot both independently promise they contain one globally agreed latest value.
+
+## Watch
+
+A partition makes the declared guarantee matter. Use the parameter controls, then select Load input to rerun the deterministic model. Step backward to compare the pre-failure and post-failure state.
+
+## How it works
+
+Strong mode requires agreement from both replicas and rejects partitioned operations. Eventual mode serves local operations and can diverge. This illustrates a two-replica policy, not an arbitrary full consensus implementation.
+
+The diagram and counters are generated from actual state transitions under the shown assumptions. They are not measurements of a running cloud deployment.
+
+## Try it
+
+Predict whether a request can finish, a read must wait, or an independence assumption holds. Change one parameter at a time and explain the resulting queue, response or probability.
+
+## Complexity
+
+The player separates the simulator’s operation costs from the modeled system capacity, coordination or availability equations. More replicas cannot remove a serial dependency or an unmodelled common failure.
+
+## Code
+
+The four references implement the core bounded workload or policy calculation. Traffic references conserve completed, queued and rejected requests; response-percentile reconstruction is a separate presentation concern. Register references expose delivery explicitly so a caller can model delayed messages and partitions. They are educational models, not production distributed protocols.
+
+## When to use
+
+Use when selecting behavior during a real network partition, then define recovery and conflict policy.
+
+## Interview pitfalls
+
+CAP does not mean freely choosing any two letters at all times; the trade-off applies while a partition prevents communication.
+
+## Quiz
+
+Use the model’s assumptions to justify each answer.

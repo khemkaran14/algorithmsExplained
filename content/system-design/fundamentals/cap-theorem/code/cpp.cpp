@@ -1,0 +1,6 @@
+#include <vector>
+#include <map>
+#include <string>
+#include <optional>
+#include <utility>
+struct Version{int counter,node,value;};class Register {std::string mode;Version nodes[2]{{0,0,0},{0,0,0}};std::vector<std::pair<int,Version>>pending;std::map<std::string,Version>sessions;int compare(Version a,Version b)const{return a.counter!=b.counter?a.counter-b.counter:a.node-b.node;}public:explicit Register(std::string policy):mode(policy){}bool allowed(int node,const std::string& client,bool partition)const{auto token=sessions.find(client);return !(mode=="strong"&&partition)&&!(mode=="session"&&token!=sessions.end()&&compare(nodes[node],token->second)<0);}bool write(int node,const std::string& client,int value,bool partition=false){if(!allowed(node,client,partition))return false;Version next{nodes[node].counter+1,node,value};nodes[node]=next;sessions[client]=next;if(mode=="strong")nodes[1-node]=next;else pending.push_back({1-node,next});return true;}std::optional<int> read(int node,const std::string& client,bool partition=false){if(!allowed(node,client,partition))return std::nullopt;auto token=sessions.find(client);if(token==sessions.end()||compare(nodes[node],token->second)>0)sessions[client]=nodes[node];return nodes[node].value;}void deliver(){for(auto [node,version]:pending)if(compare(version,nodes[node])>0)nodes[node]=version;pending.clear();}};

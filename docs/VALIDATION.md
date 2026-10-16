@@ -35,3 +35,7 @@ Local lint, strict TypeScript, formatting, 190 unit/integration tests, productio
 ## DSA authoring checkpoint — 2026-10-16
 
 Strict DSA validation passes for 112 authored lessons, with no planned DSA entries. There are 89 planned entries in other tracks. Local checks pass: 247 unit/integration/content-serving tests; 24 desktop/mobile browser checks; lint, TypeScript and production build. All 116 main/variant reference sets pass syntax checks in four languages. The full-catalog strict gate remains intentionally red while the other tracks are being authored. This does not close the final source synchronization, production-hardening or real external-provider acceptance gates.
+
+## System Design foundation checkpoint — 2026-10-16
+
+Local lint, TypeScript, 286 tests and production build pass. Content checks validate 119 authored lessons and report 82 planned entries. All 123 authored main/variant reference sets compile. The 24 existing browser checks passed, followed by both new desktop/mobile simulation-control/accessibility checks after fixing label associations. Full-site production hardening and external-provider acceptance remain open.

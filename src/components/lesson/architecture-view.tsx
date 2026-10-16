@@ -1,6 +1,7 @@
 'use client';
 import { ReactFlow, Background, Controls, MarkerType } from '@xyflow/react';
 import { useReducedMotion } from 'framer-motion';
+import { VISUAL_COLORS } from '@/engine/visual-theme';
 import type { Frame } from '@/engine/types';
 import '@xyflow/react/dist/style.css';
 export default function ArchitectureView({ frame }: { frame: Frame }) {
@@ -8,10 +9,16 @@ export default function ArchitectureView({ frame }: { frame: Frame }) {
   const nodes = (frame.state.nodes ?? []).map((n) => ({
     id: n.id,
     position: { x: n.x, y: n.y },
-    data: { label: n.label },
+    data: {
+      label:
+        n.label +
+        (frame.highlights.some((h) => h.id === n.id && h.kind === 'error')
+          ? ' ⚠'
+          : ''),
+    },
     style: {
       background: frame.highlights.some((h) => h.id === n.id)
-        ? '#bef264'
+        ? VISUAL_COLORS[frame.highlights.find((h) => h.id === n.id)!.kind]
         : 'var(--background)',
       color: frame.highlights.some((h) => h.id === n.id)
         ? '#18230d'
@@ -29,9 +36,18 @@ export default function ArchitectureView({ frame }: { frame: Frame }) {
     target: e.to,
     label: e.label,
     animated:
-      !reduced && frame.highlights.some((h) => h.id === `${e.from}->${e.to}`),
+      !reduced &&
+      frame.highlights.some(
+        (h) => h.id === `${e.from}->${e.to}` && h.kind === 'moving',
+      ),
     markerEnd: { type: MarkerType.ArrowClosed },
-    style: { stroke: 'var(--muted)' },
+    style: {
+      stroke: frame.highlights.some(
+        (h) => h.id === `${e.from}->${e.to}` && h.kind === 'error',
+      )
+        ? '#dc2626'
+        : 'var(--muted)',
+    },
     labelStyle: { fill: 'var(--foreground)', fontSize: 10 },
     labelBgStyle: { fill: 'var(--background)' },
   }));

@@ -1,0 +1,39 @@
+# Latency Vs Throughput
+
+## Hook
+
+A narrow checkout can finish one customer quickly while a long line still limits the whole shop.
+
+## Watch
+
+A fast response and many responses are different metrics. Use the parameter controls, then select Load input to rerun the deterministic model. Step backward to compare the pre-failure and post-failure state.
+
+## How it works
+
+Compare completed requests per modeled second against the queue-derived response latency. Raise offered load until the bottleneck queue grows, then observe admission rejection.
+
+The diagram and counters are generated from actual state transitions under the shown assumptions. They are not measurements of a running cloud deployment.
+
+## Try it
+
+Predict whether a request can finish, a read must wait, or an independence assumption holds. Change one parameter at a time and explain the resulting queue, response or probability.
+
+## Complexity
+
+The player separates the simulator’s operation costs from the modeled system capacity, coordination or availability equations. More replicas cannot remove a serial dependency or an unmodelled common failure.
+
+## Code
+
+The four references implement the core bounded workload or policy calculation. Traffic references conserve completed, queued and rejected requests; response-percentile reconstruction is a separate presentation concern. Register references expose delivery explicitly so a caller can model delayed messages and partitions. They are educational models, not production distributed protocols.
+
+## When to use
+
+Use to distinguish service time, end-to-end queue delay and sustainable request rate.
+
+## Interview pitfalls
+
+The modeled p95 counts only completed requests. Pending/rejected requests must remain visible to avoid a misleading healthy-looking percentile.
+
+## Quiz
+
+Use the model’s assumptions to justify each answer.
