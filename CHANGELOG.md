@@ -78,3 +78,10 @@
 - Added the remaining 23 Cloud lessons; all 201 catalog entries now have nine-section explanations, quizzes, deterministic interactive models and four-language references.
 - Added AWS/GCP comparisons across failure domains, autoscaling, serverless, containers, storage, routing, IAM, encryption, secrets, event routing, distributed consistency, observability, infrastructure drift, canaries, cost and the three-tier capstone.
 - Strict content validation passes with zero planned entries; all 33 Cloud reference sets compile. Validation: 475 tests, production build, formatting/lint/types, strict content/free-budget checks and desktop/mobile browser scenarios pass. Production source synchronization, additional product features and performance acceptance remain open.
+
+## 2026-10-16 — Request protection checkpoint
+
+- Added raw-byte streaming body limits, separate fixed-window API budgets using atomic Upstash counters, bounded explicit memory preview mode, trusted ingress address handling and 429/503 retry responses.
+- Added per-request nonce CSP, security headers, redacted structured application/Auth.js logging and a cached database/request-protection readiness endpoint.
+- Configured browser validation to avoid Zod's eval capability probe under CSP. Production build, lint/types/format and 486 tests pass. Existing 38 browser scenarios pass; both dedicated CSP/readiness browser checks pass after the non-JIT correction.
+- Production launch requires a shared Upstash store. Local standalone testing uses `RATE_LIMIT_MODE=memory`. Remaining production features and release audits continue.

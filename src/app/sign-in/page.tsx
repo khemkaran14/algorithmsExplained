@@ -33,7 +33,7 @@ export default async function SignIn() {
           className="space-y-3"
           action={async (formData) => {
             'use server';
-            const email = z.email().parse(formData.get('email'));
+            const email = z.email().max(254).parse(formData.get('email'));
             await signIn('resend', { email, redirectTo: '/learn' });
           }}
         >

@@ -1,7 +1,7 @@
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'pnpm start',
+      startServerCommand: 'RATE_LIMIT_MODE=memory pnpm start',
       url: [
         'http://localhost:3000/',
         'http://localhost:3000/learn/dsa/sorting/bubble-sort',

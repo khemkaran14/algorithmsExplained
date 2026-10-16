@@ -57,3 +57,7 @@ Ten Cloud lessons are authored; the catalog has 178 ready and 23 planned entries
 ## Complete curriculum authoring checkpoint
 
 All 201 lessons are authored: DSA 112, System Design 35, Databases 21, Cloud 33. All four track validators and the strict global validator must pass in CI; no planned-content exception remains. Cloud models live in `src/server/simulations/cloud`; native provider differences are implemented explicitly where relevant (serverless concurrency and object versions), while generic wrappers identify conceptual mappings without claiming identical APIs. Four-language references declare their exact core scope in each lesson. The three-tier capstone is a local teaching model and never deploys real resources. Code-line synchronization and production acceptance remain separate open release gates.
+
+## Request protection
+
+Middleware supplies fresh CSP nonces to both Next's request renderer and response headers; pass the nonce to any explicit inline script. Browser Zod schemas use `src/lib/validation.ts` so parsing never probes eval. Do not weaken production CSP to work around a library probe. Rate limits use atomic shared Redis windows in production; only explicit local-preview memory mode may run without Upstash. Never trust arbitrary forwarded IP headers. Body limits count raw bytes while streaming; webhooks retain their signature check and larger explicit cap. `/api/health` reveals only coarse readiness. Logging helpers accept fixed events/coarse error categories, never requests or Error objects.

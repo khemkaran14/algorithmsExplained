@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import { LessonSearch } from '@/components/lesson-search';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -18,11 +19,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const t = await getTranslations();
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
         <NextIntlClientProvider>
-          <Providers>
+          <Providers nonce={nonce}>
             <a className="skip-link" href="#main">
               {t('common.skip')}
             </a>

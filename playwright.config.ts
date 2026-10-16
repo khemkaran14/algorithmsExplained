@@ -29,6 +29,7 @@ export default defineConfig({
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
     env: {
+      RATE_LIMIT_MODE: 'memory',
       AUTH_SECRET: 'test-only-not-for-production-000000000000000000',
       AUTH_URL: 'http://127.0.0.1:3000',
       RAZORPAY_WEBHOOK_SECRET: 'e2e-fixture-webhook-secret-not-for-production',

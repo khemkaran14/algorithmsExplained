@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   return api(async () => {
     requireSameOrigin(request);
     const user = await requireUser();
-    const data = localSchema.parse(await readJson(request));
+    const data = localSchema.parse(await readJson(request, 2097152));
     if (
       Object.keys(data.progress).length > 500 ||
       Object.keys(data.library).length > 500

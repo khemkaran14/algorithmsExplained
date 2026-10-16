@@ -54,3 +54,9 @@ For a production-build preview, run `pnpm build`, then `pnpm start`. Deployment 
 ## Container preview
 
 After local migrations and filling `.env`, run `docker compose --profile app up --build -d`. Run migrations from the host/build environment; the application image contains runtime dependencies only. Production domains, database backups, business/legal details and live payment configuration still require the deployment and launch review.
+
+### Production request protection
+
+Development uses a bounded in-process rate limiter. For a local production-build preview run `RATE_LIMIT_MODE=memory pnpm start`. This mode is per instance and is only for local/preview use. A production launch requires `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`; a missing or unavailable shared store returns 503 on protected APIs rather than silently dropping protection. Requests use fixed-window budgets; exceeding one returns 429 and Retry-After.
+
+Vercel uses its platform-owned client address header. Self-hosted operators may set `TRUSTED_PROXY_IP_HEADER` only when the ingress proxy overwrites that header and direct app ingress is blocked. Raw `x-forwarded-for` is ignored. Without a trusted address, requests share a conservative anonymous bucket. `/api/health` reports database readiness and shared versus local-preview request protection without connection details.

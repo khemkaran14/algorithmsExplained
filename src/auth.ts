@@ -1,3 +1,4 @@
+import { logFailure } from '@/lib/logger';
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 import Resend from 'next-auth/providers/resend';
@@ -11,6 +12,11 @@ export const emailEnabled = Boolean(
 );
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
+  logger: {
+    error: (error) => logFailure('auth_failure', error),
+    warn: () => logFailure('auth_warning'),
+    debug: () => undefined,
+  },
   providers: [
     ...(googleEnabled ? [Google] : []),
     ...(emailEnabled

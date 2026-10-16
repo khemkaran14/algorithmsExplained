@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { api, json, ApiError } from '@/lib/http';
+import { api, json, ApiError, readBody } from '@/lib/http';
 import { validSignature } from '@/payments/security';
 import { processPaymentEvent } from '@/payments/service';
 import { fetchProviderPayment } from '@/payments/provider';
@@ -31,9 +31,7 @@ export async function POST(request: Request) {
     const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
     if (!secret)
       throw new ApiError(503, 'Webhook verification is not configured.');
-    const raw = await request.text();
-    if (raw.length > 262144)
-      throw new ApiError(413, 'Webhook payload is too large.');
+    const raw = await readBody(request, 262144);
     if (
       !validSignature(
         raw,

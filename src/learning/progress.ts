@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '@/lib/validation';
 export const progressSchema = z.object({
   slug: z.string().min(1).max(120),
   status: z.enum(['in-progress', 'completed']),

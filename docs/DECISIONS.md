@@ -48,3 +48,11 @@ Complexity chart samples are cached server-side by visualizer identity. Only sta
 ## Cloud curriculum scope
 
 All 33 Cloud lessons are now authored. Reference snippets isolate documented local decision cores where a complete provider API/control plane would be misleading. Real differences (object delete markers versus live generations; serverless per-environment concurrency) affect outcomes, not merely labels. The Spanner overview separates a fixed-majority register from a declared uncertainty wait and does not claim to implement Paxos or demonstrate a true external-consistency anomaly when waiting is disabled. Cloud costs use user-supplied assumed rates, never fabricated live quotes. The capstone couples private reachability, identity and finite processing queues without provisioning resources.
+
+## Request protection and nonce CSP
+
+JSON/auth/webhook bodies are capped by raw byte count while streaming, before decoding or JSON allocation. Strict UTF-8 decoding preserves BOM bytes for signature input; invalid UTF-8 is rejected. Progress sync has an explicit 2 MiB cap to accommodate the complete curriculum’s notes. Webhook signatures remain mandatory on the exact accepted text.
+
+Middleware assigns fresh request/response CSP nonces; the root layout and theme script use that nonce. The layout consequently renders dynamically. Styles permit inline declarations for Shiki, motion and React Flow; production scripts do not permit eval. Payment origins are explicit and COOP allows OAuth/payment popups. Private routes and APIs use no-store. Shared atomic Redis fixed-window counters have separate auth/payment/frame/admin budgets and fail closed on outage. Bounded memory mode requires explicit production-preview configuration and is not a distributed production substitute. Client addresses come only from a configured trusted ingress header; arbitrary forwarded headers are ignored. Logs accept fixed event names/coarse error types, with no request bodies, credentials or Error objects.
+
+Zod's object-parser optimization can probe Function even when it catches a CSP rejection. Shared browser schemas therefore construct through a dedicated `jitless` configuration module; the production policy remains free of unsafe-eval. Dedicated browser checks require zero CSP violations while exercising the player.
