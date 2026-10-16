@@ -1,0 +1,9 @@
+#include <vector>
+#include <map>
+#include <string>
+#include <algorithm>
+#include <cmath>
+using Row=std::map<std::string,int>;struct Result{std::vector<std::string>prefix;bool covered;int heapFetches;std::vector<Row>output;};
+Result indexed(std::vector<Row>rows,const std::vector<std::string>&columns,const Row&filters,const std::vector<std::string>&projection){std::sort(rows.begin(),rows.end(),[&](const Row&a,const Row&b){for(auto c:columns)if(a.at(c)!=b.at(c))return a.at(c)<b.at(c);return a.at("id")<b.at("id");});std::vector<std::string>prefix;for(auto c:columns){if(!filters.count(c))break;prefix.push_back(c);}auto included=[&](std::string c){return std::find(columns.begin(),columns.end(),c)!=columns.end();};bool covered=true;for(auto c:projection)covered=covered&&included(c);for(auto [c,v]:filters)covered=covered&&included(c);auto compare=[&](const Row&r){for(auto c:prefix)if(r.at(c)!=filters.at(c))return r.at(c)-filters.at(c);return 0;};int lo=0,hi=rows.size();while(lo<hi){int mid=(lo+hi)/2;if(compare(rows[mid])<0)lo=mid+1;else hi=mid;}int start=lo;hi=rows.size();while(lo<hi){int mid=(lo+hi)/2;if(compare(rows[mid])<=0)lo=mid+1;else hi=mid;}std::vector<Row>out;for(int i=start;i<lo;i++){bool match=true;for(auto [c,v]:filters)if(rows[i].at(c)!=v)match=false;if(match){Row projected;for(auto c:projection)projected[c]=rows[i].at(c);out.push_back(projected);}}return {prefix,covered,covered?0:lo-start,out};}
+std::string estimate(int n,double percent,bool prefix,bool covered){double candidates=prefix?n*percent/100:n,seek=prefix?std::ceil(std::log2(std::ceil(n/4.0)+1)):0,index=seek+std::ceil(candidates/4)+(covered?0:2*candidates),scan=std::ceil(n/4.0);return index<scan?"index":"sequential";}
+// std::map references prioritize clarity; model costs omit real I/O, MVCC and buffer caches.

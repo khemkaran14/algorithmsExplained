@@ -1,0 +1,37 @@
+# Normalization 1Nf To Bcnf
+
+## Hook
+
+A repeated customer address is an update problem; normal forms express the dependencies behind it.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Start with atomic domains for 1NF. Compute attribute closure by repeatedly applying asserted functional dependencies. Enumerate all minimal candidate keys, then mark every attribute that appears in a candidate key as prime. 2NF forbids non-prime attributes depending on a proper subset of a candidate key. 3NF permits a nontrivial dependency when its determinant is a superkey or the dependent attribute is prime. BCNF requires a superkey determinant for every nontrivial dependency.
+
+## Try it
+
+Use AB → C and C → B on relation ABC. Candidate keys AB and AC make every attribute prime: 3NF holds, but C is not a superkey, so BCNF fails. Compare A → B and B → C, then inspect the first lossless split. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Reducing insertion, deletion and update anomalies while choosing an appropriate integrity/performance trade-off.
+
+## Interview pitfalls
+
+Dependencies are domain rules, not coincidences in sample rows. A lossless BCNF split need not preserve every dependency locally. The player demonstrates one split and its shared-determinant lossless condition; it does not claim a complete dependency-preserving decomposition.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

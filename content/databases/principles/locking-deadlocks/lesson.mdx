@@ -1,0 +1,37 @@
+# Locking Deadlocks
+
+## Hook
+
+Two transactions can each own the lock the other needs next.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Shared locks are mutually compatible, while an exclusive request conflicts with other owners. Strict two-phase locking holds locks until commit or rollback. Queued requests wait behind earlier conflicting requests. A wait-for graph points from a blocked transaction to its blockers; a directed cycle identifies deadlock. The model aborts the lexicographically greatest cycle member, releases its locks and wakes eligible waiters.
+
+## Try it
+
+Acquire x for A and y for B, then request y for A and x for B. Disable detection to retain the wait cycle, then enable victim rollback. Also test two shared holders both upgrading to exclusive. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Explaining contention, lock ordering, upgrades and safe retry after deadlock victim rollback.
+
+## Interview pitfalls
+
+A wait is not automatically a deadlock. Re-requesting an already-held compatible lock does not create a new conflict. The reference implements compatibility and victim detection; the player adds transaction lifecycle and fair wakeups. Production engines have more lock classes, wait policies and victim cost heuristics.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

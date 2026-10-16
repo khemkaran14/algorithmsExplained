@@ -1,0 +1,6 @@
+import java.util.*;
+class Register {record Version(int counter,int node,int value){}record Message(int to,Version version){}final String mode;final Version[] nodes={new Version(0,0,0),new Version(0,0,0)};final List<Message>pending=new ArrayList<>();final Map<String,Version>sessions=new HashMap<>();Register(String mode){this.mode=mode;}int compare(Version a,Version b){return a.counter()!=b.counter()?Integer.compare(a.counter(),b.counter()):Integer.compare(a.node(),b.node());}
+boolean allowed(int node,String client,boolean partition){return !(mode.equals("strong")&&partition)&&!(mode.equals("session")&&sessions.containsKey(client)&&compare(nodes[node],sessions.get(client))<0);}
+boolean write(int node,String client,int value,boolean partition){if(!allowed(node,client,partition))return false;Version next=new Version(nodes[node].counter()+1,node,value);nodes[node]=next;sessions.put(client,next);if(mode.equals("strong"))nodes[1-node]=next;else pending.add(new Message(1-node,next));return true;}
+Integer read(int node,String client,boolean partition){if(!allowed(node,client,partition))return null;Version v=nodes[node];if(!sessions.containsKey(client)||compare(v,sessions.get(client))>0)sessions.put(client,v);return v.value();}
+void deliver(){for(Message m:pending)if(compare(m.version(),nodes[m.to()])>0)nodes[m.to()]=m.version();pending.clear();}}

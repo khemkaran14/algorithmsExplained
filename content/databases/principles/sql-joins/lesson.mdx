@@ -1,0 +1,37 @@
+# Sql Joins
+
+## Hook
+
+Joining two relations pairs matching rows; it does not automatically collapse duplicates.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Nested loops test Customer.id = Order.customerId. Equality with NULL never matches. INNER emits matching pairs; LEFT additionally retains unmatched customers; RIGHT retains unmatched orders; FULL retains both sides. Null-extended columns belong to the missing side. A matched key with two orders emits two rows.
+
+## Try it
+
+Switch between all four joins on the same dataset. With constraints disabled, duplicate both sides and count the multiplication of matched pairs. Compare NULL foreign keys with an orphan value. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Combining related relations while explicitly choosing which unmatched rows must survive.
+
+## Interview pitfalls
+
+A condition in ON changes matching; a condition in WHERE filters the joined output. COUNT(\*) counts null-extended rows while COUNT(rightColumn) ignores its NULLs. The reference uses nested loops, not an optimizer-selected physical plan.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

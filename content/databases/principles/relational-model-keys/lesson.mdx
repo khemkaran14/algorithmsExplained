@@ -1,0 +1,37 @@
+# Relational Model Keys
+
+## Hook
+
+A customer can place many orders; a nullable order relationship still cannot point at a customer who does not exist.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Distinguish rows, columns, domains, primary keys, candidate keys and foreign keys. The example enforces Customer.id and Order.id uniqueness and validates every non-null Order.customerId. NULL represents an optional relationship; it does not equal a missing customer.
+
+## Try it
+
+Add a duplicate ID and a non-null orphan, then compare enabled constraints with the explicit unsafe experiment. NULL foreign keys remain allowed. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+For transactional entities, stable identities and referential integrity across one-to-many relationships.
+
+## Interview pitfalls
+
+Database constraints are the concurrency-safe authority. A prior application SELECT cannot enforce uniqueness under a race. Candidate keys are minimal unique determinants; a surrogate primary key does not remove business uniqueness requirements.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

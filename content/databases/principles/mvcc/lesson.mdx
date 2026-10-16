@@ -1,0 +1,37 @@
+# Mvcc
+
+## Hook
+
+Updating a row need not erase the version another transaction is entitled to read.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Committed versions retain a value, commit version and writer. Snapshot reads select the newest version no later than their snapshot; read-committed reads use the current commit version. Private writes remain visible only to their own transaction until publication. The version chains make old and new values inspectable.
+
+## Try it
+
+Read x, commit a new x from the other transaction, then read x again under both policies. Explain why the retained old version is needed for one reader and why an aborted write never enters the committed chain. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Explaining read visibility, version retention and why long snapshots can delay cleanup.
+
+## Interview pitfalls
+
+MVCC is not lock-free and is not the same as serializability. Real engines track tuple visibility and transaction states, reclaim old versions with vacuum, and coordinate writes and crash recovery. This two-key model retains all versions and performs linear scans for clarity.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

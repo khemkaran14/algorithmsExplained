@@ -1,0 +1,37 @@
+# Connection Pooling
+
+## Hook
+
+Eight replicas with a pool of twenty do not consume only twenty database connections.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Each replica owns a bounded local pool, while every physical connection also counts toward the shared database limit. Requests reuse idle local connections or open new ones only when both caps permit. FIFO acquisition waiters have a separate timeout from query duration. Query completion releases a checked-out slot unless the application leaks it; idle sockets remain owned by their original replica.
+
+## Try it
+
+Leak all connections on one replica and submit work on another. Compare local pool size, shared database limit and replica count. Verify request conservation and distinguish completed-but-leaked queries from pending acquisition. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Sizing application pools against total replica count, database headroom and workload concurrency.
+
+## Interview pitfalls
+
+This is a resource model with no real sockets. Connection pooling, transaction pooling and session-state semantics differ by provider. Adding replicas can multiply connection pressure; a bigger wait queue does not add database capacity. Always release real clients in finally blocks.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

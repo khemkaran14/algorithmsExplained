@@ -274,4 +274,44 @@ export const visualizerLoaders: Record<
     import('../../content/system-design/case-studies/payment-system-design/visualizer'),
   'food-delivery-design': () =>
     import('../../content/system-design/case-studies/food-delivery-design/visualizer'),
+  'relational-model-keys': () =>
+    import('../../content/databases/principles/relational-model-keys/visualizer'),
+  'er-modelling': () =>
+    import('../../content/databases/principles/er-modelling/visualizer'),
+  'normalization-1nf-to-bcnf': () =>
+    import('../../content/databases/principles/normalization-1nf-to-bcnf/visualizer'),
+  'denormalization-trade-offs': () =>
+    import('../../content/databases/principles/denormalization-trade-offs/visualizer'),
+  'sql-query-execution-order': () =>
+    import('../../content/databases/principles/sql-query-execution-order/visualizer'),
+  'sql-joins': () =>
+    import('../../content/databases/principles/sql-joins/visualizer'),
+  'indexes-b-tree-lookups': () =>
+    import('../../content/databases/principles/indexes-b-tree-lookups/visualizer'),
+  'composite-covering-indexes': () =>
+    import('../../content/databases/principles/composite-covering-indexes/visualizer'),
+  'query-plans-explain': () =>
+    import('../../content/databases/principles/query-plans-explain/visualizer'),
+  acid: () => import('../../content/databases/principles/acid/visualizer'),
+  transactions: () =>
+    import('../../content/databases/principles/transactions/visualizer'),
+  'isolation-levels-anomalies': () =>
+    import('../../content/databases/principles/isolation-levels-anomalies/visualizer'),
+  'locking-deadlocks': () =>
+    import('../../content/databases/principles/locking-deadlocks/visualizer'),
+  mvcc: () => import('../../content/databases/principles/mvcc/visualizer'),
+  'write-ahead-log-recovery': () =>
+    import('../../content/databases/principles/write-ahead-log-recovery/visualizer'),
+  'sql-vs-nosql': () =>
+    import('../../content/databases/principles/sql-vs-nosql/visualizer'),
+  'nosql-data-models': () =>
+    import('../../content/databases/principles/nosql-data-models/visualizer'),
+  'lsm-trees-sstables': () =>
+    import('../../content/databases/principles/lsm-trees-sstables/visualizer'),
+  'replication-sharding': () =>
+    import('../../content/databases/principles/replication-sharding/visualizer'),
+  'connection-pooling': () =>
+    import('../../content/databases/principles/connection-pooling/visualizer'),
+  'database-caching': () =>
+    import('../../content/databases/principles/database-caching/visualizer'),
 };

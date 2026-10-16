@@ -1,0 +1,37 @@
+# Acid
+
+## Hook
+
+All-or-nothing updates are only one part of a correct durable transaction.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Atomicity publishes the complete buffered write set or none after rollback. Consistency means preserving defined constraints and business invariants; transactions do not invent those rules. Isolation determines which concurrent histories can occur. Durability requires a durable commit/recovery protocol, explored separately in the WAL recovery lesson; in-memory publication alone does not establish it.
+
+## Try it
+
+Compare atomic rollback of two writes with snapshot write skew violating the at-least-one-active invariant. Change isolation and explain why durability still requires the recovery layer. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Connecting transaction mechanisms to concrete invariants, concurrency behavior and storage guarantees.
+
+## Interview pitfalls
+
+Do not confuse the C in ACID with replica consistency terminology, or call an in-memory simulator durable. This lesson’s executable model covers atomic visibility and isolation; the linked WAL model executes durability/recovery decisions.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

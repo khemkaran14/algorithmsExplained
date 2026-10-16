@@ -43,3 +43,7 @@ Local lint, TypeScript, 286 tests and production build pass. Content checks vali
 ## System Design curriculum checkpoint (2026-10-16)
 
 147 authored lessons validate (112 DSA, 35 System Design); 54 Database/Cloud entries remain planned. All 152 authored main/variant reference sets pass syntax checks in JavaScript, Python, Java and C++; the 12 new case reference sets were checked separately after the prior full reference run. Local production build, formatting and lint pass. The 338-test suite passes, including independent PostgreSQL join/query comparisons and early database-model checks. All 30 desktop/mobile browser checks pass. These checks do not close final source synchronization, full-site production hardening, Lighthouse thresholds, deployment or real Google/Resend/Razorpay acceptance.
+
+## Database curriculum checkpoint (2026-10-16)
+
+All 21 Database lessons validate, bringing authored content to 168/201 with 33 planned Cloud entries. The 22 Database main/variant reference sets compile in four languages (174 total across authored content). Formatting, lint, TypeScript, 368 tests and the production build pass. Independent PostgreSQL tests confirm join/query semantics and the repeatable-read versus serializable write-skew contrast. Four new desktop/mobile Database browser checks pass, including normalization accessibility; the previous 30 browser scenarios passed at the preceding checkpoint. Full Cloud content, source synchronization, production hardening, Lighthouse thresholds and real external-provider acceptance remain open.

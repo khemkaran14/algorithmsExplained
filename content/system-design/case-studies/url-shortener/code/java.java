@@ -6,4 +6,3 @@ String alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 if(links.containsKey(code))throw new IllegalStateException("unique constraint");links.put(code,new Link(url,true));keys.put(key,new Request(url,code));return code;}
 String resolve(String code){Link l=links.get(code);return l!=null&&l.active()?l.url():null;}
 void revoke(String code){Link l=links.get(code);if(l!=null)links.put(code,new Link(l.url(),false));}}
-

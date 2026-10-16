@@ -1,4 +1,5 @@
 import 'server-only';
+import { btree } from '../../visualizers/trees';
 import { z } from 'zod';
 import { frame, counters } from '@/engine/helpers';
 import type { Visualizer, VisualState } from '@/engine/types';
@@ -326,3 +327,25 @@ export function databaseIndex(
     },
   };
 }
+
+/** Reuse the tested order-four page engine with B+ semantics as the database default. */
+export const bplusIndex: typeof import('../../visualizers/trees').btree = {
+  ...btree,
+  id: 'indexes-b-tree-lookups',
+  measureSize: (input) => input.keys.length,
+  controls: [
+    { key: 'plus', label: 'Data only in linked B+ leaves', type: 'boolean' },
+  ],
+  presets: {
+    ...btree.presets,
+    best: { ...btree.presets.best, plus: true },
+    average: { ...btree.presets.average, plus: true },
+  },
+  validateInput(raw) {
+    return btree.validateInput(
+      raw && typeof raw === 'object' && !Array.isArray(raw)
+        ? { plus: true, ...raw }
+        : raw,
+    );
+  },
+};

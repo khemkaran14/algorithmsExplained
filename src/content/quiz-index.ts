@@ -249,4 +249,44 @@ export const quizLoaders: Record<
     import('../../content/system-design/case-studies/payment-system-design/quiz'),
   'food-delivery-design': () =>
     import('../../content/system-design/case-studies/food-delivery-design/quiz'),
+  'relational-model-keys': () =>
+    import('../../content/databases/principles/relational-model-keys/quiz'),
+  'er-modelling': () =>
+    import('../../content/databases/principles/er-modelling/quiz'),
+  'normalization-1nf-to-bcnf': () =>
+    import('../../content/databases/principles/normalization-1nf-to-bcnf/quiz'),
+  'denormalization-trade-offs': () =>
+    import('../../content/databases/principles/denormalization-trade-offs/quiz'),
+  'sql-query-execution-order': () =>
+    import('../../content/databases/principles/sql-query-execution-order/quiz'),
+  'sql-joins': () =>
+    import('../../content/databases/principles/sql-joins/quiz'),
+  'indexes-b-tree-lookups': () =>
+    import('../../content/databases/principles/indexes-b-tree-lookups/quiz'),
+  'composite-covering-indexes': () =>
+    import('../../content/databases/principles/composite-covering-indexes/quiz'),
+  'query-plans-explain': () =>
+    import('../../content/databases/principles/query-plans-explain/quiz'),
+  acid: () => import('../../content/databases/principles/acid/quiz'),
+  transactions: () =>
+    import('../../content/databases/principles/transactions/quiz'),
+  'isolation-levels-anomalies': () =>
+    import('../../content/databases/principles/isolation-levels-anomalies/quiz'),
+  'locking-deadlocks': () =>
+    import('../../content/databases/principles/locking-deadlocks/quiz'),
+  mvcc: () => import('../../content/databases/principles/mvcc/quiz'),
+  'write-ahead-log-recovery': () =>
+    import('../../content/databases/principles/write-ahead-log-recovery/quiz'),
+  'sql-vs-nosql': () =>
+    import('../../content/databases/principles/sql-vs-nosql/quiz'),
+  'nosql-data-models': () =>
+    import('../../content/databases/principles/nosql-data-models/quiz'),
+  'lsm-trees-sstables': () =>
+    import('../../content/databases/principles/lsm-trees-sstables/quiz'),
+  'replication-sharding': () =>
+    import('../../content/databases/principles/replication-sharding/quiz'),
+  'connection-pooling': () =>
+    import('../../content/databases/principles/connection-pooling/quiz'),
+  'database-caching': () =>
+    import('../../content/databases/principles/database-caching/quiz'),
 };

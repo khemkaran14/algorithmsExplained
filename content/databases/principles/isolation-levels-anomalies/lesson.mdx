@@ -1,0 +1,37 @@
+# Isolation Levels Anomalies
+
+## Hook
+
+Two individually valid updates can violate a shared invariant when both transactions read an old snapshot.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Read committed selects the latest committed version for each read. Repeatable read takes its snapshot at the first data operation and rejects a concurrent conflicting write to the same key, but disjoint writes can still create write skew. Serializable adds an explicit serialization-graph cycle check in this bounded model. PostgreSQL READ UNCOMMITTED behaves as READ COMMITTED.
+
+## Try it
+
+Start with x=y=1 and the rule that at least one must stay 1. Both transactions read both keys, then one clears x and the other clears y. Compare repeatable read with serializable and inspect the aborted transaction. Also compare two reads around another transaction’s commit. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Choosing isolation from the application invariants and retry strategy, rather than a vague stronger-is-better rule.
+
+## Interview pitfalls
+
+The graph check is not PostgreSQL SSI internals and omits predicate/phantom reads. Snapshot acquisition happens on first data access, not BEGIN. Independent PostgreSQL tests reproduce non-dirty reads, join semantics and the cross-row write-skew contrast.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

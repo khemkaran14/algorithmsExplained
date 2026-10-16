@@ -1,0 +1,37 @@
+# Write Ahead Log Recovery
+
+## Hook
+
+A data page that survives without its log can make rollback impossible.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Updates append before-images and after-images to WAL and modify a volatile buffer page. Steal permits an uncommitted page to flush; write-ahead ordering first forces its log record. No-force permits commit without flushing data pages, but synchronous commit forces the commit record. A crash discards volatile data and the unforced log suffix. Recovery redoes durable updates using page LSNs, then undoes loser transactions in reverse order.
+
+## Try it
+
+Commit one transaction without flushing its page, steal another transaction’s dirty page, then crash. Compare redo and undo results. Disable WAL-before-page to expose an unlogged disk update; disable synchronous commit to show an acknowledged commit that can be lost. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Explaining atomicity/durability and the difference between a client acknowledgment, a durable log and a flushed data page.
+
+## Interview pitfalls
+
+This is a bounded single-recovery exercise, not full ARIES. Checkpoints, transaction analysis, compensation log records, WAL integrity and crashes during recovery are omitted. Conflicting open writes are blocked. Never promise safe undo when the required log before-image was lost.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

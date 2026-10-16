@@ -1,0 +1,37 @@
+# Er Modelling
+
+## Hook
+
+The line between Customer and Order is a rule about valid data, not decoration.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Customer and Order are entities. Each customer may own zero or many orders; each order references zero or one customer because the foreign key is nullable. Enforce distinct order IDs, customer identity and existing non-null references. A mandatory relationship would additionally need NOT NULL. Many-to-many relations need an association entity and a unique pair or its own key.
+
+## Try it
+
+Try an order without a customer, an orphan customerId and duplicate entities. Explain which changes require a new relationship constraint. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Before choosing table keys, relationship constraints and ownership boundaries.
+
+## Interview pitfalls
+
+Cardinality and optionality are separate choices. An ER diagram does not enforce a database constraint or prove that a business identifier is unique. The model implements one optional one-to-many relationship, not a general ER editor.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

@@ -1,0 +1,37 @@
+# Transactions
+
+## Hook
+
+A transaction must publish its changes together or publish none of them.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+BEGIN creates a transaction identity, reads observe visible committed versions plus the transaction’s own writes, and writes accumulate privately. COMMIT publishes the complete write set atomically after conflict checks. ROLLBACK discards the private set. The model ends transaction IDs rather than silently reusing them.
+
+## Try it
+
+Write both x and y, read an own write, then roll back and inspect another transaction’s view. Compare a successful commit with a snapshot write-conflict abort. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Grouping related data changes into a clear commit/rollback boundary.
+
+## Interview pitfalls
+
+This model uses deferred absolute writes, not a full SQL executor or SQL UPDATE arithmetic. Production transactions also need physical locks, persistence and recovery. A business invariant across rows is not enforced merely by placing operations between BEGIN and COMMIT.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

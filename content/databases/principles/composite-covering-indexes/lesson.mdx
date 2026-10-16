@@ -1,0 +1,37 @@
+# Composite Covering Indexes
+
+## Hook
+
+An index on tenant then time is not the same as an index on time then tenant.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Sort composite tuples lexicographically. Equality conditions on consecutive leftmost columns define a seek range found with lower and upper bounds. A filter only on a later column requires scanning in this baseline. Index coverage requires every projected and filtered column to be stored in the index, independently of seek selectivity.
+
+## Try it
+
+Filter tenant using index (tenant,created), then filter only created. Compare a covered projection with one requesting amount and inspect candidate rows and heap fetches. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Choosing composite order from actual predicates, selectivity and projection requirements.
+
+## Interview pitfalls
+
+The model omits index skip scans, included columns, visibility maps and real buffer I/O. A covered SQL query may still need heap visibility checks in a real MVCC engine. The player builds a teaching index once per scenario, not a production index per query.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

@@ -59,3 +59,10 @@
 - Added independent correctness tests for retries, ranking, routing, replica freshness, balanced payment events and saga resource ownership.
 - Fixed variant-only player requests, code-comment contrast and mobile playback controls covering configuration inputs.
 - Local validation: production build, 338 unit/integration/model checks, all 30 desktop/mobile browser checks and four-language reference compilation pass. Production hardening, final source synchronization and external-provider acceptance remain open.
+
+## 2026-10-16 — Database curriculum checkpoint
+
+- Authored all 21 Database lessons: relational integrity, normalization, SQL semantics, real B+ page operations, composite access/cost plans, transactions/isolation/MVCC, locks, bounded WAL recovery, data layouts, LSM, replication/sharding, pooling and caching.
+- Added deterministic correctness tests and independent PostgreSQL join/query and two-session write-skew checks.
+- Local content validation passes for 168 lessons; only 33 Cloud entries remain planned. All 174 main/variant reference sets compile; 368 tests and production build pass. The four new desktop/mobile Database browser checks pass alongside the previously validated 30 browser scenarios.
+- Production hardening, final source synchronization, complete Cloud curriculum and external-provider acceptance remain open.

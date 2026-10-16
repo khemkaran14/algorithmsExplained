@@ -1,0 +1,37 @@
+# Database Caching
+
+## Hook
+
+A cached result saves database work only while its freshness and invalidation rules remain acceptable.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Cache-aside reads the cache and fills misses from the durable store. Write-through abstracts an ordered update of both stores; write-back makes the cache dirty and flushes later. TTL, invalidation loss, LRU eviction and cache crashes expose the difference between a copy and durable truth.
+
+## Try it
+
+Lose invalidation, read a stale value and wait for TTL. Compare write-back crash loss with write-through. Fill the cache until a dirty eviction requires a flush. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Read-heavy workloads with measured repeated queries and an acceptable freshness contract.
+
+## Interview pitfalls
+
+The write-through model serializes two-store effects for teaching; a real cache and database do not share a magic atomic commit. Keys must include the query parameters and authorization scope. Stampedes, negative caching, transaction boundaries and invalidation ordering need explicit production policies.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

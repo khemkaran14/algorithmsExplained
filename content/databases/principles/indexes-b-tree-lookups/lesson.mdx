@@ -1,0 +1,37 @@
+# Indexes B Tree Lookups
+
+## Hook
+
+An index lookup follows a few wide pages instead of scanning every row.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Insert integer keys into an order-four page tree. When a page overflows, split it and promote a separator; a root split adds a level. In B+ mode all data keys remain in linked leaves and internal keys are routing copies. Search chooses one child per internal page, routing separator equality to the right leaf. The model deduplicates integer keys; a real non-unique index additionally stores tuple identities.
+
+## Try it
+
+Search for an existing separator and a missing key, then insert increasing keys to trigger root and leaf splits. Switch B+ mode off to compare data placement in a B tree. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Equality and range access where ordered persistent index pages reduce the search space.
+
+## Interview pitfalls
+
+The teaching order is four, not a production page size. Real indexes need concurrent latching, persistence, vacuum/MVCC visibility, duplicate handling and page maintenance. This is the actual split/search engine, not the separate illustrative cost planner.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

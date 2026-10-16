@@ -1,0 +1,37 @@
+# Denormalization Trade Offs
+
+## Hook
+
+A faster read can create many places where a customer update must stay consistent.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+The normalized read follows Order.customerId to the authoritative current customer address. The denormalized read uses a duplicate address stored in each order. An update then requires fan-out writes. Compare synchronous atomic fan-out, unsafe split writes, and a durable asynchronous propagation queue. A failed split update can leave mixed versions; an atomic failure rolls back the profile and every copy.
+
+## Try it
+
+Fail after one copied row, read two orders, and repair the stale copies. Compare normalized reads and asynchronous propagation with workers unavailable. Repair drains obsolete tasks before rebuilding current copies. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Read-heavy materialized views where storage and maintenance work are justified by measured query needs.
+
+## Interview pitfalls
+
+This address is explicitly current-profile cache data. A historical shipping-address snapshot is an immutable order fact and must not be rewritten when a customer moves. Atomic preflight is a deterministic teaching assumption; production fan-out needs real transactions or an outbox with ordering and reconciliation.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

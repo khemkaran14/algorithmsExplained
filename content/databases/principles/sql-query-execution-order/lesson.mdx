@@ -1,0 +1,37 @@
+# Sql Query Execution Order
+
+## Hook
+
+Writing SELECT first does not mean aggregates are available to WHERE.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+The model evaluates FROM/JOIN/ON, then WHERE on individual rows, GROUP BY customer identity and name, HAVING on group totals, projection, ORDER BY total descending with deterministic ties, then LIMIT. A right-side minimum-amount WHERE removes NULL-extended LEFT rows before grouping. The example SUM ignores no additional NULLs because WHERE already removes them.
+
+## Try it
+
+Change minimum amount, group total threshold and limit separately. Explain the difference between filtering order rows before SUM and filtering customer totals afterward. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Reasoning about aggregates, unexpected outer-join filtering and pagination order.
+
+## Interview pitfalls
+
+Logical order specifies results; physical operators can be reordered when semantics remain equivalent. SELECT aliases, NULL ordering and collation vary by dialect. The model uses an explicit query with integer sums and a deterministic tie policy.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

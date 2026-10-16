@@ -1,0 +1,37 @@
+# Query Plans Explain
+
+## Hook
+
+The planner chooses using estimates; execution reveals what the estimates missed.
+
+## Watch
+
+Inspect the relation or dependency state, then follow each validated decision. Use presets first; custom JSON preserves the displayed schema and bounds.
+
+## How it works
+
+Compare a sequential page scan with an index range plus possible heap fetches. The model uses four entries per page, an abstract seek cost and a random-heap-fetch cost of two work units. Auto chooses the cheaper estimated access plan. Execute the chosen plan against actual rows and compare estimated candidate selectivity with the observed work.
+
+## Try it
+
+Change estimated selectivity while keeping data fixed. Force sequential and index plans and compare outputs as bags; costs may differ while the query results remain equivalent. Predict the next constraint, match or dependency decision before advancing.
+
+## Complexity
+
+The player names its measured operation and reports the core model cost. Separate fixture construction and index maintenance from the operation being measured; the displayed assumptions name each bound. These are teaching algorithms, not real database latency benchmarks.
+
+## Code
+
+Four language references implement the core mechanism over validated example data. The reference containers illustrate the declared model scope; real persistence, distributed coordination, recovery and provider limits require their own implementation. The interactive prose identifies baseline references or additional player experiments explicitly.
+
+## When to use
+
+Explaining estimated versus actual cardinality and why an index is not always the cheapest path.
+
+## Interview pitfalls
+
+This is an explicit cost-estimation exercise, not parsed PostgreSQL EXPLAIN output. Actual EXPLAIN plans need real statistics, operator details and buffers; EXPLAIN ANALYZE executes a statement. Never apply it carelessly to a mutating production query.
+
+## Quiz
+
+Explain a valid result, name the governing invariant and distinguish logical semantics from a physical implementation.

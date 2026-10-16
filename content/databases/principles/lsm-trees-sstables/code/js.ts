@@ -1,0 +1,8 @@
+function hash32(text){let h=2166136261;for(const ch of text)h=Math.imul(h^ch.charCodeAt(0),16777619)>>>0;h=Math.imul(h^(h>>>16),0x85ebca6b);h=Math.imul(h^(h>>>13),0xc2b2ae35);return (h^(h>>>16))>>>0;}
+class LSM {constructor(limit=3){this.limit=limit;this.sequence=0;this.mem=new Map();this.runs=[];}bits(key){return [hash32('a:'+key)%64,hash32('b:'+key)%64];}
+make(entries){const sorted=[...entries].sort((a,b)=>a.key-b.key),bits=new Set();for(const e of sorted)for(const bit of this.bits(e.key))bits.add(bit);return {entries:sorted,bits};}
+put(key,value){this.mem.set(key,{key,value,sequence:++this.sequence});if(this.mem.size>=this.limit)this.flush();}delete(key){this.put(key,null);}flush(){if(this.mem.size){this.runs.unshift(this.make(this.mem.values()));this.mem.clear();}}
+compact(full=false){if(this.runs.length<2)return;const start=full?0:this.runs.length-2,selected=this.runs.splice(start),merged=new Map();for(const run of selected)for(const e of run.entries)if(!merged.has(e.key)||merged.get(e.key).sequence<e.sequence)merged.set(e.key,e);const entries=[...merged.values()].filter(e=>!full||e.value!==null);if(entries.length)this.runs.splice(start,0,this.make(entries));}
+get(key,bloom=true){if(this.mem.has(key))return this.mem.get(key).value;for(const run of this.runs){if(bloom&&!this.bits(key).every(bit=>run.bits.has(bit)))continue;let lo=0,hi=run.entries.length;while(lo<hi){const mid=(lo+hi)>>>1;if(run.entries[mid].key<key)lo=mid+1;else hi=mid;}if(run.entries[lo]?.key===key)return run.entries[lo].value;}return null;}}
+// Deletes are tombstones. Partial compaction retains them; full run coverage can purge them.
+// Immutable run simulation only: persistence and WAL are separate concerns.
