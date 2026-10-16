@@ -59,7 +59,7 @@ const implementation: Visualizer = {
         [{ id: String(a.length - 1), kind: 'comparing' }],
         {
           prompt: 'Which value will pop next?',
-          choices: [...new Set(a.map(String))],
+          choices: [...new Set([...a.map(String), 'Empty'])],
           answer: expected,
           hint: 'Look at the top of the stack.',
         },

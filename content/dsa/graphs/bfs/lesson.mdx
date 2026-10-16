@@ -1,40 +1,39 @@
-# Breadth-first search
+# Bfs
 
 ## Hook
 
-Ripples on a pond reach nearby points before distant ones.
+A ripple reaches every nearby vertex before the next layer.
 
 ## Watch
 
-Use the player above to run, pause, scrub, or step backwards through a deterministic trace.
+Explore complete distance layers. Edit the graph JSON to add a cycle, isolate a vertex or change an edge weight. Nodes are numbered from zero.
 
 ## How it works
 
-1. Enqueue the start node and mark it discovered.
-2. Remove the oldest queued node.
-3. Enqueue its undiscovered neighbors.
-4. Continue until the queue is empty.
+1. Mark the starting vertex on enqueue.
+2. Remove the oldest frontier vertex.
+3. Enqueue each still-unseen outgoing neighbor.
 
 ## Try it
 
-Switch to Try mode and predict each operation before revealing its result.
+Predict the next frontier decision or edge operation before revealing it. Compare a connected graph with the same graph after removing an important edge.
 
 ## Complexity
 
-Each reachable vertex and adjacency edge is processed once. Use best, average and worst presets to compare measured counters. The chart plots actual reads and comparisons for n = 8, 16, 32 and 64.
+O(V+E) time and O(V) traversal workspace. Every reached vertex enters the FIFO frontier exactly once, and its outgoing adjacency list is scanned once. Discovery layers give shortest hop distances. The counters count teaching operations; animation duration is not a CPU benchmark.
 
 ## Code
 
-Choose JavaScript, Python, Java or C++ in the synchronized code panel.
+The four references show the core operation. Adjacency-list inputs use zero-based vertex indices. Weighted references use (neighbor,weight) pairs or explicit edge triples. Validate the graph assumptions before calling standalone code.
 
 ## When to use
 
-Shortest paths in unweighted graphs and level-order traversal.
+Use for unweighted shortest hops and level exploration.
 
 ## Interview pitfalls
 
-Mark discovered nodes when enqueuing, not when dequeuing, to avoid duplicates.
+Edge weights are ignored for hop distances; use Dijkstra or Bellman–Ford for weighted routes.
 
 ## Quiz
 
-Complete the three questions below, then use the module navigation to choose your next lesson.
+Check the graph assumptions, invariant and boundary conditions below.

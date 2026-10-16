@@ -1,0 +1,40 @@
+# Huffman Coding
+
+## Hook
+
+Frequently used destinations should need fewer turns from the root.
+
+## Watch
+
+Give common symbols shorter paths. Use a repeated-character input and compare the resulting counters with a less repetitive example.
+
+## How it works
+
+1. Count each symbol frequency.
+2. Extract the two minimum-frequency subtrees.
+3. Merge them under a summed-frequency parent.
+4. Read left/right paths as prefix-free bit strings.
+
+## Try it
+
+Predict a character comparison, run extension, palindrome expansion or merge frequency. Step back and explain which stored state avoided repeated work.
+
+## Complexity
+
+O(n+σ log σ) time and O(σ) tree/codebook space. The player explains the relevant invariant and counts actual comparisons, reads and writes. Output storage is reported separately when it grows with the result.
+
+## Code
+
+The four references assume the lesson’s printable ASCII input contract. The foundation Strings lesson separately explains Unicode code points and UTF-16 units. Pattern inputs must be nonempty; text may be empty for matching. Huffman and palindrome inputs must be nonempty.
+
+## When to use
+
+Use for understanding optimal symbol prefix codes and entropy-based compression.
+
+## Interview pitfalls
+
+Payload bit savings exclude codebook overhead. A single-symbol alphabet uses code zero in this model.
+
+## Quiz
+
+Check the invariant, cost model and an edge condition below.

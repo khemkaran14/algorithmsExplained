@@ -1,0 +1,39 @@
+# Longest Increasing Subsequence
+
+## Hook
+
+A smaller ending number leaves more room for future numbers to extend a sequence.
+
+## Watch
+
+Keep the smallest tail for each length. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Binary-search the first tail at least as large as the incoming value.
+2. Replace that tail or extend the list.
+3. Remember predecessor indices for reconstruction.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(n log n) time and O(n) space. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use for a strictly increasing subsequence without requiring contiguity.
+
+## Interview pitfalls
+
+The tails array alone need not be a subsequence of the original input; predecessor links recover a valid one.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

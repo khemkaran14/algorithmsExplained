@@ -1,0 +1,39 @@
+# Naive String Matching
+
+## Hook
+
+Slide a short stencil across a longer message until every character underneath agrees.
+
+## Watch
+
+Try every alignment. Stop at the first mismatch. Use a repeated-character input and compare the resulting counters with a less repetitive example.
+
+## How it works
+
+1. Choose the next possible start index.
+2. Compare pattern characters left to right.
+3. Record a full match and advance by one to allow overlaps.
+
+## Try it
+
+Predict a character comparison, run extension, palindrome expansion or merge frequency. Step back and explain which stored state avoided repeated work.
+
+## Complexity
+
+O(nm) worst time and O(1) auxiliary space. The player explains the relevant invariant and counts actual comparisons, reads and writes. Output storage is reported separately when it grows with the result.
+
+## Code
+
+The four references assume the lesson’s printable ASCII input contract. The foundation Strings lesson separately explains Unicode code points and UTF-16 units. Pattern inputs must be nonempty; text may be empty for matching. Huffman and palindrome inputs must be nonempty.
+
+## When to use
+
+Use for short inputs, one-off searches and as a correctness baseline.
+
+## Interview pitfalls
+
+Do not skip overlapping occurrences or read beyond the final valid alignment.
+
+## Quiz
+
+Check the invariant, cost model and an edge condition below.

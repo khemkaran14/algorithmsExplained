@@ -1,0 +1,39 @@
+# Matrix Chain Multiplication
+
+## Hook
+
+Parentheses change multiplication work even though the matrices stay in the same order.
+
+## Watch
+
+Choose the last split of an interval. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Set single-matrix cost to zero.
+2. Process increasing interval lengths.
+3. Try every final split and add both subchain costs plus the shape multiplication cost.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(n³) time and O(n²) space. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use for optimal fixed-order matrix parenthesization and interval-DP practice.
+
+## Interview pitfalls
+
+Matrix order cannot change, and the dimension vector has one more entry than the matrix count.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

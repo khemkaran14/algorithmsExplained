@@ -63,3 +63,32 @@ test('comparison shares input, scrubs both traces and refuses paid selection', a
     }),
   ).toHaveText('Unlock all selected algorithms before comparing them.');
 });
+
+test('visual graph builder loads BFS input and the free cheat sheet filters algorithms', async ({
+  page,
+}) => {
+  await page.goto('/playground');
+  await page.getByText('Build a graph visually', { exact: true }).click();
+  await page.getByLabel('Graph vertex count').fill('4');
+  await page
+    .getByRole('button', { name: 'Use graph in BFS', exact: true })
+    .click();
+  await expect(page.getByLabel('Shared JSON input')).toHaveValue(/"n":4/);
+  await page
+    .getByRole('button', { name: 'Run algorithms', exact: true })
+    .click();
+  await expect(page.getByLabel('Interactive lesson player')).toBeVisible();
+  await page
+    .getByLabel('Animation timeline')
+    .fill((await page.getByLabel('Animation timeline').getAttribute('max'))!);
+  await expect(page.getByLabel('Algorithm result data')).toContainText(
+    'distance',
+  );
+  await page.goto('/cheatsheet');
+  await page.getByLabel('Search algorithms').fill('bubble');
+  await expect(
+    page.getByRole('link', { name: 'Bubble sort', exact: true }),
+  ).toBeVisible();
+  await expect(page.getByRole('status')).toHaveText('1 algorithms');
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});

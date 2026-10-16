@@ -38,3 +38,10 @@
 - Added deterministic correctness and invariant coverage: 190 unit/integration tests pass. Production build passes. Four-language syntax checking passes for all 69 implemented lessons. Desktop/mobile browser checks pass (22 tests), including playground progress isolation, protected comparison and keyboard-accessible search.
 - Added the free-input playground, synchronized two/three-sort comparison, and Ctrl/Command-K curriculum search. Graph generators have correctness coverage and are awaiting lesson authoring before registration.
 - Full Phase 5/6 acceptance remains pending: 132 catalog entries are still planned. External Google/Resend/Razorpay acceptance checks require operator test credentials.
+
+## 2026-10-16 — Complete DSA authoring checkpoint
+
+- All 112 DSA catalog entries now have generators, nine-section explanations, quizzes and JavaScript/Python/Java/C++ references. Added general graph BFS, weighted paths, forests, SCC/max-flow variants, Hoare Quick Sort, string matching/compression, dynamic programming, greedy/backtracking and security demonstrations.
+- Added a visual graph input builder, free searchable complexity cheat sheet, result inspection, bounded sample sizing and stronger content checks for MDX, variants, deterministic input preservation, counters and challenges.
+- Local validation: 247 unit/integration/content-serving tests, 24 desktop/mobile browser checks, strict 112-lesson DSA validation and production build pass. All 116 reference sets (including variants) pass four-language syntax checks.
+- System Design/Databases/Cloud still account for 89 planned entries. Final source-line synchronization audit, broader production hardening and external provider acceptance remain before release.

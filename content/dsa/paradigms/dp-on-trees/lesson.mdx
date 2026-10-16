@@ -1,0 +1,40 @@
+# Dp On Trees
+
+## Hook
+
+Choose valuable tree locations while keeping every adjacent pair from being chosen together.
+
+## Watch
+
+Keep both choices at every subtree root. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Compute children before their parent.
+2. Included parent uses only excluded-child values.
+3. Excluded parent independently chooses each child’s better state.
+4. Recover a compatible selected set.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(n) time and O(n) state. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use for maximum-weight independent sets on a tree and other parent/child state recurrences.
+
+## Interview pitfalls
+
+A recurrence that ignores whether the parent is selected can combine incompatible choices.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

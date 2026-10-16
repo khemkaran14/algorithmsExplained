@@ -1,34 +1,39 @@
 const quiz = [
   {
-    id: 'complexity',
-    question: 'What is the typical complexity of breadth-first search?',
-    choices: ['O(V + E)', 'O(n\u00b3)', 'O(2\u207f)'],
-    answer: 0,
-    explanation: 'Each reachable vertex and adjacency edge is processed once.',
-  },
-  {
     id: 'invariant',
-    question: 'Which rule makes this lesson work?',
+    question: 'Which step belongs to this graph algorithm?',
     choices: [
-      'Enqueue the start node and mark it discovered.',
-      'Always reverse the entire input.',
-      'Ignore the input order and all boundaries.',
+      'Mark the starting vertex on enqueue.',
+      'Treat every directed graph as undirected.',
+      'Use animation duration as a CPU benchmark.',
     ],
     answer: 0,
-    explanation: 'Enqueue the start node and mark it discovered.',
+    explanation:
+      'Every reached vertex enters the FIFO frontier exactly once, and its outgoing adjacency list is scanned once. Discovery layers give shortest hop distances.',
   },
   {
-    id: 'pitfall',
-    question: 'Which warning should you remember?',
+    id: 'cost',
+    question: 'Which cost model applies here?',
     choices: [
-      'Every algorithm is constant time.',
-      'Mark discovered nodes when enqueuing, not when dequeuing, to avoid duplicates.',
-      'More memory always makes an algorithm linear.',
+      'Every possible graph operation is always O(1).',
+      'O(V+E) time and O(V) traversal workspace',
+      'The number of vertices is always equal to the number of edges.',
     ],
     answer: 1,
     explanation:
-      'Mark discovered nodes when enqueuing, not when dequeuing, to avoid duplicates.',
+      'Every reached vertex enters the FIFO frontier exactly once, and its outgoing adjacency list is scanned once. Discovery layers give shortest hop distances.',
+  },
+  {
+    id: 'pitfall',
+    question: 'Which graph assumption or limitation matters?',
+    choices: [
+      'Edge weights are ignored for hop distances; use Dijkstra or Bellman\u2013Ford for weighted routes.',
+      'DFS always computes weighted shortest paths.',
+      'Unreachable vertices must have distance zero.',
+    ],
+    answer: 0,
+    explanation:
+      'Edge weights are ignored for hop distances; use Dijkstra or Bellman\u2013Ford for weighted routes.',
   },
 ];
-
 export default quiz;

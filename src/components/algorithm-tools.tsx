@@ -1,4 +1,5 @@
 'use client';
+import { GraphInputBuilder } from './graph-input-builder';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { LessonMeta } from '@/content/types';
@@ -51,6 +52,35 @@ export function AlgorithmTools({
     );
     return () => clearInterval(timer);
   }, [playing, length, speed]);
+  async function example() {
+    request.current?.abort();
+    const controller = new AbortController();
+    request.current = controller;
+    setBusy(true);
+    setError('');
+    try {
+      const response = await fetch(
+        `/api/lessons/${encodeURIComponent(selected[0])}/frames`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ variant: 'default' }),
+          signal: controller.signal,
+        },
+      );
+      const data = await response.json();
+      if (!response.ok)
+        throw Error(data.error ?? 'Unable to load the example.');
+      if (!controller.signal.aborted) setRaw(JSON.stringify(data.input));
+    } catch (e) {
+      if (!controller.signal.aborted)
+        setError(
+          e instanceof Error ? e.message : 'Unable to load the example.',
+        );
+    } finally {
+      if (!controller.signal.aborted) setBusy(false);
+    }
+  }
   async function run() {
     request.current?.abort();
     const controller = new AbortController();
@@ -81,6 +111,15 @@ export function AlgorithmTools({
   }
   return (
     <div className="space-y-6">
+      {mode === 'playground' && (
+        <GraphInputBuilder
+          onApply={(value) => {
+            setSelected(['bfs']);
+            setRaw(JSON.stringify(value));
+            setError('');
+          }}
+        />
+      )}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -139,6 +178,16 @@ export function AlgorithmTools({
             ? 'Every sort receives an independent copy of the same integer array. Steps represent teaching events, not elapsed CPU time.'
             : 'Use the input format documented in the selected lesson. Arrays use [4,1,6,2,5,3]. Structured inputs use JSON objects.'}
         </p>
+        {mode === 'playground' && (
+          <Button
+            type="button"
+            variant="outline"
+            disabled={busy || selected.length !== 1}
+            onClick={() => void example()}
+          >
+            Load example input
+          </Button>
+        )}
         <Button disabled={busy}>
           {busy ? 'Preparing…' : 'Run algorithms'}
         </Button>

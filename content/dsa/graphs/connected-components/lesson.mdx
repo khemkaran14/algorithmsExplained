@@ -1,0 +1,39 @@
+# Connected Components
+
+## Hook
+
+Separate island groups receive different labels.
+
+## Watch
+
+Restart exploration at every unseen island. Edit the graph JSON to add a cycle, isolate a vertex or change an edge weight. Nodes are numbered from zero.
+
+## How it works
+
+1. Start a traversal at an unlabelled vertex.
+2. Give each reached vertex the current component ID.
+3. Repeat for every remaining vertex.
+
+## Try it
+
+Predict the next frontier decision or edge operation before revealing it. Compare a connected graph with the same graph after removing an important edge.
+
+## Complexity
+
+O(V+E). A traversal labels one undirected reachability region. Restarting at unseen seeds adds no repeated vertex scans, so all components together remain linear. The counters count teaching operations; animation duration is not a CPU benchmark.
+
+## Code
+
+The four references show the core operation. Adjacency-list inputs use zero-based vertex indices. Weighted references use (neighbor,weight) pairs or explicit edge triples. Validate the graph assumptions before calling standalone code.
+
+## When to use
+
+Use for undirected connectivity and partition counting.
+
+## Interview pitfalls
+
+Directed strong connectivity is a different problem.
+
+## Quiz
+
+Check the graph assumptions, invariant and boundary conditions below.

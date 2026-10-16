@@ -1,0 +1,39 @@
+# Dp On Grids
+
+## Hook
+
+Count routes through a tiled floor or find a cheapest route while avoiding blocked tiles.
+
+## Watch
+
+A cell depends on its valid predecessors. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Process cells in row-major order.
+2. Treat null cells as blocked.
+3. Combine top and left states by sum for path counts or minimum plus landing cost for cheapest paths.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(RC) time and O(RC) displayed space. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use for right/down paths on an acyclic grid.
+
+## Interview pitfalls
+
+Blocked endpoints are unreachable. Negative costs are allowed because right/down movement creates no cycles.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

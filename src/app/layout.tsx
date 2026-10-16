@@ -55,6 +55,9 @@ export default async function RootLayout({
                 <Link href="/compare" className="hidden md:block">
                   Compare
                 </Link>
+                <Link href="/cheatsheet" className="hidden lg:block">
+                  Cheat sheet
+                </Link>
                 <LessonSearch />
                 <Link href="/sign-in">{t('nav.signIn')}</Link>
                 <ThemeToggle />

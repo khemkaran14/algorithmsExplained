@@ -1,0 +1,39 @@
+# Longest Common Subsequence
+
+## Hook
+
+Find a shared ordered thread through two messages even when some characters are skipped.
+
+## Watch
+
+Keep order, allow gaps. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Compare the last characters of two prefixes.
+2. Extend the diagonal when they match.
+3. Otherwise keep the better prefix with one final character removed.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(mn) time and O(mn) reconstruction space. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use for ordered sequence similarity and as a building block for diff-style reasoning.
+
+## Interview pitfalls
+
+A subsequence can skip characters; a substring must be contiguous.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

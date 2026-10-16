@@ -1,0 +1,39 @@
+# Greedy Algorithms
+
+## Hook
+
+Finish an activity early to preserve future room; pack divisible items by value density.
+
+## Watch
+
+Choose locally only when an exchange proof permits it. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. For interval scheduling, sort by finish time.
+2. Take each compatible activity.
+3. For fractional knapsack, sort by value/weight and split the final item if needed.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(n log n) time and O(n) teaching copy. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use when a valid exchange argument makes local optimal decisions globally safe.
+
+## Interview pitfalls
+
+Fractional density greediness does not solve 0/1 knapsack. Weighted interval scheduling is also a different problem.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

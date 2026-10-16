@@ -107,7 +107,72 @@ export const visualizerLoaders: Record<
     import('../../content/dsa/searching/exponential-search/visualizer'),
   'interpolation-search': () =>
     import('../../content/dsa/searching/interpolation-search/visualizer'),
+  'graph-representations': () =>
+    import('../../content/dsa/graphs/graph-representations/visualizer'),
   bfs: () => import('../../content/dsa/graphs/bfs/visualizer'),
+  dfs: () => import('../../content/dsa/graphs/dfs/visualizer'),
+  'topological-sort': () =>
+    import('../../content/dsa/graphs/topological-sort/visualizer'),
+  'cycle-detection': () =>
+    import('../../content/dsa/graphs/cycle-detection/visualizer'),
+  'connected-components': () =>
+    import('../../content/dsa/graphs/connected-components/visualizer'),
+  'union-find': () => import('../../content/dsa/graphs/union-find/visualizer'),
+  dijkstra: () => import('../../content/dsa/graphs/dijkstra/visualizer'),
+  'bellman-ford': () =>
+    import('../../content/dsa/graphs/bellman-ford/visualizer'),
+  'floyd-warshall': () =>
+    import('../../content/dsa/graphs/floyd-warshall/visualizer'),
+  'a-star-search': () =>
+    import('../../content/dsa/graphs/a-star-search/visualizer'),
+  'prim-mst': () => import('../../content/dsa/graphs/prim-mst/visualizer'),
+  'kruskal-mst': () =>
+    import('../../content/dsa/graphs/kruskal-mst/visualizer'),
+  'strongly-connected-components': () =>
+    import('../../content/dsa/graphs/strongly-connected-components/visualizer'),
+  'bipartite-check': () =>
+    import('../../content/dsa/graphs/bipartite-check/visualizer'),
+  'bridges-articulation-points': () =>
+    import('../../content/dsa/graphs/bridges-articulation-points/visualizer'),
+  'max-flow': () => import('../../content/dsa/graphs/max-flow/visualizer'),
+  'greedy-algorithms': () =>
+    import('../../content/dsa/paradigms/greedy-algorithms/visualizer'),
+  'divide-conquer': () =>
+    import('../../content/dsa/paradigms/divide-conquer/visualizer'),
+  backtracking: () =>
+    import('../../content/dsa/paradigms/backtracking/visualizer'),
+  'dynamic-programming-intro': () =>
+    import('../../content/dsa/paradigms/dynamic-programming-intro/visualizer'),
+  'fibonacci-dp': () =>
+    import('../../content/dsa/paradigms/fibonacci-dp/visualizer'),
+  '0-1-knapsack': () =>
+    import('../../content/dsa/paradigms/0-1-knapsack/visualizer'),
+  'longest-common-subsequence': () =>
+    import('../../content/dsa/paradigms/longest-common-subsequence/visualizer'),
+  'longest-increasing-subsequence': () =>
+    import('../../content/dsa/paradigms/longest-increasing-subsequence/visualizer'),
+  'edit-distance': () =>
+    import('../../content/dsa/paradigms/edit-distance/visualizer'),
+  'coin-change': () =>
+    import('../../content/dsa/paradigms/coin-change/visualizer'),
+  'matrix-chain-multiplication': () =>
+    import('../../content/dsa/paradigms/matrix-chain-multiplication/visualizer'),
+  'dp-on-grids': () =>
+    import('../../content/dsa/paradigms/dp-on-grids/visualizer'),
+  'dp-on-trees': () =>
+    import('../../content/dsa/paradigms/dp-on-trees/visualizer'),
+  'naive-string-matching': () =>
+    import('../../content/dsa/strings/naive-string-matching/visualizer'),
+  kmp: () => import('../../content/dsa/strings/kmp/visualizer'),
+  'rabin-karp': () => import('../../content/dsa/strings/rabin-karp/visualizer'),
+  'z-algorithm': () =>
+    import('../../content/dsa/strings/z-algorithm/visualizer'),
+  'manacher-overview': () =>
+    import('../../content/dsa/strings/manacher-overview/visualizer'),
+  'huffman-coding': () =>
+    import('../../content/dsa/strings/huffman-coding/visualizer'),
+  'run-length-encoding': () =>
+    import('../../content/dsa/strings/run-length-encoding/visualizer'),
   'euclidean-gcd': () =>
     import('../../content/dsa/math/euclidean-gcd/visualizer'),
   'sieve-of-eratosthenes': () =>
@@ -125,4 +190,18 @@ export const visualizerLoaders: Record<
   pagerank: () => import('../../content/dsa/math/pagerank/visualizer'),
   'lru-cache': () => import('../../content/dsa/math/lru-cache/visualizer'),
   'lfu-cache': () => import('../../content/dsa/math/lfu-cache/visualizer'),
+  'cryptographic-hash-functions': () =>
+    import('../../content/dsa/security/cryptographic-hash-functions/visualizer'),
+  'symmetric-encryption': () =>
+    import('../../content/dsa/security/symmetric-encryption/visualizer'),
+  'public-key-cryptography': () =>
+    import('../../content/dsa/security/public-key-cryptography/visualizer'),
+  'diffie-hellman-key-exchange': () =>
+    import('../../content/dsa/security/diffie-hellman-key-exchange/visualizer'),
+  'digital-signatures': () =>
+    import('../../content/dsa/security/digital-signatures/visualizer'),
+  'digital-certificates-tls': () =>
+    import('../../content/dsa/security/digital-certificates-tls/visualizer'),
+  'password-hashing-salting': () =>
+    import('../../content/dsa/security/password-hashing-salting/visualizer'),
 };

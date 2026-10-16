@@ -38,3 +38,5 @@ This default is Lomuto with a last-element pivot. Sorted or equal-valued inputs 
 ## Quiz
 
 Test the invariant and complexity below, then compare another algorithm on the same input.
+
+The variant selector switches between last-pivot Lomuto partitioning and copied-middle-pivot Hoare partitioning. Hoare returns a boundary, not a finalized pivot index. Its recursive ranges include that boundary on the left and start just after it on the right. Equal values stop both scans and are exchanged until the scans cross, ensuring progress.

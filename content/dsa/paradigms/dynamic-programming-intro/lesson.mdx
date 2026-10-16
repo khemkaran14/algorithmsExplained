@@ -1,0 +1,40 @@
+# Dynamic Programming Intro
+
+## Hook
+
+Climb a staircase while remembering the cheapest cost of reaching each step.
+
+## Watch
+
+Name a subproblem. Store its answer. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Define dp[i] as the minimum cost to land on step i.
+2. Choose the cheaper one-step or two-step predecessor.
+3. Add the landing cost and store the answer.
+4. Treat the virtual top as a zero-cost final state.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(n) time; O(n) displayed table. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use when overlapping subproblems and optimal substructure allow stored answers to replace repeated work.
+
+## Interview pitfalls
+
+The starting convention allows entry at stair zero or one; it matters for the base cases.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

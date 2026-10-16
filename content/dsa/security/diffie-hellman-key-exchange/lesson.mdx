@@ -1,0 +1,40 @@
+# Diffie Hellman Key Exchange
+
+## Hook
+
+Two people can derive the same number while an impostor can also establish a separate number with each.
+
+## Watch
+
+A shared secret still needs an authenticated peer. The inputs are examples, never application secrets. Public fixed fixtures make repeated traces deterministic.
+
+## How it works
+
+1. Exchange toy powers of public g modulo public p.
+2. Derive the honest shared g^(ab) value.
+3. In MITM mode substitute the intermediary’s public power.
+4. Compare each peer’s result with the intermediary’s corresponding secret.
+
+## Try it
+
+Predict the verification outcome or modular-arithmetic decision. Toggle tampering or change the input, then explain why the observed result changes.
+
+## Complexity
+
+O(log exponent) modular multiplications in the bounded toy. Library calls perform real cryptographic operations; the trace illustrates protocol-level stages rather than claiming to animate every internal cipher round. Big-integer and curve costs depend on security parameters.
+
+## Code
+
+Node.js uses its standard crypto/TLS libraries. Python AES/Ed25519 references require the maintained cryptography package; other Python references use the standard library. Java uses JDK cryptography/TLS APIs. C++ references require OpenSSL headers and linking libcrypto/libssl where used. Textbook RSA and tiny-group DH snippets are explicitly insecure mathematical demonstrations.
+
+## When to use
+
+Use to understand key agreement and why TLS combines key exchange with authentication.
+
+## Interview pitfalls
+
+The toy group p=23 is insecure. Real protocols use validated modern groups, authentication, a KDF and transcript binding.
+
+## Quiz
+
+Distinguish confidentiality, integrity, identity and the limits of a demonstration.

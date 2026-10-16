@@ -13,6 +13,6 @@ const meta = {
   isFree: false,
   prerequisites: [],
   tags: ['security', 'dsa'],
-  status: 'planned',
+  status: 'ready',
 } as const;
 export default meta;

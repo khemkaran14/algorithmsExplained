@@ -531,6 +531,20 @@ export function LessonPlayer({
           </dl>
         </section>
       </div>
+      {current.state.result !== undefined && (
+        <details className="rounded-2xl border border-[var(--border)] p-5" open>
+          <summary className="cursor-pointer font-semibold">
+            Algorithm result
+          </summary>
+          <pre
+            tabIndex={0}
+            aria-label="Algorithm result data"
+            className="mt-3 max-h-56 overflow-auto whitespace-pre-wrap break-words font-mono text-xs"
+          >
+            {JSON.stringify(current.state.result, null, 2)}
+          </pre>
+        </details>
+      )}
       <details className="rounded-2xl border border-[var(--border)] p-5" open>
         <summary className="cursor-pointer font-semibold">
           Complexity · {visualizer.complexity.worst}

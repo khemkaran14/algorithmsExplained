@@ -1,8 +1,8 @@
 from collections import deque
-def bfs(adj, start=0):
-    seen, queue, order = {start}, deque([start]), []
+def bfs(adj,start):
+    distance=[None]*len(adj); distance[start]=0; queue=deque([start]); order=[]
     while queue:
-        node=queue.popleft(); order.append(node)
-        for nxt in adj[node]:
-            if nxt not in seen: seen.add(nxt); queue.append(nxt)
-    return order
+        u=queue.popleft(); order.append(u)
+        for v in adj[u]:
+            if distance[v] is None: distance[v]=distance[u]+1; queue.append(v)
+    return order,distance

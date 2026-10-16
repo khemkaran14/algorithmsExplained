@@ -650,6 +650,22 @@ export const raceVisualizer: Visualizer = {
           c,
           3,
           { runners: 3 },
+          [],
+          {
+            prompt: 'Which runner has made the fewest comparisons so far?',
+            choices: ['Bubble', 'Merge', 'Quick', 'Tie'],
+            answer: (() => {
+              const costs = snapshots.map((f) => f?.counters.comparisons ?? 0),
+                least = Math.min(...costs),
+                winners = costs.flatMap((value, i) =>
+                  value === least ? [i] : [],
+                );
+              return winners.length === 1
+                ? ['Bubble', 'Merge', 'Quick'][winners[0]]
+                : 'Tie';
+            })(),
+            hint: 'Compare each runner’s comparison counter. Equal minima count as a tie; this is a work count, not elapsed time.',
+          },
         );
       }
       frames = frames.map((f, i) => {
@@ -670,5 +686,118 @@ export const raceVisualizer: Visualizer = {
       6,
     );
     yield final;
+  },
+};
+
+/** Hoare's boundary is not a finalized pivot position. */
+export const quickHoare: Visualizer = {
+  id: 'quick-sort',
+  variantTitle: 'Hoare partition',
+  presets: {
+    ...arrayPresets(),
+    best: [1, 2, 3, 4, 5, 6],
+    worst: [1, 3, 5, 7, 6, 4, 2],
+  },
+  validateInput: validateNumbers,
+  complexity: {
+    best: 'O(n log n)',
+    average: 'O(n log n)',
+    worst: 'O(n²)',
+    space: 'O(log n) average stack; O(n) worst',
+    stable: false,
+    inPlace: true,
+    why: 'Two inward scans exchange out-of-partition pairs. Hoare returns a split boundary, so recursive intervals are [lo,boundary] and [boundary+1,hi], not Lomuto’s pivot-excluding intervals.',
+  },
+  *generate(input) {
+    const a = [...input],
+      c = counters(),
+      calls: string[] = [];
+    const emit = (
+      text: string,
+      line: number,
+      vars: Frame['variables'] = {},
+      marks: Frame['highlights'] = [],
+      action?: Frame['action'],
+    ) => ({
+      ...frame(
+        { kind: 'array', values: a },
+        text,
+        c,
+        line,
+        vars,
+        marks,
+        action,
+      ),
+      callStack: [...calls],
+    });
+    yield emit('Hoare scans inward around a copied middle pivot value.', 1);
+    function* sort(lo: number, hi: number): Generator<Frame> {
+      if (lo >= hi) return;
+      calls.push(`sort(${lo},${hi})`);
+      const pivot = a[lo + Math.floor((hi - lo) / 2)];
+      c.reads++;
+      let i = lo - 1,
+        j = hi + 1;
+      yield emit(
+        'The pivot value guides two scans without requiring a final pivot slot.',
+        2,
+        { lo, hi, pivot },
+      );
+      while (true) {
+        do {
+          i++;
+          c.reads++;
+          c.comparisons++;
+          yield emit(
+            'Advance the left scan while values are below the pivot.',
+            3,
+            { i, j, pivot },
+            [{ id: String(i), kind: 'comparing' }],
+            {
+              prompt: 'Should the left scan continue?',
+              choices: ['Continue right', 'Stop left scan'],
+              answer: a[i] < pivot ? 'Continue right' : 'Stop left scan',
+              hint: 'Stop at a value at least as large as the copied pivot.',
+            },
+          );
+        } while (a[i] < pivot);
+        do {
+          j--;
+          c.reads++;
+          c.comparisons++;
+          yield emit(
+            'Advance the right scan while values are above the pivot.',
+            3,
+            { i, j, pivot },
+            [{ id: String(j), kind: 'comparing' }],
+          );
+        } while (a[j] > pivot);
+        if (i >= j) break;
+        [a[i], a[j]] = [a[j], a[i]];
+        c.swaps++;
+        c.writes += 2;
+        yield emit(
+          'Exchange the out-of-partition pair, then continue both scans.',
+          4,
+          { i, j, pivot },
+          [
+            { id: String(i), kind: 'moving' },
+            { id: String(j), kind: 'moving' },
+          ],
+        );
+      }
+      yield emit(
+        'The scans crossed: this boundary separates two recursive intervals.',
+        5,
+        { boundary: j, lo, hi },
+      );
+      yield* sort(lo, j);
+      yield* sort(j + 1, hi);
+      calls.pop();
+    }
+    yield* sort(0, a.length - 1);
+    const f = emit('Every recursive interval is ordered.', 6);
+    f.state.result = [...a];
+    yield f;
   },
 };

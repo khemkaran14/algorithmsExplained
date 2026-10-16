@@ -1,1 +1,2 @@
-export { bfs as default } from '../../../../src/engine/bfs';
+import { traversal } from '../../../../src/server/visualizers/graphs';
+export default traversal(true);

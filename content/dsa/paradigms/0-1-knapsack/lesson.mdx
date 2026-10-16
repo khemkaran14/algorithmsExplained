@@ -1,0 +1,40 @@
+# 0 1 Knapsack
+
+## Hook
+
+Pack a bag while deciding once for each indivisible item.
+
+## Watch
+
+Take it once or leave it. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Index the state by item prefix and capacity.
+2. Compare skipping with taking the current item once.
+3. Read both choices from the previous item row.
+4. Recover chosen items by walking backward.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(nW) pseudo-polynomial time and O(nW) table. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use for bounded integer-capacity selection with indivisible items.
+
+## Interview pitfalls
+
+Density greediness is not correct for 0/1 knapsack, and using the current row can accidentally permit repeated items.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

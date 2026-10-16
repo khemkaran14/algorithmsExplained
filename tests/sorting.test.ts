@@ -1,4 +1,5 @@
 // @vitest-environment node
+import { quickHoare } from '@/server/visualizers/sorting';
 import { describe, it, expect } from 'vitest';
 import {
   sortingVisualizer,
@@ -72,4 +73,20 @@ it('the synchronized race sorts identical inputs with monotonic aggregate work',
     expect(frames[i].counters.comparisons).toBeGreaterThanOrEqual(
       frames[i - 1].counters.comparisons,
     );
+});
+
+it('Hoare partition sorts duplicates and adversarial shapes without mutating input', () => {
+  for (const a of [
+    [1],
+    [1, 1, 1, 1],
+    [3, 1, 2, 3, 1],
+    Array.from({ length: 64 }, (_, i) => i),
+    Array.from({ length: 64 }, (_, i) => 64 - i),
+  ]) {
+    const copy = [...a],
+      frames = [...quickHoare.generate(a)];
+    expect(frames.at(-1)!.state.result).toEqual([...a].sort((x, y) => x - y));
+    expect(a).toEqual(copy);
+    expect(JSON.parse(JSON.stringify(frames))).toEqual(frames);
+  }
 });

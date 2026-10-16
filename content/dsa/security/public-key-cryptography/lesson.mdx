@@ -1,0 +1,39 @@
+# Public Key Cryptography
+
+## Hook
+
+A small modular-number puzzle illustrates the mathematical relationship without pretending tiny keys are secure.
+
+## Watch
+
+A public operation and a private inverse. The inputs are examples, never application secrets. Public fixed fixtures make repeated traces deterministic.
+
+## How it works
+
+1. Publish toy n=3233 and e=17.
+2. Raise a bounded message to e modulo n.
+3. Recover it using toy private d=2753.
+
+## Try it
+
+Predict the verification outcome or modular-arithmetic decision. Toggle tampering or change the input, then explain why the observed result changes.
+
+## Complexity
+
+O(log exponent) modular multiplications, excluding big-integer bit cost. Library calls perform real cryptographic operations; the trace illustrates protocol-level stages rather than claiming to animate every internal cipher round. Big-integer and curve costs depend on security parameters.
+
+## Code
+
+Node.js uses its standard crypto/TLS libraries. Python AES/Ed25519 references require the maintained cryptography package; other Python references use the standard library. Java uses JDK cryptography/TLS APIs. C++ references require OpenSSL headers and linking libcrypto/libssl where used. Textbook RSA and tiny-group DH snippets are explicitly insecure mathematical demonstrations.
+
+## When to use
+
+Use this arithmetic to understand textbook RSA; use maintained libraries with RSA-OAEP or modern hybrid encryption for real messages.
+
+## Interview pitfalls
+
+The tiny published key and deterministic unpadded RSA are insecure. These four reference snippets are toy arithmetic only.
+
+## Quiz
+
+Distinguish confidentiality, integrity, identity and the limits of a demonstration.

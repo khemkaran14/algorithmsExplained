@@ -1,0 +1,40 @@
+# Digital Certificates Tls
+
+## Hook
+
+A browser accepts a server identity only when its name and certificate path meet the required policy.
+
+## Watch
+
+Trust is a chain of checks, not a padlock drawing. The inputs are examples, never application secrets. Public fixed fixtures make repeated traces deterministic.
+
+## How it works
+
+1. Load the public offline certificate chain.
+2. Check trust anchor, issuer signatures, CA roles and validity.
+3. Check server-auth usage and the requested hostname.
+4. Reject any failed modeled check.
+
+## Try it
+
+Predict the verification outcome or modular-arithmetic decision. Toggle tampering or change the input, then explain why the observed result changes.
+
+## Complexity
+
+O(k) modeled chain checks plus signature verification. Library calls perform real cryptographic operations; the trace illustrates protocol-level stages rather than claiming to animate every internal cipher round. Big-integer and curve costs depend on security parameters.
+
+## Code
+
+Node.js uses its standard crypto/TLS libraries. Python AES/Ed25519 references require the maintained cryptography package; other Python references use the standard library. Java uses JDK cryptography/TLS APIs. C++ references require OpenSSL headers and linking libcrypto/libssl where used. Textbook RSA and tiny-group DH snippets are explicitly insecure mathematical demonstrations.
+
+## When to use
+
+Use established HTTPS/TLS clients for real connections; the references use default trust and hostname verification.
+
+## Interview pitfalls
+
+This offline model does not simulate a full handshake or check revocation, name constraints or every PKIX policy. It is a selected-check illustration, not a production certificate validator.
+
+## Quiz
+
+Distinguish confidentiality, integrity, identity and the limits of a demonstration.

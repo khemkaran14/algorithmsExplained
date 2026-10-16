@@ -1,0 +1,39 @@
+# Coin Change
+
+## Hook
+
+Build a payment from smaller payments without confusing the fewest coins with the number of possible combinations.
+
+## Watch
+
+Amount is the state; the question sets the recurrence. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Define the zero-amount base.
+2. For minimum count, minimize one plus a valid predecessor.
+3. For combination counts, process denominations outside increasing amounts.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(kA) time and O(A) workspace. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use for unlimited-denomination integer amount problems.
+
+## Interview pitfalls
+
+Minimum coin count and unordered combination count are different questions. An unreachable amount is not a zero-coin solution.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

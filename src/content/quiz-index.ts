@@ -97,7 +97,62 @@ export const quizLoaders: Record<
     import('../../content/dsa/searching/exponential-search/quiz'),
   'interpolation-search': () =>
     import('../../content/dsa/searching/interpolation-search/quiz'),
+  'graph-representations': () =>
+    import('../../content/dsa/graphs/graph-representations/quiz'),
   bfs: () => import('../../content/dsa/graphs/bfs/quiz'),
+  dfs: () => import('../../content/dsa/graphs/dfs/quiz'),
+  'topological-sort': () =>
+    import('../../content/dsa/graphs/topological-sort/quiz'),
+  'cycle-detection': () =>
+    import('../../content/dsa/graphs/cycle-detection/quiz'),
+  'connected-components': () =>
+    import('../../content/dsa/graphs/connected-components/quiz'),
+  'union-find': () => import('../../content/dsa/graphs/union-find/quiz'),
+  dijkstra: () => import('../../content/dsa/graphs/dijkstra/quiz'),
+  'bellman-ford': () => import('../../content/dsa/graphs/bellman-ford/quiz'),
+  'floyd-warshall': () =>
+    import('../../content/dsa/graphs/floyd-warshall/quiz'),
+  'a-star-search': () => import('../../content/dsa/graphs/a-star-search/quiz'),
+  'prim-mst': () => import('../../content/dsa/graphs/prim-mst/quiz'),
+  'kruskal-mst': () => import('../../content/dsa/graphs/kruskal-mst/quiz'),
+  'strongly-connected-components': () =>
+    import('../../content/dsa/graphs/strongly-connected-components/quiz'),
+  'bipartite-check': () =>
+    import('../../content/dsa/graphs/bipartite-check/quiz'),
+  'bridges-articulation-points': () =>
+    import('../../content/dsa/graphs/bridges-articulation-points/quiz'),
+  'max-flow': () => import('../../content/dsa/graphs/max-flow/quiz'),
+  'greedy-algorithms': () =>
+    import('../../content/dsa/paradigms/greedy-algorithms/quiz'),
+  'divide-conquer': () =>
+    import('../../content/dsa/paradigms/divide-conquer/quiz'),
+  backtracking: () => import('../../content/dsa/paradigms/backtracking/quiz'),
+  'dynamic-programming-intro': () =>
+    import('../../content/dsa/paradigms/dynamic-programming-intro/quiz'),
+  'fibonacci-dp': () => import('../../content/dsa/paradigms/fibonacci-dp/quiz'),
+  '0-1-knapsack': () => import('../../content/dsa/paradigms/0-1-knapsack/quiz'),
+  'longest-common-subsequence': () =>
+    import('../../content/dsa/paradigms/longest-common-subsequence/quiz'),
+  'longest-increasing-subsequence': () =>
+    import('../../content/dsa/paradigms/longest-increasing-subsequence/quiz'),
+  'edit-distance': () =>
+    import('../../content/dsa/paradigms/edit-distance/quiz'),
+  'coin-change': () => import('../../content/dsa/paradigms/coin-change/quiz'),
+  'matrix-chain-multiplication': () =>
+    import('../../content/dsa/paradigms/matrix-chain-multiplication/quiz'),
+  'dp-on-grids': () => import('../../content/dsa/paradigms/dp-on-grids/quiz'),
+  'dp-on-trees': () => import('../../content/dsa/paradigms/dp-on-trees/quiz'),
+  'naive-string-matching': () =>
+    import('../../content/dsa/strings/naive-string-matching/quiz'),
+  kmp: () => import('../../content/dsa/strings/kmp/quiz'),
+  'rabin-karp': () => import('../../content/dsa/strings/rabin-karp/quiz'),
+  'z-algorithm': () => import('../../content/dsa/strings/z-algorithm/quiz'),
+  'manacher-overview': () =>
+    import('../../content/dsa/strings/manacher-overview/quiz'),
+  'huffman-coding': () =>
+    import('../../content/dsa/strings/huffman-coding/quiz'),
+  'run-length-encoding': () =>
+    import('../../content/dsa/strings/run-length-encoding/quiz'),
   'euclidean-gcd': () => import('../../content/dsa/math/euclidean-gcd/quiz'),
   'sieve-of-eratosthenes': () =>
     import('../../content/dsa/math/sieve-of-eratosthenes/quiz'),
@@ -112,4 +167,18 @@ export const quizLoaders: Record<
   pagerank: () => import('../../content/dsa/math/pagerank/quiz'),
   'lru-cache': () => import('../../content/dsa/math/lru-cache/quiz'),
   'lfu-cache': () => import('../../content/dsa/math/lfu-cache/quiz'),
+  'cryptographic-hash-functions': () =>
+    import('../../content/dsa/security/cryptographic-hash-functions/quiz'),
+  'symmetric-encryption': () =>
+    import('../../content/dsa/security/symmetric-encryption/quiz'),
+  'public-key-cryptography': () =>
+    import('../../content/dsa/security/public-key-cryptography/quiz'),
+  'diffie-hellman-key-exchange': () =>
+    import('../../content/dsa/security/diffie-hellman-key-exchange/quiz'),
+  'digital-signatures': () =>
+    import('../../content/dsa/security/digital-signatures/quiz'),
+  'digital-certificates-tls': () =>
+    import('../../content/dsa/security/digital-certificates-tls/quiz'),
+  'password-hashing-salting': () =>
+    import('../../content/dsa/security/password-hashing-salting/quiz'),
 };

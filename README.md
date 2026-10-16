@@ -1,23 +1,56 @@
 # AlgoVerse
 
-An interactive learning platform for algorithms, system design, databases and cloud. **Phase 1 foundation**; lessons, payments and progress are planned, not implemented.
+Interactive visual lessons for algorithms, with reversible playback, Try challenges, quizzes, progress, and purchase-gated content. **This is an implementation checkpoint, not a production-ready release.** There are 112 authored lessons out of a 201-lesson catalog; the other 89 entries are explicitly marked as being authored. See [testing instructions](docs/TESTING.md), [validation](docs/VALIDATION.md) and the [original specification](docs/PRODUCT_SPEC.md).
 
-## Local development
+## Run locally
 
-Use Node 22+ and pnpm 10.28.2. Run `pnpm install --frozen-lockfile`, run `pnpm setup:local` to create a private local `.env` with random database and session secrets (existing files are preserved). Use `.env.example` to add provider settings. Run `docker compose up -d postgres redis`, `pnpm db:generate`, `pnpm db:migrate`, then `pnpm dev`.
+Install Node.js 22 LTS, pnpm 10.28.2, Git and Docker with Compose. Start Docker, then:
 
-For Google, create an OAuth web client with redirect URI `http://localhost:3000/api/auth/callback/google`; set AUTH_GOOGLE_ID and AUTH_GOOGLE_SECRET. For email magic links set AUTH_RESEND_KEY and AUTH_EMAIL_FROM to a verified Resend sender. Restart after changing provider configuration. Sign in at `/sign-in`, confirm `/learn` works, sign out and verify `/learn` redirects. Without credentials the landing page works and sign-in displays a clear setup state. Real OAuth/email success is not covered by offline tests.
+```bash
+git clone https://github.com/khemkaran14/algorithmsExplained.git
+cd algorithmsExplained
+corepack enable
+corepack prepare pnpm@10.28.2 --activate
+pnpm install --frozen-lockfile
+pnpm setup:local
+docker compose up -d postgres redis
+pnpm db:generate
+pnpm db:migrate
+pnpm dev
+```
 
-## Validation
+Open **http://localhost:3000**. If already cloned, run `git pull origin main` first. `pnpm setup:local` creates a private `.env` with random local database/session secrets and preserves an existing file. Do not commit `.env`.
 
-`pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build`. Install Chromium using `pnpm exec playwright install --with-deps chromium`, then run `pnpm test:e2e` for desktop/mobile, axe accessibility, protected routing and 320px overflow checks.
+You can browse and test free lessons without external credentials. Start at `/learn`, `/playground` or `/compare`. `/learn` is public; `/account` requires sign-in. Paid lessons remain locked until a captured payment grants access. Planned lessons are labelled honestly and have no player.
 
-## Container
+## Optional provider configuration
 
-After filling `.env`, run `docker compose --profile app up --build -d`. Run migrations first with the host setup above; the production image intentionally contains only runtime dependencies. Production migration should run from the build/CI environment with its DATABASE_URL. Set AUTH_URL to your real HTTPS origin and configure trusted proxy handling for your deployment per Auth.js documentation. Do not enable trust of arbitrary hosts on a public deployment.
+Add settings from `.env.example` to `.env`, then restart the server:
 
-See [decisions](docs/DECISIONS.md), [phase status](CHANGELOG.md), and [contributor guide](AGENTS.md). The complete product request is retained in docs/PRODUCT_SPEC.md.
+- Google OAuth: `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`; register `http://localhost:3000/api/auth/callback/google` as the redirect URI.
+- Email magic links: `AUTH_RESEND_KEY`, `AUTH_EMAIL_FROM` using a verified Resend sender.
+- Payments: Razorpay **test-mode** `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`. The webhook path is `/api/webhooks/razorpay`; Razorpay needs a reachable HTTPS endpoint for webhook delivery. Keep `AUTH_URL` consistent with the origin used in your browser.
 
-## Current cloud validation limitations
+Provider credentials are not included. Real Google/email login and Razorpay Checkout are operator acceptance tests; the automated webhook suite uses signed fixtures and a real test database. No production authentication bypass exists.
 
-See [validation status](docs/VALIDATION.md). Phase 1 acceptance remains open until Prisma generation/migration, database-adapter tests, hosted CI, and real provider sign-in/out have been verified.
+## Validate
+
+```bash
+pnpm format:check
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm content:check:ready
+pnpm content:free-ratio
+pnpm build
+pnpm exec playwright install --with-deps chromium
+pnpm test:e2e
+```
+
+Use a disposable local test database for tests: integration/browser suites create and remove fixture users and payments. Close any development server on port 3000 before running browser checks, so Playwright starts the intended production build. `pnpm content:check` is the strict final catalog gate and intentionally fails while planned lessons remain. Four-language references can additionally be syntax-checked with `python3 scripts/check-snippets.py` (requires Python 3, JDK 17+ and g++ with C++17).
+
+For a production-build preview, run `pnpm build`, then `pnpm start`. Deployment is a later step.
+
+## Container preview
+
+After local migrations and filling `.env`, run `docker compose --profile app up --build -d`. Run migrations from the host/build environment; the application image contains runtime dependencies only. Production domains, database backups, business/legal details and live payment configuration still require the deployment and launch review.

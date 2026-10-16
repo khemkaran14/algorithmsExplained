@@ -22,7 +22,9 @@
     "content:generate-catalog": "tsx scripts/generate-catalog.ts",
     "content:free-ratio": "tsx scripts/free-ratio.ts",
     "content:check:ready": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --allow-planned",
-    "content:generate-index": "tsx scripts/generate-content-index.ts"
+    "content:generate-index": "tsx scripts/generate-content-index.ts",
+    "content:generate-complexity": "NODE_OPTIONS=--conditions=react-server tsx scripts/generate-complexity.mts",
+    "content:check:dsa": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --track=dsa"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",

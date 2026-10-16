@@ -1,6 +1,6 @@
 import java.util.*;
-class BFS { static List<Integer> walk(List<List<Integer>> adj) {var seen=new HashSet<Integer>();var queue=new ArrayDeque<Integer>();var order=new ArrayList<Integer>();seen.add(0);queue.add(0);while(!queue.isEmpty()){
-  int node=queue.remove();order.add(node);
-  for(int next:adj.get(node))if(!seen.contains(next)){
-    seen.add(next);queue.add(next);}}
-  return order;} }
+class BFS {static int[] bfs(List<List<Integer>> adj,int start){int[] d=new int[adj.size()];Arrays.fill(d,-1);d[start]=0;ArrayDeque<Integer> q=new ArrayDeque<>();q.add(start);
+while(!q.isEmpty()){int u=q.remove();
+for(int v:adj.get(u))if(d[v]==-1){d[v]=d[u]+1;q.add(v);}}
+// -1 marks an unreachable vertex.
+return d;}}

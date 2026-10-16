@@ -1,0 +1,6 @@
+#include <vector>
+#include <functional>
+#include <algorithm>
+std::vector<std::vector<int>> scc(const std::vector<std::vector<int>>& adj,bool tarjan=true){int n=adj.size(),time=0;std::vector<std::vector<int>>groups;std::vector<int>index(n,-1),low(n),stack;std::vector<bool>active(n);if(tarjan){std::function<void(int)>visit=[&](int u){index[u]=low[u]=time++;stack.push_back(u);active[u]=true;for(int v:adj[u]){if(index[v]==-1){visit(v);low[u]=std::min(low[u],low[v]);}else if(active[v])low[u]=std::min(low[u],index[v]);}if(low[u]==index[u]){std::vector<int>g;int v;do{v=stack.back();stack.pop_back();active[v]=false;g.push_back(v);}while(v!=u);groups.push_back(g);}};for(int u=0;u<n;u++)if(index[u]==-1)visit(u);return groups;}
+std::vector<bool>seen(n);std::vector<int>out;std::vector<std::vector<int>>reverse(n);for(int u=0;u<n;u++)for(int v:adj[u])reverse[v].push_back(u);std::function<void(int)>visit=[&](int u){seen[u]=true;for(int v:adj[u])if(!seen[v])visit(v);out.push_back(u);};for(int u=0;u<n;u++)if(!seen[u])visit(u);std::fill(seen.begin(),seen.end(),false);std::reverse(out.begin(),out.end());for(int seed:out){if(seen[seed])continue;stack={seed};seen[seed]=true;std::vector<int>g;while(!stack.empty()){int u=stack.back();stack.pop_back();g.push_back(u);for(int v:reverse[u])if(!seen[v]){seen[v]=true;stack.push_back(v);}}groups.push_back(g);}
+return groups;}

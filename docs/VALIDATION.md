@@ -31,3 +31,7 @@ This is a foundation checkpoint, not a production-ready completion of the full p
 ## Phase 5 checkpoint — 2026-10-16
 
 Local lint, strict TypeScript, formatting, 190 unit/integration tests, production build and 22 desktop/mobile Chromium browser checks pass. MDX compilation and structural content validation pass for 69 authored lessons; 132 planned entries remain and strict whole-catalog acceptance intentionally remains red. All 69 lessons’ JavaScript/Python/Java/C++ reference snippets pass syntax checking. Graph generators have independent correctness tests but their remaining content is not registered yet. Provider webhook tests are signed fixtures against the real local database, not a real Razorpay Checkout transaction. Google OAuth, magic-link delivery, test-mode Checkout and receipt delivery require operator-configured test providers.
+
+## DSA authoring checkpoint — 2026-10-16
+
+Strict DSA validation passes for 112 authored lessons, with no planned DSA entries. There are 89 planned entries in other tracks. Local checks pass: 247 unit/integration/content-serving tests; 24 desktop/mobile browser checks; lint, TypeScript and production build. All 116 main/variant reference sets pass syntax checks in four languages. The full-catalog strict gate remains intentionally red while the other tracks are being authored. This does not close the final source synchronization, production-hardening or real external-provider acceptance gates.

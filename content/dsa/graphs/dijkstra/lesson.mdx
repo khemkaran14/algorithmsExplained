@@ -1,0 +1,39 @@
+# Dijkstra
+
+## Hook
+
+A frontier always expands the cheapest route that has not been finalized.
+
+## Watch
+
+Settle the cheapest live distance. Edit the graph JSON to add a cycle, isolate a vertex or change an edge weight. Nodes are numbered from zero.
+
+## How it works
+
+1. Pop the smallest nonstale heap distance.
+2. Settle its vertex.
+3. Relax each outgoing nonnegative edge.
+
+## Try it
+
+Predict the next frontier decision or edge operation before revealing it. Compare a connected graph with the same graph after removing an important edge.
+
+## Complexity
+
+O((V+E) log(V+E)) with lazy heap entries. Negative edges break the settling argument; stale heap entries must be discarded. The counters count teaching operations; animation duration is not a CPU benchmark.
+
+## Code
+
+The four references show the core operation. Adjacency-list inputs use zero-based vertex indices. Weighted references use (neighbor,weight) pairs or explicit edge triples. Validate the graph assumptions before calling standalone code.
+
+## When to use
+
+Use for shortest routes with nonnegative weights.
+
+## Interview pitfalls
+
+Negative edges break the settling argument; stale heap entries must be discarded.
+
+## Quiz
+
+Check the graph assumptions, invariant and boundary conditions below.

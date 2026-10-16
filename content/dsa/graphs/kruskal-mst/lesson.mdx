@@ -1,0 +1,39 @@
+# Kruskal Mst
+
+## Hook
+
+Connect islands cheaply without paying for a cycle.
+
+## Watch
+
+Take the cheapest edge that joins components. Edit the graph JSON to add a cycle, isolate a vertex or change an edge weight. Nodes are numbered from zero.
+
+## How it works
+
+1. Sort edges by weight.
+2. Compare DSU representatives.
+3. Accept only edges joining two different components.
+
+## Try it
+
+Predict the next frontier decision or edge operation before revealing it. Compare a connected graph with the same graph after removing an important edge.
+
+## Complexity
+
+O(E log E). Minimum spanning trees minimize total connection weight, not every source-to-vertex distance. The counters count teaching operations; animation duration is not a CPU benchmark.
+
+## Code
+
+The four references show the core operation. Adjacency-list inputs use zero-based vertex indices. Weighted references use (neighbor,weight) pairs or explicit edge triples. Validate the graph assumptions before calling standalone code.
+
+## When to use
+
+Use for minimum spanning forests when sorted edges and DSU are convenient.
+
+## Interview pitfalls
+
+Minimum spanning trees minimize total connection weight, not every source-to-vertex distance.
+
+## Quiz
+
+Check the graph assumptions, invariant and boundary conditions below.

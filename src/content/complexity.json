@@ -1,0 +1,810 @@
+[
+  {
+    "slug": "big-o",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "time-vs-space-complexity",
+    "best": "O(1) early duplicate",
+    "average": "Naive O(n²); hash expected O(n)",
+    "worst": "Naive O(n²); hash expected O(n)",
+    "space": "Naive O(1); hash O(n)"
+  },
+  {
+    "slug": "recursion-basics",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(n) call stack"
+  },
+  {
+    "slug": "recursion-tree-call-stack",
+    "best": "O(φⁿ) naive recurrence",
+    "average": "O(φⁿ)",
+    "worst": "O(φⁿ)",
+    "space": "O(n) active call stack"
+  },
+  {
+    "slug": "master-theorem",
+    "best": "Θ(n^log_b a) in case 1",
+    "average": "Θ(n^k log n) in case 2",
+    "worst": "Θ(n^k) in case 3",
+    "space": "Depends on the algorithm"
+  },
+  {
+    "slug": "bit-manipulation-basics",
+    "best": "O(1) fixed-width operation",
+    "average": "O(1)",
+    "worst": "O(1)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "two-pointers",
+    "best": "O(1)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "sliding-window",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(1) auxiliary"
+  },
+  {
+    "slug": "prefix-sums",
+    "best": "O(1) range query after preprocessing",
+    "average": "O(1) query",
+    "worst": "O(1) query; O(n) build",
+    "space": "O(n)"
+  },
+  {
+    "slug": "arrays-dynamic-arrays",
+    "best": "O(1) append",
+    "average": "O(1) amortized append",
+    "worst": "O(n) resize",
+    "space": "O(n)"
+  },
+  {
+    "slug": "strings",
+    "best": "O(n) code-point traversal",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(n) materialized code points"
+  },
+  {
+    "slug": "singly-linked-list",
+    "best": "O(1) with a known link",
+    "average": "O(n) search",
+    "worst": "O(n) search",
+    "space": "O(n)"
+  },
+  {
+    "slug": "doubly-linked-list",
+    "best": "O(1) with a known link",
+    "average": "O(n) search",
+    "worst": "O(n) search",
+    "space": "O(n)"
+  },
+  {
+    "slug": "circular-linked-list",
+    "best": "O(1) with a known link",
+    "average": "O(n) search",
+    "worst": "O(n) search",
+    "space": "O(n)"
+  },
+  {
+    "slug": "stack",
+    "best": "O(1) per push/pop",
+    "average": "O(1) per push/pop",
+    "worst": "O(1) per push/pop",
+    "space": "O(n)"
+  },
+  {
+    "slug": "queue",
+    "best": "O(1) enqueue/dequeue",
+    "average": "O(1) enqueue/dequeue",
+    "worst": "O(1) enqueue/dequeue",
+    "space": "O(n)"
+  },
+  {
+    "slug": "circular-queue",
+    "best": "O(1) enqueue/dequeue",
+    "average": "O(1) enqueue/dequeue",
+    "worst": "O(1) enqueue/dequeue",
+    "space": "O(k) capacity"
+  },
+  {
+    "slug": "deque",
+    "best": "O(1) end operation",
+    "average": "O(1) end operation",
+    "worst": "O(1) end operation",
+    "space": "O(n)"
+  },
+  {
+    "slug": "monotonic-stack",
+    "best": "O(n) whole pass",
+    "average": "O(n) whole pass",
+    "worst": "O(n) whole pass",
+    "space": "O(n)"
+  },
+  {
+    "slug": "monotonic-queue",
+    "best": "O(n) whole pass",
+    "average": "O(n) whole pass",
+    "worst": "O(n) whole pass",
+    "space": "O(k) window"
+  },
+  {
+    "slug": "hash-functions",
+    "best": "O(L) string hashing",
+    "average": "O(L)",
+    "worst": "O(L)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "hash-table-with-chaining",
+    "best": "O(1) expected key operation",
+    "average": "O(1+α) lookup; amortized O(1) growth",
+    "worst": "O(n) collision chain or rehash",
+    "space": "O(n+m) keys and buckets"
+  },
+  {
+    "slug": "open-addressing",
+    "best": "O(1)",
+    "average": "O(1) at suitable load",
+    "worst": "O(m) probes",
+    "space": "O(m)"
+  },
+  {
+    "slug": "load-factor-rehashing",
+    "best": "O(1) expected key operation",
+    "average": "O(1+α) lookup; amortized O(1) growth",
+    "worst": "O(n) collision chain or rehash",
+    "space": "O(n+m) keys and buckets"
+  },
+  {
+    "slug": "bloom-filter",
+    "best": "O(1) early negative query",
+    "average": "O(k) hash probes",
+    "worst": "O(k)",
+    "space": "O(m) filter bits"
+  },
+  {
+    "slug": "consistent-hashing",
+    "best": "O(log R) key lookup",
+    "average": "O(log R) lookup; O(R log R) ring build",
+    "worst": "O(log R) lookup; distribution-dependent load",
+    "space": "O(R+K) ring and teaching assignments"
+  },
+  {
+    "slug": "binary-tree-traversals",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(h) DFS stack; O(w) BFS queue"
+  },
+  {
+    "slug": "binary-search-tree",
+    "best": "O(log n) balanced operation",
+    "average": "O(log n) for random distinct insertion order",
+    "worst": "O(n) degenerate tree",
+    "space": "O(n) tree, O(h) recursive stack"
+  },
+  {
+    "slug": "avl-tree",
+    "best": "O(log n) balanced operation",
+    "average": "O(log n)",
+    "worst": "O(log n)",
+    "space": "O(n) tree, O(h) recursive stack"
+  },
+  {
+    "slug": "red-black-tree",
+    "best": "O(log n) balanced operation",
+    "average": "O(log n)",
+    "worst": "O(log n)",
+    "space": "O(n) tree, O(h) recursive stack"
+  },
+  {
+    "slug": "b-tree-b-tree",
+    "best": "O(1) root hit",
+    "average": "O(log_b n) page visits",
+    "worst": "O(log_b n) page visits",
+    "space": "O(n) keys and page pointers"
+  },
+  {
+    "slug": "heap-priority-queue",
+    "best": "O(1) peek",
+    "average": "O(log n) insert/extract",
+    "worst": "O(log n) insert/extract",
+    "space": "O(n) backing array; O(1) repair workspace"
+  },
+  {
+    "slug": "heapify",
+    "best": "O(n) build",
+    "average": "O(n) build",
+    "worst": "O(n) build",
+    "space": "O(n) backing array; O(1) repair workspace"
+  },
+  {
+    "slug": "trie",
+    "best": "O(1) early missing edge",
+    "average": "O(L) insert/search",
+    "worst": "O(L)",
+    "space": "O(total stored characters)"
+  },
+  {
+    "slug": "segment-tree",
+    "best": "O(log n) update/query",
+    "average": "O(log n)",
+    "worst": "O(log n)",
+    "space": "O(n)"
+  },
+  {
+    "slug": "fenwick-tree",
+    "best": "O(log n) update/query",
+    "average": "O(log n)",
+    "worst": "O(log n)",
+    "space": "O(n)"
+  },
+  {
+    "slug": "lowest-common-ancestor",
+    "best": "O(1) same node",
+    "average": "O(h)",
+    "worst": "O(h)",
+    "space": "O(n) adjacency/depth data"
+  },
+  {
+    "slug": "tree-diameter",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(n) adjacency/depth data"
+  },
+  {
+    "slug": "bubble-sort",
+    "best": "O(n)",
+    "average": "O(n²)",
+    "worst": "O(n²)",
+    "space": "O(1)",
+    "stable": true,
+    "inPlace": true
+  },
+  {
+    "slug": "selection-sort",
+    "best": "O(n²)",
+    "average": "O(n²)",
+    "worst": "O(n²)",
+    "space": "O(1)",
+    "stable": false,
+    "inPlace": true
+  },
+  {
+    "slug": "insertion-sort",
+    "best": "O(n)",
+    "average": "O(n²)",
+    "worst": "O(n²)",
+    "space": "O(1)",
+    "stable": true,
+    "inPlace": true
+  },
+  {
+    "slug": "shell-sort",
+    "best": "O(n log n)",
+    "average": "gap-dependent",
+    "worst": "O(n²)",
+    "space": "O(1)",
+    "stable": false,
+    "inPlace": true
+  },
+  {
+    "slug": "merge-sort",
+    "best": "O(n log n)",
+    "average": "O(n log n)",
+    "worst": "O(n log n)",
+    "space": "O(n)",
+    "stable": true,
+    "inPlace": false
+  },
+  {
+    "slug": "quick-sort",
+    "best": "O(n log n)",
+    "average": "O(n log n)",
+    "worst": "O(n²)",
+    "space": "O(log n) average; O(n) worst",
+    "stable": false,
+    "inPlace": true
+  },
+  {
+    "slug": "heap-sort",
+    "best": "O(n log n)",
+    "average": "O(n log n)",
+    "worst": "O(n log n)",
+    "space": "O(1)",
+    "stable": false,
+    "inPlace": true
+  },
+  {
+    "slug": "counting-sort",
+    "best": "O(n + k)",
+    "average": "O(n + k)",
+    "worst": "O(n + k)",
+    "space": "O(k)",
+    "stable": false,
+    "inPlace": false
+  },
+  {
+    "slug": "radix-sort",
+    "best": "O(d(n + b))",
+    "average": "O(d(n + b))",
+    "worst": "O(d(n + b))",
+    "space": "O(n + b)",
+    "stable": true,
+    "inPlace": false
+  },
+  {
+    "slug": "bucket-sort",
+    "best": "O(n + k)",
+    "average": "O(n + k) for uniform input",
+    "worst": "O(n²)",
+    "space": "O(n + k)",
+    "stable": true,
+    "inPlace": false
+  },
+  {
+    "slug": "tim-sort-overview",
+    "best": "O(n)",
+    "average": "O(n log n)",
+    "worst": "O(n log n)",
+    "space": "O(n)",
+    "stable": true,
+    "inPlace": false
+  },
+  {
+    "slug": "stability-explained",
+    "best": "O(n)",
+    "average": "O(n²)",
+    "worst": "O(n²)",
+    "space": "O(1) auxiliary",
+    "stable": true,
+    "inPlace": true
+  },
+  {
+    "slug": "sorting-algorithm-race",
+    "best": "algorithm-dependent",
+    "average": "Compare measured counters",
+    "worst": "Bubble O(n²), Merge O(n log n), Quick O(n²)",
+    "space": "algorithm-dependent"
+  },
+  {
+    "slug": "linear-search",
+    "best": "O(1)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "binary-search",
+    "best": "O(1)",
+    "average": "O(log n)",
+    "worst": "O(log n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "binary-search-on-answer",
+    "best": "O(n) for a single-point range",
+    "average": "O(n log S)",
+    "worst": "O(n log S)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "lower-upper-bound",
+    "best": "O(log n)",
+    "average": "O(log n)",
+    "worst": "O(log n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "ternary-search",
+    "best": "O(1)",
+    "average": "O(log n)",
+    "worst": "O(log n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "exponential-search",
+    "best": "O(1)",
+    "average": "O(log i)",
+    "worst": "O(log n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "interpolation-search",
+    "best": "O(1)",
+    "average": "O(log log n) for uniform keys",
+    "worst": "O(n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "graph-representations",
+    "best": "O(V+E) adjacency list; O(V²) matrix",
+    "average": "O(V+E) adjacency list; O(V²) matrix",
+    "worst": "O(V+E) adjacency list; O(V²) matrix",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "bfs",
+    "best": "O(V+E)",
+    "average": "O(V+E)",
+    "worst": "O(V+E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "dfs",
+    "best": "O(V+E)",
+    "average": "O(V+E)",
+    "worst": "O(V+E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "topological-sort",
+    "best": "O(V+E)",
+    "average": "O(V+E)",
+    "worst": "O(V+E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "cycle-detection",
+    "best": "O(V+E)",
+    "average": "O(V+E)",
+    "worst": "O(V+E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "connected-components",
+    "best": "O(V+E)",
+    "average": "O(V+E)",
+    "worst": "O(V+E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "union-find",
+    "best": "O((V+E) α(V)) amortized",
+    "average": "O((V+E) α(V)) amortized",
+    "worst": "O((V+E) α(V)) amortized",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "dijkstra",
+    "best": "O((V+E) log(V+E)) with lazy heap entries",
+    "average": "O((V+E) log(V+E)) with lazy heap entries",
+    "worst": "O((V+E) log(V+E)) with lazy heap entries",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "bellman-ford",
+    "best": "O(VE)",
+    "average": "O(VE)",
+    "worst": "O(VE)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "floyd-warshall",
+    "best": "O(V³) time; O(V²) distance workspace",
+    "average": "O(V³) time; O(V²) distance workspace",
+    "worst": "O(V³) time; O(V²) distance workspace",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "a-star-search",
+    "best": "O((V+E) log(V+E)) with lazy heap entries",
+    "average": "O((V+E) log(V+E)) with lazy heap entries",
+    "worst": "O((V+E) log(V+E)) with lazy heap entries",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "prim-mst",
+    "best": "O((V+E) log(V+E))",
+    "average": "O((V+E) log(V+E))",
+    "worst": "O((V+E) log(V+E))",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "kruskal-mst",
+    "best": "O(E log E)",
+    "average": "O(E log E)",
+    "worst": "O(E log E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "strongly-connected-components",
+    "best": "O(V+E)",
+    "average": "O(V+E)",
+    "worst": "O(V+E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "bipartite-check",
+    "best": "O(V+E)",
+    "average": "O(V+E)",
+    "worst": "O(V+E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "bridges-articulation-points",
+    "best": "O(V+E)",
+    "average": "O(V+E)",
+    "worst": "O(V+E)",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "max-flow",
+    "best": "O(VE²) Edmonds–Karp",
+    "average": "O(VE²) Edmonds–Karp",
+    "worst": "O(VE²) Edmonds–Karp",
+    "space": "O(V+E) graph storage plus algorithm state"
+  },
+  {
+    "slug": "greedy-algorithms",
+    "best": "O(n log n)",
+    "average": "O(n log n)",
+    "worst": "O(n log n)",
+    "space": "O(n) sorted/indexed teaching copy"
+  },
+  {
+    "slug": "divide-conquer",
+    "best": "O(n log n)",
+    "average": "O(n log n)",
+    "worst": "O(n log n)",
+    "space": "O(log n) recursion stack"
+  },
+  {
+    "slug": "backtracking",
+    "best": "Search/output dependent",
+    "average": "Constraint and pruning dependent",
+    "worst": "Queens O(n!·n) simple safety checks; subsets O(n·2ⁿ); permutations O(n·n!); Sudoku exponential in blanks",
+    "space": "O(depth) search state plus stored output"
+  },
+  {
+    "slug": "dynamic-programming-intro",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(n) trace table; O(1) rolling-value alternative"
+  },
+  {
+    "slug": "fibonacci-dp",
+    "best": "O(1) for a base case",
+    "average": "O(n) arithmetic additions",
+    "worst": "O(n) arithmetic additions",
+    "space": "O(n) displayed table; O(1) rolling-value alternative"
+  },
+  {
+    "slug": "0-1-knapsack",
+    "best": "O(nW)",
+    "average": "O(nW)",
+    "worst": "O(nW) pseudo-polynomial",
+    "space": "O(nW) table; O(W) value-only optimization"
+  },
+  {
+    "slug": "longest-common-subsequence",
+    "best": "O(mn)",
+    "average": "O(mn)",
+    "worst": "O(mn)",
+    "space": "O(mn) reconstruction table"
+  },
+  {
+    "slug": "longest-increasing-subsequence",
+    "best": "O(n log n)",
+    "average": "O(n log n)",
+    "worst": "O(n log n)",
+    "space": "O(n)"
+  },
+  {
+    "slug": "edit-distance",
+    "best": "O(mn)",
+    "average": "O(mn)",
+    "worst": "O(mn)",
+    "space": "O(mn) reconstruction table"
+  },
+  {
+    "slug": "coin-change",
+    "best": "O(kA)",
+    "average": "O(kA)",
+    "worst": "O(kA)",
+    "space": "O(A)"
+  },
+  {
+    "slug": "matrix-chain-multiplication",
+    "best": "O(n³)",
+    "average": "O(n³)",
+    "worst": "O(n³)",
+    "space": "O(n²)"
+  },
+  {
+    "slug": "dp-on-grids",
+    "best": "O(RC)",
+    "average": "O(RC)",
+    "worst": "O(RC)",
+    "space": "O(RC) displayed/reconstruction table"
+  },
+  {
+    "slug": "dp-on-trees",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(n)"
+  },
+  {
+    "slug": "naive-string-matching",
+    "best": "O(n)",
+    "average": "O(nm)",
+    "worst": "O(nm)",
+    "space": "O(1) auxiliary, excluding output"
+  },
+  {
+    "slug": "kmp",
+    "best": "O(n+m)",
+    "average": "O(n+m)",
+    "worst": "O(n+m)",
+    "space": "O(m)"
+  },
+  {
+    "slug": "rabin-karp",
+    "best": "O(n+m) expected",
+    "average": "O(n+m) expected",
+    "worst": "O(nm)",
+    "space": "O(1) auxiliary, excluding output"
+  },
+  {
+    "slug": "z-algorithm",
+    "best": "O(n+m)",
+    "average": "O(n+m)",
+    "worst": "O(n+m)",
+    "space": "O(n+m)"
+  },
+  {
+    "slug": "manacher-overview",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(n)"
+  },
+  {
+    "slug": "huffman-coding",
+    "best": "O(n+σ log σ)",
+    "average": "O(n+σ log σ)",
+    "worst": "O(n+σ log σ)",
+    "space": "O(σ) tree/codebook plus encoded output"
+  },
+  {
+    "slug": "run-length-encoding",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(r) output runs; O(1) working state"
+  },
+  {
+    "slug": "euclidean-gcd",
+    "best": "O(1)",
+    "average": "O(log min(a,b))",
+    "worst": "O(log min(a,b))",
+    "space": "O(1)"
+  },
+  {
+    "slug": "sieve-of-eratosthenes",
+    "best": "O(n log log n)",
+    "average": "O(n log log n)",
+    "worst": "O(n log log n)",
+    "space": "O(n)"
+  },
+  {
+    "slug": "primality-test",
+    "best": "O(1)",
+    "average": "O(√n) upper bound",
+    "worst": "O(√n)",
+    "space": "O(1)"
+  },
+  {
+    "slug": "fast-exponentiation",
+    "best": "O(1) for exponent zero",
+    "average": "O(log exponent) multiplications",
+    "worst": "O(log exponent) multiplications",
+    "space": "O(1) integer variables; output-sized bits"
+  },
+  {
+    "slug": "tower-of-hanoi",
+    "best": "Θ(2ⁿ) for n disks",
+    "average": "Θ(2ⁿ)",
+    "worst": "Θ(2ⁿ)",
+    "space": "O(n) recursion stack"
+  },
+  {
+    "slug": "reservoir-sampling",
+    "best": "O(n)",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(k)"
+  },
+  {
+    "slug": "k-means-clustering",
+    "best": "O(I·n·k·d)",
+    "average": "O(I·n·k·d)",
+    "worst": "O(I·n·k·d) for I capped iterations",
+    "space": "O(n+k) in two dimensions"
+  },
+  {
+    "slug": "pagerank",
+    "best": "O(I(V+E))",
+    "average": "O(I(V+E))",
+    "worst": "O(I(V+E))",
+    "space": "O(V+E)"
+  },
+  {
+    "slug": "lru-cache",
+    "best": "O(1) expected access",
+    "average": "O(1) expected access",
+    "worst": "O(1) policy-link updates; hash-dependent lookup",
+    "space": "O(k) cache capacity"
+  },
+  {
+    "slug": "lfu-cache",
+    "best": "O(1) expected access",
+    "average": "O(1) expected access",
+    "worst": "O(1) policy-link updates; hash-dependent lookup",
+    "space": "O(k) cache capacity"
+  },
+  {
+    "slug": "cryptographic-hash-functions",
+    "best": "O(n) input hashing",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(1) digest/state, excluding input buffers"
+  },
+  {
+    "slug": "symmetric-encryption",
+    "best": "O(n) encryption/decryption",
+    "average": "O(n)",
+    "worst": "O(n)",
+    "space": "O(n) returned ciphertext/plaintext"
+  },
+  {
+    "slug": "public-key-cryptography",
+    "best": "O(log exponent) modular multiplications",
+    "average": "O(log exponent) multiplications",
+    "worst": "O(log exponent) multiplications",
+    "space": "O(1) arithmetic words in this bounded toy"
+  },
+  {
+    "slug": "diffie-hellman-key-exchange",
+    "best": "O(log private exponent) modular multiplications",
+    "average": "O(log exponent)",
+    "worst": "O(log exponent)",
+    "space": "O(1) bounded toy arithmetic"
+  },
+  {
+    "slug": "digital-signatures",
+    "best": "O(n) message processing plus fixed-parameter curve operations",
+    "average": "O(n) message processing",
+    "worst": "O(n) message processing",
+    "space": "O(n) message buffers plus fixed-size signature/key data"
+  },
+  {
+    "slug": "digital-certificates-tls",
+    "best": "O(k) chain checks plus signature verification",
+    "average": "O(k) chain length checks",
+    "worst": "O(k) checks in this fixed-chain model",
+    "space": "O(k) parsed certificates"
+  },
+  {
+    "slug": "password-hashing-salting",
+    "best": "O(Nrp) KDF work",
+    "average": "O(Nrp)",
+    "worst": "O(Nrp)",
+    "space": "O(Nr) memory"
+  }
+]

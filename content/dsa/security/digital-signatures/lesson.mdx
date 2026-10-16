@@ -1,0 +1,39 @@
+# Digital Signatures
+
+## Hook
+
+A signature protects an intact message without hiding its words.
+
+## Watch
+
+Verify the exact bytes with a trusted public key. The inputs are examples, never application secrets. Public fixed fixtures make repeated traces deterministic.
+
+## How it works
+
+1. Sign example bytes with the public RFC 8032 Ed25519 fixture.
+2. Optionally change the received message.
+3. Verify with the corresponding public key.
+
+## Try it
+
+Predict the verification outcome or modular-arithmetic decision. Toggle tampering or change the input, then explain why the observed result changes.
+
+## Complexity
+
+O(n) message processing plus fixed-parameter curve operations. Library calls perform real cryptographic operations; the trace illustrates protocol-level stages rather than claiming to animate every internal cipher round. Big-integer and curve costs depend on security parameters.
+
+## Code
+
+Node.js uses its standard crypto/TLS libraries. Python AES/Ed25519 references require the maintained cryptography package; other Python references use the standard library. Java uses JDK cryptography/TLS APIs. C++ references require OpenSSL headers and linking libcrypto/libssl where used. Textbook RSA and tiny-group DH snippets are explicitly insecure mathematical demonstrations.
+
+## When to use
+
+Use standard signature libraries for integrity and authentication relative to a trusted public key.
+
+## Interview pitfalls
+
+The fixture private key is deliberately public and must never be used for real signing. A valid signature does not establish who owns an untrusted key and does not encrypt the message.
+
+## Quiz
+
+Distinguish confidentiality, integrity, identity and the limits of a demonstration.

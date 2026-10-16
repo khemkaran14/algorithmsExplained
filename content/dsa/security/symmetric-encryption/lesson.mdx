@@ -1,0 +1,40 @@
+# Symmetric Encryption
+
+## Hook
+
+Seal a message so it stays private and a broken seal makes the entire delivery fail.
+
+## Watch
+
+Authenticate before releasing plaintext. The inputs are examples, never application secrets. Public fixed fixtures make repeated traces deterministic.
+
+## How it works
+
+1. Use the public deterministic teaching fixture.
+2. Encrypt with AES-256-GCM and a nonce.
+3. Optionally alter the received authentication tag.
+4. Verify the tag before accepting any plaintext.
+
+## Try it
+
+Predict the verification outcome or modular-arithmetic decision. Toggle tampering or change the input, then explain why the observed result changes.
+
+## Complexity
+
+O(n) encryption/decryption and O(n) returned buffers. Library calls perform real cryptographic operations; the trace illustrates protocol-level stages rather than claiming to animate every internal cipher round. Big-integer and curve costs depend on security parameters.
+
+## Code
+
+Node.js uses its standard crypto/TLS libraries. Python AES/Ed25519 references require the maintained cryptography package; other Python references use the standard library. Java uses JDK cryptography/TLS APIs. C++ references require OpenSSL headers and linking libcrypto/libssl where used. Textbook RSA and tiny-group DH snippets are explicitly insecure mathematical demonstrations.
+
+## When to use
+
+Use established authenticated-encryption libraries for confidential, tamper-evident messages.
+
+## Interview pitfalls
+
+The interactive key and nonces are intentionally public fixtures. Production code below uses a fresh random nonce; reusing a nonce under one GCM key breaks security.
+
+## Quiz
+
+Distinguish confidentiality, integrity, identity and the limits of a demonstration.

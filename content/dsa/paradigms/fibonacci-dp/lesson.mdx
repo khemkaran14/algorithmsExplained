@@ -1,0 +1,39 @@
+# Fibonacci Dp
+
+## Hook
+
+Instead of redrawing the same family branches, put each completed answer on a numbered shelf.
+
+## Watch
+
+Compute each index once. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Store F(0)=0 and F(1)=1.
+2. Tabulate increasing indices or memoize recursive calls.
+3. Add the previous two exact values.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(n) additions; O(n) stored values. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use to compare top-down memoization and bottom-up tabulation on the same recurrence.
+
+## Interview pitfalls
+
+Arithmetic-operation counts omit growing big-integer operand cost. The result is an exact decimal string.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

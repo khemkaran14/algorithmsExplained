@@ -303,7 +303,9 @@ export function sequenceVisualizer(id: string): Visualizer {
           [],
           {
             prompt: 'Which value leaves for this command?',
-            choices: [...new Set([head.value, tail!.value])].map(String),
+            choices: [
+              ...new Set([String(head.value), String(tail!.value), 'Empty']),
+            ],
             answer: String(value),
             hint: 'Read the selected end, not the opposite end.',
           },

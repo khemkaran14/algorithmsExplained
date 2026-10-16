@@ -1,0 +1,40 @@
+# Manacher Overview
+
+## Hook
+
+Inside a symmetric corridor, a mirror tells you how far a smaller palindrome is already known.
+
+## Watch
+
+Mirror known palindromes before expanding. Use a repeated-character input and compare the resulting counters with a less repetitive example.
+
+## How it works
+
+1. Track the rightmost palindrome box.
+2. Initialize an odd or even radius from its mirror.
+3. Compare unknown characters just outside that radius.
+4. Update the box and retain the largest odd/even palindrome.
+
+## Try it
+
+Predict a character comparison, run extension, palindrome expansion or merge frequency. Step back and explain which stored state avoided repeated work.
+
+## Complexity
+
+O(n) time and O(n) space. The player explains the relevant invariant and counts actual comparisons, reads and writes. Output storage is reported separately when it grows with the result.
+
+## Code
+
+The four references assume the lesson’s printable ASCII input contract. The foundation Strings lesson separately explains Unicode code points and UTF-16 units. Pattern inputs must be nonempty; text may be empty for matching. Huffman and palindrome inputs must be nonempty.
+
+## When to use
+
+Use for all palindrome radii or a longest palindromic substring.
+
+## Interview pitfalls
+
+Odd and even centers have different mirror formulas. The empty-input case is excluded by this lesson’s input contract.
+
+## Quiz
+
+Check the invariant, cost model and an edge condition below.

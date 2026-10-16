@@ -49,6 +49,11 @@ function definition(
     maxSize: options.limit ?? 32,
     inputHint: hint,
     presets: graphPresets(options.directed),
+    presetLabels: {
+      best: 'Single vertex',
+      average: 'Branching graph',
+      worst: 'Long chain',
+    },
     complexity: {
       best: bound,
       average: bound,

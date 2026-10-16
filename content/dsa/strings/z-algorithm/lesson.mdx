@@ -1,0 +1,40 @@
+# Z Algorithm
+
+## Hook
+
+A previously checked stretch lets you skip comparisons you already know must match.
+
+## Watch
+
+Reuse a known matching prefix box. Use a repeated-character input and compare the resulting counters with a less repetitive example.
+
+## How it works
+
+1. Join pattern, an unavailable separator and text.
+2. Reuse a Z value inside the current box.
+3. Extend beyond known matching characters.
+4. Report text positions whose Z length covers the pattern.
+
+## Try it
+
+Predict a character comparison, run extension, palindrome expansion or merge frequency. Step back and explain which stored state avoided repeated work.
+
+## Complexity
+
+O(n+m) time and O(n+m) space. The player explains the relevant invariant and counts actual comparisons, reads and writes. Output storage is reported separately when it grows with the result.
+
+## Code
+
+The four references assume the lesson’s printable ASCII input contract. The foundation Strings lesson separately explains Unicode code points and UTF-16 units. Pattern inputs must be nonempty; text may be empty for matching. Huffman and palindrome inputs must be nonempty.
+
+## When to use
+
+Use for prefix matching, repeated-prefix analysis and linear pattern search.
+
+## Interview pitfalls
+
+The separator must not appear in either input. This model reserves a null character and accepts printable ASCII only.
+
+## Quiz
+
+Check the invariant, cost model and an edge condition below.

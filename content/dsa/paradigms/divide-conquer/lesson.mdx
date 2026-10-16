@@ -1,0 +1,39 @@
+# Divide Conquer
+
+## Hook
+
+A best contiguous interval either stays in one half or crosses the dividing line.
+
+## Watch
+
+Split, solve, then prove the combine step. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Solve each half recursively.
+2. Scan the best suffix and prefix touching the split.
+3. Choose the best left-only, right-only or crossing interval.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+O(n log n) time and O(log n) call stack. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use to understand divide-and-conquer recurrences and combining independently solved regions.
+
+## Interview pitfalls
+
+The requested interval is nonempty, so an all-negative array cannot return an empty zero-sum answer.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

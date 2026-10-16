@@ -67,6 +67,7 @@ export interface Visualizer<Input = number[], S = VisualState> {
   presetLabels?: { best: string; average: string; worst: string };
   inputHint?: string;
   maxSize?: number;
+  measureSize?(input: Input): number;
   variantTitle?: string;
   variants?: Record<string, { title: string; visualizer: Visualizer<unknown> }>;
   generate(input: Input): Generator<Frame<S>>;

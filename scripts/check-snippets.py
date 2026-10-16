@@ -18,8 +18,8 @@ def check(directory):
         for command in [['node','--check',str(directory/'js.ts')],[*java,'-d',output,str(directory/'java.java')],['g++','-std=c++17','-fsyntax-only',str(directory/'cpp.cpp')]]:
             result=subprocess.run(command,capture_output=True,text=True)
             if result.returncode: errors.append(result.stderr)
-    return directory.parent.relative_to(root),errors
-paths=[p for p in (root/'content').rglob('code') if (p.parent/'lesson.mdx').exists()]
+    return directory.relative_to(root),errors
+paths=[p.parent for p in (root/'content').rglob('js.ts') if (p.parent/'py.py').exists()]
 failed=0
 with ThreadPoolExecutor(max_workers=2) as pool:
     for name,errors in pool.map(check,sorted(paths)):
@@ -28,5 +28,5 @@ with ThreadPoolExecutor(max_workers=2) as pool:
             print('FAIL '+str(name),file=sys.stderr)
             for error in errors: print(error,file=sys.stderr)
         else: print('PASS '+str(name))
-print(f'Checked four-language snippets for {len(paths)} lessons; {failed} failed.')
+print(f'Checked four-language snippets for {len(paths)} snippet sets; {failed} failed.')
 sys.exit(1 if failed else 0)

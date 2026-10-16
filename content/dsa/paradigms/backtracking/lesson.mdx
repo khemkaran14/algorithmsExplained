@@ -1,0 +1,40 @@
+# Backtracking
+
+## Hook
+
+Explore a maze of partial answers, returning to exactly the same junction before trying another branch.
+
+## Watch
+
+Choose, test, recurse, undo. Change the input to test a base case, a repeated subproblem and an unreachable or constrained state where applicable.
+
+## How it works
+
+1. Maintain a valid partial state.
+2. Choose a legal candidate.
+3. Explore descendants or record a complete answer.
+4. Undo the candidate before trying its sibling.
+
+## Try it
+
+Predict a recurrence choice, comparison or valid search branch. Explain which stored state or constraint makes the next decision correct.
+
+## Complexity
+
+Output/search dependent; exponential or factorial worst-case. The player states the recurrence or greedy/search invariant and counts teaching operations rather than measuring animation time.
+
+## Code
+
+The four reference languages show the core operations under the same bounded input assumptions. Full tables preserve predecessor information for reconstruction; a table-only reference returns those states for the caller to backtrack. Backtracking references include N-Queens, subsets, permutations and a budgeted 9×9 Sudoku solver.
+
+## When to use
+
+Use for constrained search and explicit enumeration such as N-Queens, Sudoku, subsets and permutations.
+
+## Interview pitfalls
+
+Pruning does not remove worst-case exponential work. A search budget ending does not prove unsatisfiability.
+
+## Quiz
+
+Check the state definition, cost model and boundary conditions below.

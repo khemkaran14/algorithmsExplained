@@ -12,6 +12,6 @@ const meta = {
   isFree: true,
   prerequisites: [],
   tags: ['security', 'dsa'],
-  status: 'planned',
+  status: 'ready',
 } as const;
 export default meta;

@@ -63,13 +63,6 @@ it('stack empties in reverse order with exact reads/writes', () => {
     writes: 6,
   });
 });
-it('BFS visits each binary-tree vertex once in layer order', () => {
-  const f = last([
-    ...freeVisualizers.bfs.generate([10, 20, 30, 40, 50, 60, 70]),
-  ]);
-  expect(f.state.result).toEqual([10, 20, 30, 40, 50, 60, 70]);
-  expect(f.counters).toEqual({ comparisons: 6, swaps: 0, reads: 7, writes: 6 });
-});
 it('linear sum performs exactly n reads', () => {
   const f = last([...freeVisualizers['big-o'].generate([4, 7, 2])]);
   expect(f.state.result).toBe(13);

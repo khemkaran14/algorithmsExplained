@@ -1,0 +1,39 @@
+# Union Find
+
+## Hook
+
+Merge smaller clubs into bigger clubs while shortening membership routes.
+
+## Watch
+
+Join sets through their representatives. Edit the graph JSON to add a cycle, isolate a vertex or change an edge weight. Nodes are numbered from zero.
+
+## How it works
+
+1. Find both representatives.
+2. Skip an already-connected pair.
+3. Attach the smaller set and compress parent paths.
+
+## Try it
+
+Predict the next frontier decision or edge operation before revealing it. Compare a connected graph with the same graph after removing an important edge.
+
+## Complexity
+
+O((V+E) α(V)) amortized. Union by size limits parent growth and compression shortens repeated finds. The inverse-Ackermann bound is amortized over a sequence, not a literal constant bound for every find. The counters count teaching operations; animation duration is not a CPU benchmark.
+
+## Code
+
+The four references show the core operation. Adjacency-list inputs use zero-based vertex indices. Weighted references use (neighbor,weight) pairs or explicit edge triples. Validate the graph assumptions before calling standalone code.
+
+## When to use
+
+Use for incremental undirected connectivity and Kruskal’s algorithm.
+
+## Interview pitfalls
+
+Path compression changes parent paths without changing set membership.
+
+## Quiz
+
+Check the graph assumptions, invariant and boundary conditions below.

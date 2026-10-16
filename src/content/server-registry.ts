@@ -62,7 +62,7 @@ export async function serverLessonData(
         (sum, key) => sum + (f.counters[key] ?? 0),
         0,
       );
-    return { n: measuredSize(values, n), count };
+    return { n: v.measureSize?.(values) ?? measuredSize(values, n), count };
   });
   return {
     variant: variant ?? 'default',
@@ -90,7 +90,9 @@ export async function serverLessonData(
       average: v.presets.average,
       worst: v.presets.worst,
     },
-    measurements,
+    measurements: [
+      ...new Map(measurements.map((point) => [point.n, point])).values(),
+    ].sort((a, b) => a.n - b.n),
   };
 }
 
@@ -100,7 +102,17 @@ function measuredSize(value: unknown, fallback: number): number {
   if (typeof value === 'number') return value;
   if (value && typeof value === 'object') {
     const record = value as Record<string, unknown>;
-    for (const key of ['values', 'weights', 'nodes', 'points', 'accesses'])
+    for (const key of [
+      'values',
+      'weights',
+      'nodes',
+      'points',
+      'accesses',
+      'parents',
+      'keys',
+      'words',
+      'insert',
+    ])
       if (Array.isArray(record[key])) return record[key].length;
     for (const key of ['n', 'requests'])
       if (typeof record[key] === 'number') return record[key];

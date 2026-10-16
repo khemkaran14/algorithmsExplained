@@ -1,0 +1,40 @@
+# Cryptographic Hash Functions
+
+## Hook
+
+A cryptographic fingerprint is deliberately sensitive to changes anywhere in its input.
+
+## Watch
+
+Change one bit. Compare the whole digest. The inputs are examples, never application secrets. Public fixed fixtures make repeated traces deterministic.
+
+## How it works
+
+1. Encode the example as UTF-8 bytes.
+2. Flip one selected input bit.
+3. Compute actual SHA-256 digests.
+4. Count the differing output bits.
+
+## Try it
+
+Predict the verification outcome or modular-arithmetic decision. Toggle tampering or change the input, then explain why the observed result changes.
+
+## Complexity
+
+O(n) input hashing and fixed-size digest state. Library calls perform real cryptographic operations; the trace illustrates protocol-level stages rather than claiming to animate every internal cipher round. Big-integer and curve costs depend on security parameters.
+
+## Code
+
+Node.js uses its standard crypto/TLS libraries. Python AES/Ed25519 references require the maintained cryptography package; other Python references use the standard library. Java uses JDK cryptography/TLS APIs. C++ references require OpenSSL headers and linking libcrypto/libssl where used. Textbook RSA and tiny-group DH snippets are explicitly insecure mathematical demonstrations.
+
+## When to use
+
+Use standard cryptographic hashes for integrity constructions and established protocols, with authentication where required.
+
+## Interview pitfalls
+
+A digest is not encryption. Avalanche examples do not prove preimage or collision resistance.
+
+## Quiz
+
+Distinguish confidentiality, integrity, identity and the limits of a demonstration.
