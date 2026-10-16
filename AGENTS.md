@@ -67,3 +67,7 @@ Middleware supplies fresh CSP nonces to both Next's request renderer and respons
 Account export/deletion use authenticated, same-origin routes with an explicit deletion phrase. Exports whitelist profile/learning/purchase fields and exclude sign-in tokens. User deletion cascades private data and leaves payment reconciliation records with a null user link. Never run destructive tests against real accounts; fixtures have generated IDs. `pnpm seed:admin` promotes one existing account selected by ADMIN_EMAIL, never creates an account or bypass route. Admin pages recheck the stored role, validate filters, paginate stably, and report the global free ratio. Coupon disable does not alter existing payable orders.
 
 Production lessons stream their header before model/code preparation. Static lesson results have a bounded server-only cache; access checks precede the loader. Search loads public catalog data and result links only when opened. Mobile code token DOM mounts when its tab is opened. Lighthouse uses three mobile runs with median category thresholds of 90 for landing and the free Bubble Sort lesson; do not weaken these checks or use optimistic aggregation to hide failures.
+
+## First-time learner navigation
+
+The homepage primary action opens the free Bubble Sort lesson. Keep the shared getting-started guide on both the homepage and learning dashboard, preserve working links for every authored track, and distinguish paid access from unfinished content. Do not reintroduce development-phase announcements in the public learning journey.

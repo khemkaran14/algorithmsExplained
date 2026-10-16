@@ -93,3 +93,11 @@
 - Streamed lesson headers, bounded caching of static authored material, loaded search data/results on demand and deferred hidden mobile code token DOM. Code scrolling follows the active reference line.
 - Full suite passes 489 tests; all 44 browser scenarios pass for account/admin changes, followed by 12 affected browser checks after loading optimizations. Production build, lint/types/format pass. Three-run mobile Lighthouse medians pass enforced 90-point thresholds: landing performance 94, Bubble Sort 90; both accessibility 100, best practices 96 and SEO 100.
 - Learning feature completion, final source synchronization, additional production features and launch preparation remain in progress.
+
+## 2026-10-17 — First lesson guidance
+
+- Added an explicit free Bubble Sort entry point and a watch/try/quiz guide on the homepage and learning dashboard, with links to arrays and Big O.
+- Replaced homepage phase announcements in the working copy with current learning instructions and track links. The landing animation is labelled as a sorting demo; paid access remains distinct from content availability.
+- This onboarding update does not close the broader source synchronization audit or external-provider acceptance gates.
+
+- Focused release validation: 489 tests, strict validation of 201 lessons, production compilation/standalone preparation, lint, types and formatting pass. Browser suite: 42/44 passed initially; the architecture-diagram and mobile-admin checks both passed when rerun individually. The new first-lesson navigation passes on desktop and mobile.

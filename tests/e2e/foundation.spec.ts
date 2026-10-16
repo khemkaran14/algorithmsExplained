@@ -7,8 +7,14 @@ test('landing, theme, accessible navigation and honest auth state', async ({
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Big ideas. Made visible.',
   );
-  await page.getByRole('link', { name: 'Find your starting point' }).click();
-  await expect(page.locator('#tracks')).toBeInViewport();
+  await expect(page.locator('#tracks').getByRole('link')).toHaveCount(4);
+  await expect(page.getByText(/coming soon|arrives in phase/i)).toHaveCount(0);
+  await page
+    .getByRole('link', { name: 'Start your first free lesson' })
+    .click();
+  await expect(page).toHaveURL(/\/learn\/dsa\/sorting\/bubble-sort$/);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Bubble');
+  await page.goto('/');
   await page.getByRole('button', { name: 'Toggle color theme' }).click();
   expect(
     await page.evaluate(

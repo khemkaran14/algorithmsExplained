@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { GettingStarted } from '@/components/getting-started';
+import { MiniSort } from '@/components/mini-sort';
 import { PRICING } from '@/config/pricing';
 import { getTranslations } from 'next-intl/server';
 import {
@@ -10,13 +12,26 @@ import {
   Check,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+export const metadata = { alternates: { canonical: '/' } };
 export default async function Home() {
+  const uiText = await getTranslations('ui');
+
   const t = await getTranslations();
   const tracks = [
-    { id: 'dsa', icon: Braces, color: 'bg-lime-300' },
-    { id: 'system', icon: Network, color: 'bg-violet-300' },
-    { id: 'database', icon: Database, color: 'bg-orange-200' },
-    { id: 'cloud', icon: Cloud, color: 'bg-sky-200' },
+    { path: 'dsa', id: 'dsa', icon: Braces, color: 'bg-lime-300' },
+    {
+      path: 'system-design',
+      id: 'system',
+      icon: Network,
+      color: 'bg-violet-300',
+    },
+    {
+      path: 'databases',
+      id: 'database',
+      icon: Database,
+      color: 'bg-orange-200',
+    },
+    { path: 'cloud', id: 'cloud', icon: Cloud, color: 'bg-sky-200' },
   ] as const;
   return (
     <>
@@ -33,7 +48,7 @@ export default async function Home() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
-              <Link href="#tracks">
+              <Link href="/learn/dsa/sorting/bubble-sort">
                 {t('home.cta')}
                 <ArrowUpRight size={18} />
               </Link>
@@ -43,14 +58,14 @@ export default async function Home() {
             </Button>
           </div>
           <div className="mt-8 flex flex-wrap gap-5 font-mono text-xs text-[var(--muted)]">
-            <span>01 / SEE IT</span>
-            <span>02 / TRY IT</span>
-            <span>03 / GET IT</span>
+            <span>{uiText('ma260e122b7d5')}</span>
+            <span>{uiText('m1034e6ef3bd8')}</span>
+            <span>{uiText('m49f121921b05')}</span>
           </div>
         </div>
         <div className="overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)]">
           <div className="flex items-center justify-between border-b border-[var(--border)] px-6 py-4">
-            <span className="font-mono text-xs">SORTING / 001</span>
+            <span className="font-mono text-xs">{uiText('m48b0b830023f')}</span>
             <span className="rounded-full bg-lime-300 px-3 py-1 text-xs font-bold text-zinc-950">
               {t('home.preview')}
             </span>
@@ -59,34 +74,17 @@ export default async function Home() {
             <div className="mb-8 flex items-end justify-between">
               <h2 className="text-2xl font-semibold">{t('home.bubble')}</h2>
               <span className="font-mono text-xs text-[var(--muted)]">
-                O(n²)
+                {uiText('mba64b525fd6c')}
               </span>
             </div>
-            <div
-              aria-label="Illustration of array values 3, 7, 4, 9, 2, 6"
-              role="img"
-              className="flex h-52 items-end justify-center gap-2 sm:gap-4"
-            >
-              {[3, 7, 4, 9, 2, 6].map((n, i) => (
-                <div
-                  key={i}
-                  className={`preview-bar flex w-10 items-end justify-center rounded-t-lg pb-3 font-mono text-sm font-bold text-zinc-950 sm:w-12 ${i === 1 || i === 2 ? 'bg-violet-300' : 'bg-lime-300'}`}
-                  style={{
-                    height: `${n * 10 + 20}%`,
-                    maxHeight: '100%',
-                    animationDelay: `${i * 0.2}s`,
-                  }}
-                >
-                  {n}
-                </div>
-              ))}
-            </div>
+            <MiniSort />
             <div className="mt-6 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 font-mono text-xs text-[var(--muted)]">
               {t('home.previewNote')}
             </div>
           </div>
         </div>
       </section>
+      <GettingStarted />
       <section id="tracks" className="mx-auto max-w-7xl scroll-mt-8 px-5 pb-20">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -102,7 +100,7 @@ export default async function Home() {
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {tracks.map(({ id, icon: Icon, color }, i) => (
+          {tracks.map(({ id, path, icon: Icon, color }, i) => (
             <article
               key={id}
               className="flex flex-col rounded-2xl border border-[var(--border)] p-6"
@@ -125,7 +123,7 @@ export default async function Home() {
                 {t(`tracks.${id}.topics`)}
               </p>
               <span className="mt-5 text-xs font-semibold">
-                {t('common.comingSoon')}
+                <Link href={`/learn/${path}`}>{uiText('m6848e06e9f5d')}</Link>
               </span>
             </article>
           ))}
@@ -156,7 +154,7 @@ export default async function Home() {
                 </span>
                 <span>{label}</span>
                 <span className="ml-auto text-xs text-[var(--muted)]">
-                  {i === 0 ? t('common.now') : t('common.next')}
+                  <Check size={16} aria-label={uiText('me674447337e8')} />
                 </span>
               </li>
             ))}
@@ -177,6 +175,9 @@ export default async function Home() {
         <p className="font-mono text-xs text-[var(--muted)]">
           {t('home.pricingNote')}
         </p>
+        <Link href="/pricing" className="mt-4 inline-block underline">
+          {uiText('mf288ee77d14d')}
+        </Link>
       </section>
     </>
   );

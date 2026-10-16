@@ -64,3 +64,7 @@ Account exports use an explicit profile/learning/purchase allowlist; OAuth crede
 The admin command promotes exactly one existing account matching ADMIN_EMAIL case-insensitively and never creates an account or HTTP bypass. Administration freshly checks database roles, provides stable paginated filters for users/payments/coupons, exposes aggregate payment/completion data and the global free ratio, and supports disabling new coupon use without altering already payable orders.
 
 Lesson headings stream independently of MDX/code preparation. A bounded production cache stores up to 64 immutable authored lesson/code/quiz results; authorization remains before this loader and learner inputs/state never enter that cache. Development bypasses it for live authoring.
+
+## First-time learning entry (2026-10-17)
+
+The homepage primary action opens the free Bubble Sort lesson directly. A shared server-rendered guide on the homepage and learning dashboard explains playback, predictions and quizzes without requiring account creation. Arrays and Big O provide concrete next lessons. Do not replace unfinished-content gates with availability claims: authored content, entitlement and release acceptance are separate states.
