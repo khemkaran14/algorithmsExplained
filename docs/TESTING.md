@@ -4,7 +4,7 @@ This guide describes the current implementation checkpoint. It does not certify 
 
 ## Setup
 
-Use Node.js 22 LTS, pnpm 10.28.2 and Docker with Compose. Follow the commands in [README](../README.md). `pnpm setup:local` generates `.env`; it never overwrites an existing file. Do not copy the placeholder password from `.env.example` over a generated `.env`.
+Use Node.js 22 LTS (22.12 or newer patch), pnpm 10.28.2 and Docker with Compose. Follow the commands in [README](../README.md). `pnpm setup:local` generates `.env`; it never overwrites an existing file. Do not copy the placeholder password from `.env.example` over a generated `.env`.
 
 Open http://localhost:3000 after `pnpm dev`. Keep that origin consistent with `AUTH_URL`. Free content works without Google, Resend or Razorpay keys.
 
@@ -21,7 +21,8 @@ Open http://localhost:3000 after `pnpm dev`. Keep that origin consistent with `A
 9. Open `/learn/system-design/fundamentals/how-a-request-travels`, change traffic, replicas, cache target and a database failure, then Load input. Check request conservation and the AWS/GCP component labels.
 10. Open `/learn/system-design/case-studies/url-shortener`. Edit capacity assumptions, step through the progressive architecture, then enable lost delete invalidation and inspect cached versus durable outcomes. Case API paths are design exercises, not live AlgoVerse routes.
 11. Open the free Database keys and normalization lessons. Test duplicate primary keys, an orphan foreign key and NULL. In normalization, use attributes ABC with AB → C and C → B: candidate keys AB/AC should satisfy 3NF and fail BCNF.
-12. Open a lesson labelled as being authored: expect its planned-content page, not an unfinished player. The Cloud track is still being implemented.
+12. Open the free Cloud service-model lesson, switch AWS/GCP and IaaS/PaaS/SaaS, then inspect responsibility gaps.
+13. Open a lesson labelled as being authored: expect its planned-content page, not an unfinished player. The Cloud track is still being implemented.
 
 ## Authenticated acceptance tests
 
@@ -47,7 +48,7 @@ A provider cannot deliver webhooks directly to localhost. Use a reachable HTTPS 
 
 ## Automated checks
 
-Run the validation commands in README against a disposable local database. Expect the implemented-content validator to report 168 authored lessons and 33 planned entries at this checkpoint. The strict full-catalog validator should remain red until all lessons are finished.
+Run the validation commands in README against a disposable local database. Expect the implemented-content validator to report 178 authored lessons and 23 planned entries at this checkpoint. The strict full-catalog validator should remain red until all lessons are finished.
 
 Browser suites cover desktop/mobile, accessibility scans on sampled pages, anonymous account merging, protected content/invoices, signed webhook idempotency, playback, search, playground isolation and comparison gating. A passing accessibility sample does not establish full-site WCAG conformance. Lighthouse and full production-hardening acceptance still remain.
 

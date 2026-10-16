@@ -1,7 +1,9 @@
 'use client';
 import { useId } from 'react';
 import dynamic from 'next/dynamic';
-import { motion, useReducedMotion } from 'framer-motion';
+import { LazyMotion, m, useReducedMotion } from 'framer-motion';
+const loadMotionFeatures = () =>
+  import('./motion-features').then((module) => module.default);
 import type { Frame, Mark, VisualState } from '@/engine/types';
 const ArchitectureView = dynamic(() => import('./architecture-view'), {
   ssr: false,
@@ -43,68 +45,71 @@ function SvgArray({
     width = stack ? 320 : Math.max(320, a.length * 42 + 8),
     height = stack ? Math.max(250, a.length * 38 + 30) : 250;
   return (
-    <div
-      tabIndex={0}
-      className="relative h-72 max-w-full overflow-auto"
-      role="img"
-      aria-label={`Current values: ${a.join(', ') || 'empty'}`}
-    >
-      <svg
-        width={width}
-        height={height}
-        className="min-w-full"
-        viewBox={`0 0 ${width} ${height}`}
+    <LazyMotion features={loadMotionFeatures} strict>
+      <div
+        tabIndex={0}
+        className="relative h-72 max-w-full overflow-auto"
+        role="img"
+        aria-label={`Current values: ${a.join(', ') || 'empty'}`}
       >
-        <title>{frame.narration}</title>
-        {a.map((value, i) => {
-          const h = bars ? Math.max(14, (Math.abs(value) / max) * 165) : 34,
-            x = stack ? 110 : i * 42 + 5,
-            y = stack ? 20 + (a.length - 1 - i) * 38 : 205 - h,
-            kind = mark(frame, String(i));
-          return (
-            <motion.g
-              key={`${value}-${a.slice(0, i).filter((v) => v === value).length}`}
-              animate={{ x, y }}
-              transition={{ duration: reduced ? 0 : 0.18 }}
-            >
-              <rect
-                width={stack ? 100 : 36}
-                height={h}
-                rx={bits ? 2 : 5}
-                fill={VISUAL_COLORS[kind]}
-                stroke="#33412d"
-                strokeWidth={kind === 'comparing' ? 3 : 1}
-                strokeDasharray={kind === 'queued' ? '3 2' : undefined}
-              />
-              <text
-                x={stack ? 50 : 18}
-                y={Math.min(h - 3, 22)}
-                textAnchor="middle"
-                fill="#15200d"
-                fontFamily="monospace"
-                fontSize="11"
+        <svg
+          width={width}
+          height={height}
+          className="min-w-full"
+          viewBox={`0 0 ${width} ${height}`}
+        >
+          <title>{frame.narration}</title>
+          {a.map((value, i) => {
+            const h = bars ? Math.max(14, (Math.abs(value) / max) * 165) : 34,
+              x = stack ? 110 : i * 42 + 5,
+              y = stack ? 20 + (a.length - 1 - i) * 38 : 205 - h,
+              kind = mark(frame, String(i));
+            return (
+              <m.g
+                key={`${value}-${a.slice(0, i).filter((v) => v === value).length}`}
+                initial={false}
+                animate={{ x, y }}
+                transition={{ duration: reduced ? 0 : 0.18 }}
               >
-                {frame.state.labels?.[i] ?? value}
-              </text>
-              <text
-                x={stack ? 105 : 18}
-                y={stack ? 22 : h + 17}
-                textAnchor={stack ? 'start' : 'middle'}
-                fill="var(--foreground)"
-                fontSize="10"
-              >
-                {stack && i === a.length - 1 ? '← TOP' : symbols[kind] || i}
-              </text>
-            </motion.g>
-          );
-        })}
-      </svg>
-      {!a.length && (
-        <p className="absolute inset-0 grid place-items-center text-[var(--muted)]">
-          Empty
-        </p>
-      )}
-    </div>
+                <rect
+                  width={stack ? 100 : 36}
+                  height={h}
+                  rx={bits ? 2 : 5}
+                  fill={VISUAL_COLORS[kind]}
+                  stroke="#33412d"
+                  strokeWidth={kind === 'comparing' ? 3 : 1}
+                  strokeDasharray={kind === 'queued' ? '3 2' : undefined}
+                />
+                <text
+                  x={stack ? 50 : 18}
+                  y={Math.min(h - 3, 22)}
+                  textAnchor="middle"
+                  fill="#15200d"
+                  fontFamily="monospace"
+                  fontSize="11"
+                >
+                  {frame.state.labels?.[i] ?? value}
+                </text>
+                <text
+                  x={stack ? 105 : 18}
+                  y={stack ? 22 : h + 17}
+                  textAnchor={stack ? 'start' : 'middle'}
+                  fill="var(--foreground)"
+                  fontSize="10"
+                >
+                  {stack && i === a.length - 1 ? '← TOP' : symbols[kind] || i}
+                </text>
+              </m.g>
+            );
+          })}
+        </svg>
+        {!a.length && (
+          <p className="absolute inset-0 grid place-items-center text-[var(--muted)]">
+            Empty
+          </p>
+        )}
+      </div>
+    </LazyMotion>
   );
 }
 export function ArrayBars({ frame }: Props) {
@@ -375,75 +380,77 @@ export function HanoiView({ frame }: Props) {
   const reduced = useReducedMotion(),
     pegs = frame.state.rows ?? [[], [], []];
   return (
-    <svg
-      viewBox="0 0 360 270"
-      role="img"
-      aria-label={`Hanoi board: ${frame.narration}`}
-      className="h-72 w-full"
-    >
-      {[60, 180, 300].map((x, i) => (
-        <g key={i}>
-          <line
-            x1={x}
-            x2={x}
-            y1="40"
-            y2="220"
-            stroke="var(--muted)"
-            strokeWidth="5"
-          />
-          <line
-            x1={x - 55}
-            x2={x + 55}
-            y1="222"
-            y2="222"
-            stroke="var(--muted)"
-            strokeWidth="3"
-          />
-          <text
-            x={x}
-            y="250"
-            textAnchor="middle"
-            fill="var(--foreground)"
-            fontFamily="monospace"
-          >
-            {'ABC'[i]}
-          </text>
-        </g>
-      ))}
-      {pegs.flatMap((peg, i) =>
-        peg.map((disk, j) => {
-          const width = 12 + disk * 12;
-          return (
-            <motion.g
-              key={disk}
-              initial={false}
-              animate={{
-                x: [60, 180, 300][i] - width / 2,
-                y: 220 - (j + 1) * 20,
-              }}
-              transition={{ duration: reduced ? 0 : 0.15 }}
+    <LazyMotion features={loadMotionFeatures} strict>
+      <svg
+        viewBox="0 0 360 270"
+        role="img"
+        aria-label={`Hanoi board: ${frame.narration}`}
+        className="h-72 w-full"
+      >
+        {[60, 180, 300].map((x, i) => (
+          <g key={i}>
+            <line
+              x1={x}
+              x2={x}
+              y1="40"
+              y2="220"
+              stroke="var(--muted)"
+              strokeWidth="5"
+            />
+            <line
+              x1={x - 55}
+              x2={x + 55}
+              y1="222"
+              y2="222"
+              stroke="var(--muted)"
+              strokeWidth="3"
+            />
+            <text
+              x={x}
+              y="250"
+              textAnchor="middle"
+              fill="var(--foreground)"
+              fontFamily="monospace"
             >
-              <rect
-                width={width}
-                height="18"
-                rx="4"
-                fill={frame.variables.disk === disk ? '#fdba74' : '#bef264'}
-                stroke="#33412d"
-              />
-              <text
-                x={width / 2}
-                y="13"
-                textAnchor="middle"
-                fill="#15200d"
-                fontSize="11"
+              {'ABC'[i]}
+            </text>
+          </g>
+        ))}
+        {pegs.flatMap((peg, i) =>
+          peg.map((disk, j) => {
+            const width = 12 + disk * 12;
+            return (
+              <m.g
+                key={disk}
+                initial={false}
+                animate={{
+                  x: [60, 180, 300][i] - width / 2,
+                  y: 220 - (j + 1) * 20,
+                }}
+                transition={{ duration: reduced ? 0 : 0.15 }}
               >
-                {disk}
-              </text>
-            </motion.g>
-          );
-        }),
-      )}
-    </svg>
+                <rect
+                  width={width}
+                  height="18"
+                  rx="4"
+                  fill={frame.variables.disk === disk ? '#fdba74' : '#bef264'}
+                  stroke="#33412d"
+                />
+                <text
+                  x={width / 2}
+                  y="13"
+                  textAnchor="middle"
+                  fill="#15200d"
+                  fontSize="11"
+                >
+                  {disk}
+                </text>
+              </m.g>
+            );
+          }),
+        )}
+      </svg>
+    </LazyMotion>
   );
 }
 export function VisualCanvas({ frame }: Props) {

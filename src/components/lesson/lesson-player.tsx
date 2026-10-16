@@ -18,11 +18,13 @@ export function LessonPlayer({
   id,
   code,
   remote,
+  measurements,
   trackProgress = true,
 }: {
   id: string;
   code: CodeLines;
   remote?: RemoteLessonData;
+  measurements?: RemoteLessonData['measurements'];
   trackProgress?: boolean;
 }) {
   const [remoteData, setRemoteData] = useState(remote);
@@ -59,7 +61,15 @@ export function LessonPlayer({
   );
   const [raw, setRaw] = useState(JSON.stringify(input));
   const [error, setError] = useState('');
-  const [size, setSize] = useState(8);
+  const maxRandomSize = Math.min(
+    64,
+    remoteData?.maxSize ?? (id === 'bfs' ? 16 : 64),
+  );
+  const [size, setSize] = useState(() => Math.min(8, maxRandomSize));
+  useEffect(
+    () => setSize((current) => Math.min(current, maxRandomSize)),
+    [maxRandomSize],
+  );
   const [lang, setLang] = useState<Lang>('javascript');
   const [tab, setTab] = useState('visual');
   const [mode, setMode] = useState<'watch' | 'try'>('watch');
@@ -202,6 +212,7 @@ export function LessonPlayer({
   const chart = useMemo(
     () =>
       remoteData?.measurements ??
+      measurements ??
       [8, 16, 32, 64].map((n) => {
         const sample = visualizer.presets.random(
           id === 'bfs' ? Math.min(n, 16) : n,
@@ -212,7 +223,7 @@ export function LessonPlayer({
           count = f.counters.comparisons + f.counters.reads;
         return { n: Array.isArray(sample) ? sample.length : n, count };
       }),
-    [visualizer, id, remoteData],
+    [visualizer, id, remoteData, measurements],
   );
   const chartMax = Math.max(...chart.map((p) => p.count), 1);
   return (
@@ -248,7 +259,7 @@ export function LessonPlayer({
             className="min-w-0 flex-1"
             type="range"
             min="1"
-            max={remoteData?.maxSize ?? (id === 'bfs' ? 16 : 64)}
+            max={maxRandomSize}
             value={size}
             onChange={(e) => setSize(Number(e.target.value))}
           />

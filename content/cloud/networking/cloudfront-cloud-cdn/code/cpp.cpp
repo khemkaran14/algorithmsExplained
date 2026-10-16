@@ -1,0 +1,6 @@
+#include <deque>
+#include <string>
+#include <cstdint>
+struct Input{int requests,ticks,replicas,cpu,capacity,cacheHit,queueLimit;std::string fault;int failAt,restoreAt;uint32_t seed;};struct Result{int offered,completed,pending,rejected;};
+Result simulate(const Input& p,int dbCapacity=12,bool edgeCache=false){std::deque<int>app,db;uint32_t random=p.seed;auto draw=[&](){random=random*1664525u+1013904223u;return random%100u;};int offered=0,completed=0,rejected=0;for(int t=0;t<p.ticks;t++){bool outage=p.fault!="none"&&t>=p.failAt&&(!p.restoreAt||t<p.restoreAt),region=outage&&p.fault=="region",cacheDown=region&&!edgeCache||outage&&p.fault=="cache",dbDown=region||outage&&p.fault=="database";int healthy=region?0:p.replicas-(outage&&p.fault=="service"?1:0);for(int i=0;i<p.requests;i++){offered++;if(edgeCache&&!cacheDown&&draw()<(unsigned)p.cacheHit){completed++;continue;}if(region||(int)app.size()>=p.queueLimit)rejected++;else app.push_back(1);}for(int budget=healthy*p.capacity*p.cpu;!app.empty()&&budget>0;budget--){app.pop_front();if(!edgeCache&&!cacheDown&&draw()<(unsigned)p.cacheHit)completed++;else if((int)db.size()>=p.queueLimit)rejected++;else db.push_back(1);}if(!dbDown)for(int budget=dbCapacity;!db.empty()&&budget>0;budget--){db.pop_front();completed++;}}
+return {offered,completed,int(app.size()+db.size()),rejected};}

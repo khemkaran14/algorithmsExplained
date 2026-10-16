@@ -1,0 +1,41 @@
+# Step Functions Workflows
+
+## Hook
+
+An orchestrator records progress, but an unknown external outcome still needs reconciliation.
+
+## Watch
+
+Choose AWS or GCP mapping, change one validated model parameter and load the trace. Provider labels identify concepts; the model never provisions resources or calls a provider account.
+
+## How it works
+
+Use an order saga as a worked workflow: reserve inventory, authorize a hold, reserve a courier, capture, fulfill. Compensate known failures in reverse order; retain resources after an uncertain capture until an explicit reconciliation result.
+
+### AWS and GCP comparison
+
+AWS: Step Functions orchestration concepts. GCP: Workflows orchestration concepts. The trace is a business-workflow model, not an ASL or Google Workflows deployment. Production needs durable orchestration state, provider-specific retries/catches, scoped IAM, task idempotency and reconciliation. Compensation may itself fail and require further recovery.
+
+## Try it
+
+Compare a failed capture with a timeout whose result is unknown. Resolve the uncertain outcome to captured or failed, then inspect resource conservation. Predict the next modeled decision before advancing.
+
+## Complexity
+
+Use the displayed measured operation and explicit bounds. Simulator operations, service quotas, network latency and cloud billing are different measurements. Validate production capacity using the selected product and workload.
+
+## Code
+
+The four references implement the core local state model. Provider annotations and UI controls surround that model; the snippets do not authenticate, provision resources or replace a vendor SDK. Worked saga references assume reliable local compensation.
+
+## When to use
+
+Use the scenario to explain access patterns, ownership, failure policy and the operational assumptions behind a cloud service choice.
+
+## Interview pitfalls
+
+The trace is a business-workflow model, not an ASL or Google Workflows deployment. Production needs durable orchestration state, provider-specific retries/catches, scoped IAM, task idempotency and reconciliation. Compensation may itself fail and require further recovery.
+
+## Quiz
+
+Explain one concrete outcome, one provider distinction and one unmodeled production concern.

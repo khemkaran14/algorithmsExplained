@@ -49,3 +49,7 @@ All 35 System Design lessons are authored, including 12 case studies; 147 of 201
 ## Database curriculum checkpoint
 
 All 21 Database lessons are authored; `pnpm content:check:databases` is a strict gate. Database models live in `src/server/simulations/database`. Their declared scope is part of correctness: PostgreSQL READ UNCOMMITTED acts as READ COMMITTED; a repeatable-read snapshot is acquired at first data access; the teaching serialization graph is not full SSI; WAL recovery is a bounded single-recovery pass, not complete ARIES. B+ page splitting/search reuses the tested tree engine. Pool models respect local ownership and a shared physical cap. LSM partial compaction retains tombstones. Independent PostgreSQL tests use random isolated schemas or JSON recordsets and never mutate application tables. Cloud authoring and the final release audits remain open.
+
+## Cloud and dependency-security checkpoint
+
+Ten Cloud lessons are authored; the catalog has 178 ready and 23 planned entries. Remaining Cloud models are tested drafts, not complete lessons until their prose, quizzes and four-language references exist. The dependency graph has zero reported advisories at this checkpoint; see docs/DEPENDENCIES.md for compatibility overrides and the LHCI YAML patch. Both mobile Lighthouse pages pass accessibility/best-practices/SEO targets, but lesson performance remains below 90 (83 in the latest run); keep performance acceptance open. Exact source synchronization and production features remain pending.

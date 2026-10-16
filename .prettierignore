@@ -6,3 +6,5 @@ test-results
 
 .lighthouseci
 content/**/code/**
+
+patches/**

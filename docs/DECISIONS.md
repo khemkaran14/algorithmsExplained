@@ -7,7 +7,7 @@
 - English via next-intl; Hindi translation will ship in a later phase.
 - CI runs foundation checks now. Lighthouse smoke reports run now; score thresholds, audit enforcement and production hardening are Phase 7 work. Hosted CI status must be observed separately from local checks.
 
-- Pin next-intl 4.3.12: later releases eagerly load an SWC native extractor whose trusted-cache requirements are incompatible with this cloud filesystem. No artifact verification is disabled.
+- The initial next-intl 4.3.12 pin avoided an incompatible eager native extractor. The security checkpoint moves to patched next-intl 4.9.2 with a compatible pinned SWC compiler and its upstream WASM fallback available; no artifact verification is disabled. See DEPENDENCIES.md for the validated dependency overrides.
 - Sign-in is dynamically rendered so provider settings are read at runtime. Standalone startup binds all container interfaces and includes static assets.
 
 - The user authorized finishing all phases autonomously. Continue independent implementation while external credential/network checks remain pending; never replace those checks with fake success or call a phase accepted before its acceptance evidence exists.
@@ -38,3 +38,9 @@ System Design cases keep requirements, estimates, service contracts and entity e
 Payment-event teaching models use integer minor units and balanced ledger effects. Food-order sagas retain resources after uncertain capture until reconciliation. These exercises are separate from the application's actual Razorpay billing implementation.
 
 Database query models are checked against independent PostgreSQL JSON recordsets, avoiding writes to application tables. Functional-dependency analysis computes every minimal candidate key within an eight-attribute bound and distinguishes 3NF from BCNF; it does not infer domain rules from sample rows. Index planning uses explicit illustrative work units, not actual PostgreSQL EXPLAIN costs.
+
+## Cloud and dependency-security checkpoint
+
+Ten Cloud lessons are authored; the catalog has 178 ready and 23 planned entries. Remaining Cloud models are tested drafts, not complete lessons until their prose, quizzes and four-language references exist. The dependency graph has zero reported advisories at this checkpoint; see docs/DEPENDENCIES.md for compatibility overrides and the LHCI YAML patch. Both mobile Lighthouse pages pass accessibility/best-practices/SEO targets, but lesson performance remains below 90 (83 in the latest run); keep performance acceptance open. Exact source synchronization and production features remain pending.
+
+Complexity chart samples are cached server-side by visualizer identity. Only standard deterministic sample counts enter this cache, never learner inputs; access checks remain before lesson loading. Local flagship players receive sample counts rather than computing four reference traces during hydration.

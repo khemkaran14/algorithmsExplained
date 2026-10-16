@@ -47,6 +47,8 @@ export default async function LessonPage({
     );
   if (!(await canReadLesson(meta))) return <LockedLesson meta={meta} />;
   const { Content, code, quiz } = await loadLesson(meta);
+  const playerData = await serverLessonData(meta);
+  const localPlayer = meta.isFree && Object.hasOwn(freeVisualizers, meta.slug);
   const next = catalog[(catalog.indexOf(meta) + 1) % catalog.length];
   return (
     <article className="mx-auto max-w-6xl px-4 pb-16 pt-8">
@@ -71,19 +73,17 @@ export default async function LessonPage({
         <p className="mt-3 text-lg text-[var(--muted)]">{meta.description}</p>
       </div>
       <LessonPlayer
+        key={meta.slug}
         id={meta.slug}
         code={code}
-        remote={
-          !meta.isFree || !freeVisualizers[meta.slug]
-            ? await serverLessonData(meta)
-            : undefined
-        }
+        remote={localPlayer ? undefined : playerData}
+        measurements={localPlayer ? playerData.measurements : undefined}
       />
       <div className="lesson-prose my-12 max-w-3xl">
         <Content />
       </div>
-      <Quiz slug={meta.slug} questions={quiz} />
-      <LessonNotebook slug={meta.slug} />
+      <Quiz key={`quiz-${meta.slug}`} slug={meta.slug} questions={quiz} />
+      <LessonNotebook key={`notes-${meta.slug}`} slug={meta.slug} />
       <Link
         className="inline-block rounded-xl border border-[var(--border)] p-4"
         href={lessonUrl(next)}

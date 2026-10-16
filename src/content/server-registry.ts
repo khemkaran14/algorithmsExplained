@@ -57,19 +57,7 @@ export async function serverLessonData(
       throw new ApiError(400, 'Too many frames. Reduce the input size.');
     frames.push(f);
   }
-  const measurements = [8, 16, 32, 64].map((n) => {
-    const values = v.presets.random(
-      meta.slug === 'bfs' ? Math.min(n, 16) : n,
-      42,
-    );
-    let count = 0;
-    for (const f of v.generate(values))
-      count = (v.complexity.metric?.keys ?? ['reads', 'comparisons']).reduce(
-        (sum, key) => sum + (f.counters[key] ?? 0),
-        0,
-      );
-    return { n: v.measureSize?.(values) ?? measuredSize(values, n), count };
-  });
+  const measurements = measurementsFor(v, meta.slug);
   return {
     variant: variant ?? 'default',
     variants: root.variants
@@ -98,10 +86,41 @@ export async function serverLessonData(
       average: v.presets.average,
       worst: v.presets.worst,
     },
-    measurements: [
-      ...new Map(measurements.map((point) => [point.n, point])).values(),
-    ].sort((a, b) => a.n - b.n),
+    measurements,
   };
+}
+
+const measurementCache = new WeakMap<
+  Visualizer<unknown>,
+  RemoteLessonData['measurements']
+>();
+function measurementsFor(
+  v: Visualizer<unknown>,
+  slug: string,
+): RemoteLessonData['measurements'] {
+  const cached = measurementCache.get(v);
+  if (cached) return cached.map((point) => ({ ...point }));
+  const measurements = [8, 16, 32, 64].map((n) => {
+    const input = v.validateInput(
+      v.presets.random(slug === 'bfs' ? Math.min(n, 16) : n, 42),
+    );
+    let count = 0,
+      frames = 0;
+    for (const frame of v.generate(input)) {
+      if (++frames > 10000)
+        throw new Error('Default complexity sample exceeds the frame budget.');
+      count = (v.complexity.metric?.keys ?? ['reads', 'comparisons']).reduce(
+        (sum, key) => sum + (frame.counters[key] ?? 0),
+        0,
+      );
+    }
+    return { n: v.measureSize?.(input) ?? measuredSize(input, n), count };
+  });
+  const points = [
+    ...new Map(measurements.map((point) => [point.n, point])).values(),
+  ].sort((a, b) => a.n - b.n);
+  measurementCache.set(v, points);
+  return points.map((point) => ({ ...point }));
 }
 
 function measuredSize(value: unknown, fallback: number): number {

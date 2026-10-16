@@ -1,7 +1,10 @@
+const palette = new Map<string, string>();
 /** Shiki's dark theme includes low-contrast comments. Keep every token legible
  * against the player's #0d1117 code surface, including its tinted active row. */
 export function accessibleCodeColor(color?: string): string | undefined {
   if (!color || !/^#[\da-f]{6}$/i.test(color)) return color;
+  const cached = palette.get(color.toLowerCase());
+  if (cached) return cached;
   const channels = [1, 3, 5].map((offset) =>
     parseInt(color.slice(offset, offset + 2), 16),
   );
@@ -19,5 +22,8 @@ export function accessibleCodeColor(color?: string): string | undefined {
     for (let i = 0; i < channels.length; i++)
       channels[i] = Math.min(255, channels[i] + 5);
   }
-  return `#${channels.map((channel) => channel.toString(16).padStart(2, '0')).join('')}`;
+  const result = `#${channels.map((channel) => channel.toString(16).padStart(2, '0')).join('')}`;
+  if (palette.size >= 512) palette.delete(palette.keys().next().value!);
+  palette.set(color.toLowerCase(), result);
+  return result;
 }

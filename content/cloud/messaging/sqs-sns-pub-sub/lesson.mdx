@@ -1,0 +1,41 @@
+# Sqs Sns Pub Sub
+
+## Hook
+
+Retrying delivery and applying an effect exactly once are separate problems.
+
+## Watch
+
+Choose AWS or GCP mapping, change one validated model parameter and load the trace. Provider labels identify concepts; the model never provisions resources or calls a provider account.
+
+## How it works
+
+Queue mode shares one consumer group; fan-out creates an independent task per subscriber. Visibility expiry, lost acknowledgments, poison work, bounded retries and an atomic local inbox make pending, duplicate-suppressed and dead-letter outcomes visible.
+
+### AWS and GCP comparison
+
+AWS: SQS work queues / SNS fan-out concepts. GCP: Pub/Sub subscription concepts. These services have different ordering, acknowledgment, retention and optional delivery guarantees. The atomic inbox protects a modeled local effect; external email/charges still need their own idempotency protocol. Do not infer universal exactly-once delivery from this diagram.
+
+## Try it
+
+Lose the first acknowledgment and compare local deduplication enabled/disabled. Poison one message and account for each group’s completed, dead or pending task. Predict the next modeled decision before advancing.
+
+## Complexity
+
+Use the displayed measured operation and explicit bounds. Simulator operations, service quotas, network latency and cloud billing are different measurements. Validate production capacity using the selected product and workload.
+
+## Code
+
+The four references implement the core local state model. Provider annotations and UI controls surround that model; the snippets do not authenticate, provision resources or replace a vendor SDK. Worked saga references assume reliable local compensation.
+
+## When to use
+
+Use the scenario to explain access patterns, ownership, failure policy and the operational assumptions behind a cloud service choice.
+
+## Interview pitfalls
+
+These services have different ordering, acknowledgment, retention and optional delivery guarantees. The atomic inbox protects a modeled local effect; external email/charges still need their own idempotency protocol. Do not infer universal exactly-once delivery from this diagram.
+
+## Quiz
+
+Explain one concrete outcome, one provider distinction and one unmodeled production concern.

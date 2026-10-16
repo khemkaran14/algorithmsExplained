@@ -66,3 +66,9 @@
 - Added deterministic correctness tests and independent PostgreSQL join/query and two-session write-skew checks.
 - Local content validation passes for 168 lessons; only 33 Cloud entries remain planned. All 174 main/variant reference sets compile; 368 tests and production build pass. The four new desktop/mobile Database browser checks pass alongside the previously validated 30 browser scenarios.
 - Production hardening, final source synchronization, complete Cloud curriculum and external-provider acceptance remain open.
+
+## 2026-10-16 — Cloud foundations and dependency security
+
+- Authored ten Cloud lessons with AWS/GCP comparisons, four-language references and validated controls; 178 of 201 lessons are ready. Additional Cloud models remain unregistered drafts pending lesson authoring.
+- Updated vulnerable dependencies, added explicit compatibility tests and enforced the dependency audit in CI. Audit reports zero advisories; the production build and existing 36 desktop/mobile checks pass after dependency changes.
+- Moved standard complexity-chart sample generation off the initial browser render and bounded token-palette caching. Mobile lesson performance remains an open release check.

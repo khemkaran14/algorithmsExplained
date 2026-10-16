@@ -1,0 +1,7 @@
+function query(p){const groups=new Map(),adj=new Map(),kv=new Map();for(const row of p.rows){if(!groups.has(row.owner))groups.set(row.owner,[]);groups.get(row.owner).push(row);kv.set(row.id,row);}for(const list of groups.values())list.sort((a,b)=>a.created-b.created||a.id-b.id);for(const [a,b]of p.friends){if(!adj.has(a))adj.set(a,[]);adj.get(a).push(b);}
+const owners=new Set([p.owner]),queue=[[p.owner,0]];for(let head=0;head<queue.length;head++){const [owner,depth]=queue[head];if(depth>=p.depth)continue;const neighbors=p.model==='graph'?(adj.get(owner)||[]):p.friends.filter(([a])=>a===owner).map(([,b])=>b);for(const n of neighbors)if(!owners.has(n)){owners.add(n);queue.push([n,depth+1]);}}
+let candidates=[];if(['document','graph','wide-column'].includes(p.model)||p.ownerIndex){for(const owner of owners){let rows=groups.get(owner)||[];
+if(p.model==='wide-column'){let lo=0,hi=rows.length;while(lo<hi){const mid=(lo+hi)>>>1;if(rows[mid].created<p.minCreated)lo=mid+1;else hi=mid;}const start=lo;hi=rows.length;while(lo<hi){const mid=(lo+hi)>>>1;if(rows[mid].created<=p.maxCreated)lo=mid+1;else hi=mid;}rows=rows.slice(start,lo);}candidates.push(...rows.map(r=>p.model==='key-value'?kv.get(r.id):r));}}else candidates=p.rows;
+return candidates.filter(r=>owners.has(r.owner)&&r.created>=p.minCreated&&r.created<=p.maxCreated&&r.amount>=p.minAmount).sort((a,b)=>a.id-b.id);}
+// Chosen read-only layouts over one validated fixture, not universal product capabilities.
+// Production must maintain owner references, embedded documents, clustering keys and adjacency.

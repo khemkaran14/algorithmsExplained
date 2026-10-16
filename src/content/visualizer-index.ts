@@ -314,4 +314,24 @@ export const visualizerLoaders: Record<
     import('../../content/databases/principles/connection-pooling/visualizer'),
   'database-caching': () =>
     import('../../content/databases/principles/database-caching/visualizer'),
+  'cloud-service-models': () =>
+    import('../../content/cloud/basics/cloud-service-models/visualizer'),
+  'shared-responsibility': () =>
+    import('../../content/cloud/basics/shared-responsibility/visualizer'),
+  'ec2-compute-engine': () =>
+    import('../../content/cloud/compute/ec2-compute-engine/visualizer'),
+  'rds-aurora-cloud-sql': () =>
+    import('../../content/cloud/databases/rds-aurora-cloud-sql/visualizer'),
+  'dynamodb-firestore-bigtable': () =>
+    import('../../content/cloud/databases/dynamodb-firestore-bigtable/visualizer'),
+  'elasticache-memorystore': () =>
+    import('../../content/cloud/databases/elasticache-memorystore/visualizer'),
+  'alb-cloud-load-balancing': () =>
+    import('../../content/cloud/networking/alb-cloud-load-balancing/visualizer'),
+  'cloudfront-cloud-cdn': () =>
+    import('../../content/cloud/networking/cloudfront-cloud-cdn/visualizer'),
+  'sqs-sns-pub-sub': () =>
+    import('../../content/cloud/messaging/sqs-sns-pub-sub/visualizer'),
+  'step-functions-workflows': () =>
+    import('../../content/cloud/messaging/step-functions-workflows/visualizer'),
 };

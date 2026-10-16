@@ -1,10 +1,10 @@
 # AlgoVerse
 
-Interactive visual lessons for algorithms, with reversible playback, Try challenges, quizzes, progress, and purchase-gated content. **This is an implementation checkpoint, not a production-ready release.** There are 168 authored lessons (112 DSA, 35 System Design and 21 Databases) out of a 201-lesson catalog; the other 33 entries are explicitly marked as being authored. See [testing instructions](docs/TESTING.md), [validation](docs/VALIDATION.md) and the [original specification](docs/PRODUCT_SPEC.md).
+Interactive visual lessons for algorithms, with reversible playback, Try challenges, quizzes, progress, and purchase-gated content. **This is an implementation checkpoint, not a production-ready release.** There are 178 authored lessons (112 DSA, 35 System Design, 21 Databases and 10 Cloud) out of a 201-lesson catalog; the other 23 entries are explicitly marked as being authored. See [testing instructions](docs/TESTING.md), [validation](docs/VALIDATION.md) and the [original specification](docs/PRODUCT_SPEC.md).
 
 ## Run locally
 
-Install Node.js 22 LTS, pnpm 10.28.2, Git and Docker with Compose. Start Docker, then:
+Install Node.js 22 LTS (22.12 or newer patch), pnpm 10.28.2, Git and Docker with Compose. Start Docker, then:
 
 ```bash
 git clone https://github.com/khemkaran14/algorithmsExplained.git
