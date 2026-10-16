@@ -1,0 +1,6 @@
+import java.util.*;
+class Limiter {record Event(int at,int cost){}static class State{double tokens;int last,window,current,previous;List<Event>log=new ArrayList<>();State(int limit,int at,int w){tokens=limit;last=at;window=w;}}final String algorithm;final int limit,window;final double refill;final Map<String,State>clients=new HashMap<>();Limiter(String a,int l,int w,double r){algorithm=a;limit=l;window=w;refill=r;}
+boolean admit(int at,String key,int cost){State s=clients.computeIfAbsent(key,k->new State(limit,at,at/window));double available;if(algorithm.equals("token-bucket")){s.tokens=Math.min(limit,s.tokens+(at-s.last)*refill/1000);s.last=at;available=s.tokens;}else if(algorithm.equals("sliding-log")){s.log.removeIf(e->e.at()<=at-window);available=limit-s.log.stream().mapToInt(Event::cost).sum();}else{int bucket=at/window;if(bucket!=s.window){s.previous=bucket==s.window+1?s.current:0;s.current=0;s.window=bucket;}available=limit-s.current-(algorithm.equals("sliding-counter")?s.previous*(1.0-(at%window)/(double)window):0);}
+boolean allowed=cost<=available+1e-12;
+if(allowed){if(algorithm.equals("token-bucket"))s.tokens=Math.max(0,s.tokens-cost);else if(algorithm.equals("sliding-log"))s.log.add(new Event(at,cost));else s.current+=cost;}
+return allowed;}}

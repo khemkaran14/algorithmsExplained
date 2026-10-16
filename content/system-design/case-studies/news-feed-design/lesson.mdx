@@ -1,0 +1,59 @@
+# News Feed Design
+
+## Hook
+
+Show a user posts from followed authors and themselves. A useful design makes ownership, trade-offs and failure outcomes explicit.
+
+## Watch
+
+Build the architecture one component at a time. Read the requirements and estimates above the player, then inspect the modeled state transitions.
+
+## How it works
+
+Persist the author log before issuing fan-out work.
+
+Push materializes inbox copies for future reads.
+
+Pull reads relevant author logs and ranks their candidates.
+
+Hybrid pulls high-fanout authors to avoid a celebrity write explosion.
+
+Merge by post identity so own-post and follower paths do not duplicate results.
+
+### Requirements and estimates
+
+The interactive overview includes editable daily actors, request frequency, peak factor, payload and retention assumptions. RPS is daily requests divided by 86,400. Storage estimates exclude replication, metadata and indexes. These are planning assumptions, not measured provider capacity.
+
+### API and data-model exercise
+
+The overview lists example service API contracts and durable entity keys. These paths describe the hypothetical service; they are not callable AlgoVerse endpoints. Define authentication, pagination and error semantics before implementing a real service.
+
+## Try it
+
+Predict an input-dependent state transition before advancing. Change one assumption at a time and account for committed, rejected, stale or pending outcomes.
+
+### Break it
+
+Stop fan-out workers and compare push, pull and hybrid reads. Raise the follower threshold and inspect queued copies and read scans.
+
+## Complexity
+
+Use the displayed operation counters and complexity assumptions. Capacity estimates, simulator running time and real end-to-end latency are different measurements.
+
+## Code
+
+The references show the fully drained materialization baseline. The player adds bounded asynchronous workers and a fan-out outage so propagation lag stays visible.
+
+The four language references implement the stated core mechanism. They are bounded teaching implementations, not complete deployable service backends. The visualizer adds architecture, validated controls and outcome narration around that mechanism.
+
+## When to use
+
+Use the exercise to explain requirements, ownership, scaling pressure and failure policy in a design interview. Validate a production design with actual workload measurements and the complete selected provider protocol.
+
+## Interview pitfalls
+
+Do not turn an illustrative throughput parameter into a universal benchmark. Distinguish retry safety from exactly-once external effects, a cache from durable ownership, and a timeout from a known failure. Name the model limits before claiming a guarantee.
+
+## Quiz
+
+Explain one state transition, one failure invariant and one concern outside the bounded simulation.

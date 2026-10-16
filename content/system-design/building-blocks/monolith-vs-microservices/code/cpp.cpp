@@ -1,0 +1,6 @@
+#include <vector>
+#include <string>
+#include <algorithm>
+struct Request{std::string route;int id,stage=0;};struct Result{std::vector<int>completed,failed,pending;int overhead;};
+Result simulate(const std::vector<std::string>& routes,bool services,int capacity,int ticks,bool paymentDown=false,int hopCost=5){std::vector<Request>pending;for(unsigned i=0;i<routes.size();i++)pending.push_back({routes[i],int(i)});Result out;out.overhead=0;for(int tick=0;tick<ticks;tick++){if(!services){int budget=capacity;for(unsigned i=0;i<pending.size()&&budget>0;){auto r=pending[i];int work=r.route=="catalog"?1:3;if(paymentDown){out.failed.push_back(r.id);pending.erase(pending.begin()+i);continue;}if(work>budget){i++;continue;}budget-=work;out.completed.push_back(r.id);pending.erase(pending.begin()+i);}}else{int budgets[3]{std::max(1,capacity/3),capacity/3,capacity-std::max(1,capacity/3)-capacity/3};for(int stage=2;stage>=0;stage--)for(unsigned i=0;i<pending.size()&&budgets[stage]>0;){auto& r=pending[i];if(r.stage!=stage){i++;continue;}budgets[stage]--;if(stage>0)out.overhead+=hopCost;if(stage==2&&paymentDown){out.failed.push_back(r.id);pending.erase(pending.begin()+i);}else if(r.route=="catalog"||stage==2){out.completed.push_back(r.id);pending.erase(pending.begin()+i);}else{r.stage++;i++;}}}}
+for(auto r:pending)out.pending.push_back(r.id);return out;}

@@ -282,6 +282,7 @@ const queueSchema = z
     maxRetries: z.number().int().min(0).max(4).default(2),
     loseFirstAck: z.boolean().default(false),
     failMessage: z.string().max(20).default(''),
+    failSubscriber: z.number().int().min(-1).max(3).default(-1),
     deduplicate: z.boolean().default(true),
   })
   .strict();
@@ -289,6 +290,19 @@ export type QueueInput = z.infer<typeof queueSchema>;
 export function messageQueue(
   slug = 'message-queues-pub-sub',
 ): Visualizer<QueueInput> {
+  const parse = (raw: unknown) =>
+    queueSchema.parse(
+      raw && typeof raw === 'object' && !Array.isArray(raw)
+        ? {
+            mode: ['event-driven-architecture', 'notification-system'].includes(
+              slug,
+            )
+              ? 'pubsub'
+              : 'queue',
+            ...raw,
+          }
+        : raw,
+    );
   return {
     id: slug,
     maxSize: 32,
@@ -345,15 +359,15 @@ export function messageQueue(
       },
     ],
     presets: {
-      best: queueSchema.parse({ messages: [{ id: 'm1', value: 1 }] }),
-      average: queueSchema.parse({
+      best: parse({ messages: [{ id: 'm1', value: 1 }] }),
+      average: parse({
         messages: Array.from({ length: 8 }, (_, i) => ({
           id: `m${i}`,
           value: i + 1,
         })),
         loseFirstAck: true,
       }),
-      worst: queueSchema.parse({
+      worst: parse({
         messages: [
           { id: 'poison', value: 5 },
           { id: 'ok', value: 2 },
@@ -364,7 +378,7 @@ export function messageQueue(
         maxRetries: 1,
       }),
       random: (n) =>
-        queueSchema.parse({
+        parse({
           messages: Array.from(
             { length: Math.min(32, Math.max(1, n)) },
             (_, i) => ({ id: `m${i}`, value: 1 }),
@@ -372,7 +386,7 @@ export function messageQueue(
         }),
     },
     validateInput(raw) {
-      const p = queueSchema.parse(raw),
+      const p = parse(raw),
         values = new Map<string, number>();
       for (const m of p.messages) {
         if (values.has(m.id) && values.get(m.id) !== m.value)
@@ -524,7 +538,9 @@ export function messageQueue(
               },
             );
             const key = `${task.subscriber}:${task.id}`,
-              poison = task.id === input.failMessage;
+              poison =
+                task.id === input.failMessage ||
+                task.subscriber === input.failSubscriber;
             if (!poison) {
               if (input.deduplicate && inbox.has(key)) c.duplicatesBlocked++;
               else {

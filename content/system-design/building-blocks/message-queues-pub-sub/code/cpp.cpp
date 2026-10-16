@@ -1,0 +1,6 @@
+#include <vector>
+#include <string>
+#include <set>
+struct Message{std::string id;int value;};struct Task{Message message;int group,state=0,attempts=0,due=0;};struct Result{std::vector<int>effects;int deliveries,done,dead,pending;};
+Result deliver(const std::vector<Message>& messages,int groups,int workers,int perWorker,int ticks,int visibility,int retries,bool deduplicate,bool loseFirstAck,const std::string& failMessage){std::vector<Task>tasks;for(auto m:messages)for(int g=0;g<groups;g++)tasks.push_back({m,g});std::vector<int>effects(groups);std::set<std::pair<int,std::string>>inbox;bool lost=false;int deliveries=0;for(int tick=0;tick<ticks;tick++){for(auto& t:tasks)if(t.state==1&&t.due<=tick)t.state=t.attempts>=retries+1?3:0;for(int group=0;group<groups;group++){int budget=workers*perWorker;for(auto& t:tasks){if(!budget)break;if(t.group!=group||t.state!=0)continue;budget--;t.state=1;t.due=tick+visibility;t.attempts++;deliveries++;if(t.message.id==failMessage)continue;auto key=std::make_pair(group,t.message.id);if(!deduplicate||!inbox.count(key)){effects[group]+=t.message.value;inbox.insert(key);}if(loseFirstAck&&!lost)lost=true;else t.state=2;}}}int done=0,dead=0;for(auto t:tasks){done+=t.state==2;dead+=t.state==3;}
+return {effects,deliveries,done,dead,int(tasks.size())-done-dead};}

@@ -1,0 +1,6 @@
+function simulate(routes,mode,capacity,ticks,paymentDown=false,hopCost=5){const pending=routes.map((route,id)=>({route,id,stage:0})),completed=[],failed=[];let overhead=0;
+for(let tick=0;tick<ticks;tick++){if(mode==='monolith'){let budget=capacity;for(let i=0;i<pending.length&&budget>0;){const r=pending[i],work=r.route==='catalog'?1:3;if(paymentDown){failed.push(r.id);pending.splice(i,1);continue;}if(work>budget){i++;continue;}budget-=work;completed.push(r.id);pending.splice(i,1);}}
+else{const budgets=[Math.max(1,Math.floor(capacity/3)),Math.floor(capacity/3),capacity-Math.max(1,Math.floor(capacity/3))-Math.floor(capacity/3)];for(let stage=2;stage>=0;stage--)for(let i=0;i<pending.length&&budgets[stage]>0;){const r=pending[i];if(r.stage!==stage){i++;continue;}budgets[stage]--;if(stage>0)overhead+=hopCost;if(stage===2&&paymentDown){failed.push(r.id);pending.splice(i,1);}else if(r.route==='catalog'||stage===2){completed.push(r.id);pending.splice(i,1);}else{r.stage++;i++;}}}}
+// Capacity is fixed total compute; service mode splits it across three isolated stages.
+return {completed,failed,pending:pending.map(r=>r.id),overhead};}
+// Total capacity is at least three; a checkout uses three modeled work units.

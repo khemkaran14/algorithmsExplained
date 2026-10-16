@@ -1,0 +1,57 @@
+# Food Delivery Design
+
+## Hook
+
+Reserve inventory and a courier without double ownership. A useful design makes ownership, trade-offs and failure outcomes explicit.
+
+## Watch
+
+Build the architecture one component at a time. Read the requirements and estimates above the player, then inspect the modeled state transitions.
+
+## How it works
+
+Persist saga state before asking independent services to act.
+
+Reserve inventory, then authorize payment and reserve a courier.
+
+Capture only after fulfillment resources have been secured.
+
+Known failures release courier, void authorization and release inventory in reverse order.
+
+An unknown capture keeps reservations until a trusted reconciliation result arrives.
+
+### Requirements and estimates
+
+The interactive overview includes editable daily actors, request frequency, peak factor, payload and retention assumptions. RPS is daily requests divided by 86,400. Storage estimates exclude replication, metadata and indexes. These are planning assumptions, not measured provider capacity.
+
+### API and data-model exercise
+
+The overview lists example service API contracts and durable entity keys. These paths describe the hypothetical service; they are not callable AlgoVerse endpoints. Define authentication, pagination and error semantics before implementing a real service.
+
+## Try it
+
+Predict an input-dependent state transition before advancing. Change one assumption at a time and account for committed, rejected, stale or pending outcomes.
+
+### Break it
+
+Compare capture-failed with capture-uncertain. Leave reconciliation unknown, then resolve captured or failed; verify inventory and courier accounting in each result.
+
+## Complexity
+
+Use the displayed operation counters and complexity assumptions. Capacity estimates, simulator running time and real end-to-end latency are different measurements.
+
+## Code
+
+The four language references implement the stated core mechanism. They are bounded teaching implementations, not complete deployable service backends. The visualizer adds architecture, validated controls and outcome narration around that mechanism.
+
+## When to use
+
+Use the exercise to explain requirements, ownership, scaling pressure and failure policy in a design interview. Validate a production design with actual workload measurements and the complete selected provider protocol.
+
+## Interview pitfalls
+
+Do not turn an illustrative throughput parameter into a universal benchmark. Distinguish retry safety from exactly-once external effects, a cache from durable ownership, and a timeout from a known failure. Name the model limits before claiming a guarantee.
+
+## Quiz
+
+Explain one state transition, one failure invariant and one concern outside the bounded simulation.

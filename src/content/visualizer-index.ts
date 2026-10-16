@@ -218,4 +218,60 @@ export const visualizerLoaders: Record<
     import('../../content/system-design/fundamentals/pacelc/visualizer'),
   'consistency-models': () =>
     import('../../content/system-design/fundamentals/consistency-models/visualizer'),
+  'load-balancers': () =>
+    import('../../content/system-design/building-blocks/load-balancers/visualizer'),
+  caching: () =>
+    import('../../content/system-design/building-blocks/caching/visualizer'),
+  cdn: () =>
+    import('../../content/system-design/building-blocks/cdn/visualizer'),
+  'reverse-proxy-api-gateway': () =>
+    import('../../content/system-design/building-blocks/reverse-proxy-api-gateway/visualizer'),
+  'rate-limiting': () =>
+    import('../../content/system-design/building-blocks/rate-limiting/visualizer'),
+  'message-queues-pub-sub': () =>
+    import('../../content/system-design/building-blocks/message-queues-pub-sub/visualizer'),
+  'event-driven-architecture': () =>
+    import('../../content/system-design/building-blocks/event-driven-architecture/visualizer'),
+  'system-design-consistent-hashing': () =>
+    import('../../content/system-design/building-blocks/system-design-consistent-hashing/visualizer'),
+  'database-replication': () =>
+    import('../../content/system-design/building-blocks/database-replication/visualizer'),
+  'sharding-partitioning': () =>
+    import('../../content/system-design/building-blocks/sharding-partitioning/visualizer'),
+  'service-discovery': () =>
+    import('../../content/system-design/building-blocks/service-discovery/visualizer'),
+  'circuit-breaker': () =>
+    import('../../content/system-design/building-blocks/circuit-breaker/visualizer'),
+  'idempotency-retries': () =>
+    import('../../content/system-design/building-blocks/idempotency-retries/visualizer'),
+  'distributed-ids': () =>
+    import('../../content/system-design/building-blocks/distributed-ids/visualizer'),
+  'heartbeats-leader-election': () =>
+    import('../../content/system-design/building-blocks/heartbeats-leader-election/visualizer'),
+  'monolith-vs-microservices': () =>
+    import('../../content/system-design/building-blocks/monolith-vs-microservices/visualizer'),
+  'url-shortener': () =>
+    import('../../content/system-design/case-studies/url-shortener/visualizer'),
+  'rate-limiter-design': () =>
+    import('../../content/system-design/case-studies/rate-limiter-design/visualizer'),
+  'chat-app-design': () =>
+    import('../../content/system-design/case-studies/chat-app-design/visualizer'),
+  'news-feed-design': () =>
+    import('../../content/system-design/case-studies/news-feed-design/visualizer'),
+  'video-streaming-design': () =>
+    import('../../content/system-design/case-studies/video-streaming-design/visualizer'),
+  'ride-sharing-design': () =>
+    import('../../content/system-design/case-studies/ride-sharing-design/visualizer'),
+  'notification-system': () =>
+    import('../../content/system-design/case-studies/notification-system/visualizer'),
+  'web-crawler': () =>
+    import('../../content/system-design/case-studies/web-crawler/visualizer'),
+  'search-autocomplete': () =>
+    import('../../content/system-design/case-studies/search-autocomplete/visualizer'),
+  'distributed-cache-design': () =>
+    import('../../content/system-design/case-studies/distributed-cache-design/visualizer'),
+  'payment-system-design': () =>
+    import('../../content/system-design/case-studies/payment-system-design/visualizer'),
+  'food-delivery-design': () =>
+    import('../../content/system-design/case-studies/food-delivery-design/visualizer'),
 };

@@ -39,3 +39,7 @@ Strict DSA validation passes for 112 authored lessons, with no planned DSA entri
 ## System Design foundation checkpoint — 2026-10-16
 
 Local lint, TypeScript, 286 tests and production build pass. Content checks validate 119 authored lessons and report 82 planned entries. All 123 authored main/variant reference sets compile. The 24 existing browser checks passed, followed by both new desktop/mobile simulation-control/accessibility checks after fixing label associations. Full-site production hardening and external-provider acceptance remain open.
+
+## System Design curriculum checkpoint (2026-10-16)
+
+147 authored lessons validate (112 DSA, 35 System Design); 54 Database/Cloud entries remain planned. All 152 authored main/variant reference sets pass syntax checks in JavaScript, Python, Java and C++; the 12 new case reference sets were checked separately after the prior full reference run. Local production build, formatting and lint pass. The 338-test suite passes, including independent PostgreSQL join/query comparisons and early database-model checks. All 30 desktop/mobile browser checks pass. These checks do not close final source synchronization, full-site production hardening, Lighthouse thresholds, deployment or real Google/Resend/Razorpay acceptance.

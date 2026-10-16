@@ -5,7 +5,10 @@ import { canReadLesson } from '@/payments/access';
 import { serverLessonData } from '@/content/server-registry';
 const schema = z.union([
   z
-    .object({ input: z.unknown(), variant: z.string().max(80).optional() })
+    .object({
+      input: z.unknown().optional(),
+      variant: z.string().max(80).optional(),
+    })
     .strict()
     .refine((v) => v.input !== undefined || v.variant !== undefined),
   z.object({

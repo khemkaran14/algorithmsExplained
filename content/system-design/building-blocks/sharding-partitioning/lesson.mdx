@@ -1,0 +1,39 @@
+# Sharding Partitioning
+
+## Hook
+
+Dividing a filing cabinet changes which drawer owns each key, and sometimes moves much of the cabinet.
+
+## Watch
+
+Choose both a placement rule and a migration story. Use the validated parameter controls or edit the JSON scenario, then select Load input to recompute the trace.
+
+## How it works
+
+Place the same keys by modulo, equal-width 0–999 ranges or consistent hashing, then add one node. Compare load skew and changed owners.
+
+Every visible outcome comes from the displayed state model. Timings, capacities and failures are illustrative assumptions, not cloud benchmarks or production-protocol guarantees.
+
+## Try it
+
+Predict the next admission, delivery, cache, ownership or coordination decision. Introduce one failure at a time and account for every accepted, rejected, pending or committed outcome.
+
+## Complexity
+
+The player separates operation counters from architectural trade-offs. State size follows the active keys, tasks, nodes or retained history; the references use bounded scenarios. Container choices and presentation scans can affect simulator costs.
+
+## Code
+
+The four references implement the core model or its decision round. Queue/inbox and local ledger atomicity are explicit assumptions. Distributed deployment additionally needs durable shared state, complete protocol rules and operational validation. Reference inputs are fully validated/defaulted by the lesson; standalone callers must provide the shown fields.
+
+## When to use
+
+Use when one storage/throughput partition is insufficient and access patterns support a partition key.
+
+## Interview pitfalls
+
+Equal-width ranges are recomputed in this example. Production ranges can stay fixed and be split independently; hot keys and cross-shard transactions need separate designs.
+
+## Quiz
+
+Justify the model’s decision and name one production concern outside its scope.

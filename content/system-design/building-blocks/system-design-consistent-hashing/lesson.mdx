@@ -1,0 +1,39 @@
+# System Design Consistent Hashing
+
+## Hook
+
+Adding a stop to a circular delivery route should affect nearby ownership, not renumber every address.
+
+## Watch
+
+Change ownership only around changed successor ranges. Use the validated parameter controls or edit the JSON scenario, then select Load input to recompute the trace.
+
+## How it works
+
+Compare stable virtual-token successors with modulo and recomputed fixed-range placement after adding a physical shard. Count actual changed owners and sampled shard skew.
+
+Every visible outcome comes from the displayed state model. Timings, capacities and failures are illustrative assumptions, not cloud benchmarks or production-protocol guarantees.
+
+## Try it
+
+Predict the next admission, delivery, cache, ownership or coordination decision. Introduce one failure at a time and account for every accepted, rejected, pending or committed outcome.
+
+## Complexity
+
+The player separates operation counters from architectural trade-offs. State size follows the active keys, tasks, nodes or retained history; the references use bounded scenarios. Container choices and presentation scans can affect simulator costs.
+
+## Code
+
+The four references implement the core model or its decision round. Queue/inbox and local ledger atomicity are explicit assumptions. Distributed deployment additionally needs durable shared state, complete protocol rules and operational validation. Reference inputs are fully validated/defaulted by the lesson; standalone callers must provide the shown fields.
+
+## When to use
+
+Use for partition ownership reasoning when node membership changes.
+
+## Interview pitfalls
+
+Consistent placement is separate from replication and online migration. Small samples, hot keys and failure correlation can still produce severe imbalance.
+
+## Quiz
+
+Justify the model’s decision and name one production concern outside its scope.

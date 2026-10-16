@@ -1,0 +1,6 @@
+#include <unordered_map>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <utility>
+class Limiter {struct State{double tokens;int last,window,current=0,previous=0;std::vector<std::pair<int,int>>log;};std::string algorithm;int limit,window;double refill;std::unordered_map<std::string,State>clients;public:Limiter(std::string a,int l,int w,double r):algorithm(a),limit(l),window(w),refill(r){}bool admit(int at,const std::string& key,int cost=1){auto [it,added]=clients.try_emplace(key,State{double(limit),at,at/window,0,0,{}});auto& s=it->second;double available;if(algorithm=="token-bucket"){s.tokens=std::min(double(limit),s.tokens+(at-s.last)*refill/1000);s.last=at;available=s.tokens;}else if(algorithm=="sliding-log"){s.log.erase(std::remove_if(s.log.begin(),s.log.end(),[&](auto e){return e.first<=at-window;}),s.log.end());int used=0;for(auto e:s.log)used+=e.second;available=limit-used;}else{int bucket=at/window;if(bucket!=s.window){s.previous=bucket==s.window+1?s.current:0;s.current=0;s.window=bucket;}available=limit-s.current-(algorithm=="sliding-counter"?s.previous*(1.0-double(at%window)/window):0);}bool allowed=cost<=available+1e-12;if(allowed){if(algorithm=="token-bucket")s.tokens=std::max(0.0,s.tokens-cost);else if(algorithm=="sliding-log")s.log.push_back({at,cost});else s.current+=cost;}return allowed;}};

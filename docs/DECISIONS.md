@@ -30,3 +30,11 @@
 Server-authorized players accept validated per-lesson JSON rather than requiring every concept to look like an integer array. Counters identify the operation being plotted. Exact exponentiation returns decimal strings, unreachable states use JSON null, and randomness is seeded for repeatable teaching traces. TimSort overview explicitly demonstrates natural-run merging, not a claim of complete CPython TimSort. Continue curriculum authoring in reviewable checkpoints; planned metadata does not satisfy the strict full-catalog content gate.
 
 Reference snippets stay outside automatic formatting because physical line locations are part of code synchronization. C++ exact powers use a dependency-free decimal magnitude helper. Scrollable visualizations are keyboard focusable.
+
+### Stateful design cases (2026-10-16)
+
+System Design cases keep requirements, estimates, service contracts and entity exercises in server-only modules. The authorized player progressively introduces the architecture before running the bounded model. Every model declares its limitations: the crawler is offline; the player does not contact cloud providers, deliver notifications, dispatch cars or charge money. Core reference implementations may deliberately use a full-scan correctness baseline or fully drained workers; these differences are stated in the lesson. Case outcomes include pending and uncertain states rather than pretending all failures are recoverable in a fixed trace.
+
+Payment-event teaching models use integer minor units and balanced ledger effects. Food-order sagas retain resources after uncertain capture until reconciliation. These exercises are separate from the application's actual Razorpay billing implementation.
+
+Database query models are checked against independent PostgreSQL JSON recordsets, avoiding writes to application tables. Functional-dependency analysis computes every minimal candidate key within an eight-attribute bound and distinguishes 3NF from BCNF; it does not infer domain rules from sample rows. Index planning uses explicit illustrative work units, not actual PostgreSQL EXPLAIN costs.

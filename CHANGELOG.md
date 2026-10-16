@@ -51,3 +51,11 @@
 - Added seven foundation lessons: request paths, latency/throughput, vertical/horizontal scaling, availability equations, CAP, PACELC and consistency models. Their diagrams and outcomes derive from traffic, probability and versioned-register state.
 - Added validated simulation controls, request cancellation and failure colors, plus underlying tested models for rate admission, delivery/consumer effects, cache persistence, circuit breaking, idempotency, sharding, IDs and quorum/service boundaries. These additional models are not catalog lessons until their complete authoring is registered.
 - 286 unit/integration tests and the production build pass. Existing 24 browser checks passed; both new desktop/mobile traffic/control/accessibility checks pass after correcting select label associations. Content validation passes for 119 lessons (82 planned remain); 123 four-language main/variant reference sets compile.
+
+## 2026-10-16 — System Design curriculum checkpoint
+
+- Authored all 35 System Design lessons, including 16 building blocks and 12 case studies; catalog now has 147 authored lessons and 54 planned Database/Cloud entries.
+- Added guarded case-study requirements, editable demand/storage estimates, API/entity exercises, progressive architectures and deterministic failure models.
+- Added independent correctness tests for retries, ranking, routing, replica freshness, balanced payment events and saga resource ownership.
+- Fixed variant-only player requests, code-comment contrast and mobile playback controls covering configuration inputs.
+- Local validation: production build, 338 unit/integration/model checks, all 30 desktop/mobile browser checks and four-language reference compilation pass. Production hardening, final source synchronization and external-provider acceptance remain open.

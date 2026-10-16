@@ -62,6 +62,20 @@ export type ComplexityInfo = {
   stable?: boolean;
   inPlace?: boolean;
 };
+export type CaseStudySpec = {
+  requirements: string[];
+  assumptions: {
+    dailyActors: number;
+    requestsPerActor: number;
+    peakMultiplier: number;
+    payloadBytes: number;
+    retentionDays: number;
+  };
+  apis: { method: string; path: string; purpose: string }[];
+  entities: { name: string; fields: string }[];
+  decisions: string[];
+  breakInstructions: string;
+};
 export type LessonControl = {
   key: string;
   label: string;
@@ -76,6 +90,7 @@ export interface Visualizer<Input = number[], S = VisualState> {
   presetLabels?: { best: string; average: string; worst: string };
   inputHint?: string;
   controls?: LessonControl[];
+  caseStudy?: CaseStudySpec;
   maxSize?: number;
   measureSize?(input: Input): number;
   variantTitle?: string;

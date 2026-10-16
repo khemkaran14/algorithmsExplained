@@ -24,7 +24,8 @@
     "content:check:ready": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --allow-planned",
     "content:generate-index": "tsx scripts/generate-content-index.ts",
     "content:generate-complexity": "NODE_OPTIONS=--conditions=react-server tsx scripts/generate-complexity.mts",
-    "content:check:dsa": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --track=dsa"
+    "content:check:dsa": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --track=dsa",
+    "content:check:system-design": "NODE_OPTIONS=--conditions=react-server tsx scripts/content-check.ts --track=system-design"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",

@@ -5,6 +5,7 @@ import path from 'node:path';
 import { run, compile } from '@mdx-js/mdx';
 import * as runtime from 'react/jsx-runtime';
 import { codeToTokens } from 'shiki';
+import { accessibleCodeColor } from './code-color';
 import { catalog, type LessonMeta } from './catalog';
 import { LANGUAGES, type Lang } from '@/engine/types';
 export type CodeToken = { content: string; color?: string };
@@ -81,7 +82,10 @@ export async function loadVariantCode(
     result[lang] = (
       await codeToTokens(source, { lang, theme: 'github-dark' })
     ).tokens.map((line) =>
-      line.map((t) => ({ content: t.content, color: t.color })),
+      line.map((t) => ({
+        content: t.content,
+        color: accessibleCodeColor(t.color),
+      })),
     );
   }
   return result;
@@ -100,7 +104,10 @@ export async function loadCode(meta: LessonMeta): Promise<CodeLines> {
     const text = await readFile(path.join(base, 'code', files[lang]), 'utf8');
     const tokens = await codeToTokens(text, { lang, theme: 'github-dark' });
     code[lang] = tokens.tokens.map((line) =>
-      line.map((t) => ({ content: t.content, color: t.color })),
+      line.map((t) => ({
+        content: t.content,
+        color: accessibleCodeColor(t.color),
+      })),
     );
   }
   return code;

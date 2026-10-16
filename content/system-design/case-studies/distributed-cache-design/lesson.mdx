@@ -1,0 +1,57 @@
+# Distributed Cache Design
+
+## Hook
+
+Place keys on distinct physical cache replicas. A useful design makes ownership, trade-offs and failure outcomes explicit.
+
+## Watch
+
+Build the architecture one component at a time. Read the requirements and estimates above the player, then inspect the modeled state transitions.
+
+## How it works
+
+The origin owns durable versions while cache entries may expire or be evicted.
+
+Virtual tokens determine owners but are not physical replication.
+
+Read healthy owners in ring order, then fill from the origin on a miss.
+
+Write-through updates healthy owners and may leave a disconnected owner stale.
+
+A recovered stale replica requires invalidation, version validation or bounded TTL.
+
+### Requirements and estimates
+
+The interactive overview includes editable daily actors, request frequency, peak factor, payload and retention assumptions. RPS is daily requests divided by 86,400. Storage estimates exclude replication, metadata and indexes. These are planning assumptions, not measured provider capacity.
+
+### API and data-model exercise
+
+The overview lists example service API contracts and durable entity keys. These paths describe the hypothetical service; they are not callable AlgoVerse endpoints. Define authentication, pagination and error semantics before implementing a real service.
+
+## Try it
+
+Predict an input-dependent state transition before advancing. Change one assumption at a time and account for committed, rejected, stale or pending outcomes.
+
+### Break it
+
+Warm a key, fail its primary, write a new value, then restore the primary before TTL. Inspect the freshness audit; disable the origin to distinguish replica hits from failed misses.
+
+## Complexity
+
+Use the displayed operation counters and complexity assumptions. Capacity estimates, simulator running time and real end-to-end latency are different measurements.
+
+## Code
+
+The four language references implement the stated core mechanism. They are bounded teaching implementations, not complete deployable service backends. The visualizer adds architecture, validated controls and outcome narration around that mechanism.
+
+## When to use
+
+Use the exercise to explain requirements, ownership, scaling pressure and failure policy in a design interview. Validate a production design with actual workload measurements and the complete selected provider protocol.
+
+## Interview pitfalls
+
+Do not turn an illustrative throughput parameter into a universal benchmark. Distinguish retry safety from exactly-once external effects, a cache from durable ownership, and a timeout from a known failure. Name the model limits before claiming a guarantee.
+
+## Quiz
+
+Explain one state transition, one failure invariant and one concern outside the bounded simulation.

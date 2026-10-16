@@ -1,0 +1,8 @@
+import java.util.*;
+import java.net.URI;
+class Crawler {record Event(int tick,String url,String status){}record Result(List<Event>history,List<String>pending,int discovered){}
+static String canonical(String s){int i=s.indexOf('#');String value=i<0?s:s.substring(0,i);URI u=URI.create(value);if(u.getRawPath()==null||u.getRawPath().isEmpty())return u.getScheme()+"://"+u.getRawAuthority()+"/"+(u.getRawQuery()==null?"":"?"+u.getRawQuery());return value;}
+static Result crawl(Map<String,List<String>>graph,List<String>seeds,Map<String,List<String>>robots,int delay,int workers,int ticks){Set<String>seen=new LinkedHashSet<>();for(String seed:seeds)seen.add(canonical(seed));List<String>frontier=new ArrayList<>(seen);Map<String,Integer>nextHost=new HashMap<>();List<Event>history=new ArrayList<>();
+for(int tick=0;tick<ticks;tick++){int budget=workers;while(budget>0){int index=-1;for(int i=0;i<frontier.size();i++)if(nextHost.getOrDefault(URI.create(frontier.get(i)).getHost(),0)<=tick){index=i;break;}if(index<0)break;String url=frontier.remove(index);URI u=URI.create(url);boolean blocked=false;for(String prefix:robots.getOrDefault(u.getHost(),List.of()))if(u.getPath().startsWith(prefix))blocked=true;if(blocked){history.add(new Event(tick,url,"blocked"));continue;}budget--;nextHost.put(u.getHost(),tick+delay);List<String>links=graph.get(url);history.add(new Event(tick,url,links==null?"missing":"visited"));if(links!=null)for(String raw:links){String link=canonical(raw);if(seen.add(link))frontier.add(link);}}}
+return new Result(history,frontier,seen.size());}}
+// Graph keys are canonical absolute HTTP(S) URLs. No network requests.

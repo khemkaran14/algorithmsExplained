@@ -1,6 +1,6 @@
 # AlgoVerse
 
-Interactive visual lessons for algorithms, with reversible playback, Try challenges, quizzes, progress, and purchase-gated content. **This is an implementation checkpoint, not a production-ready release.** There are 119 authored lessons out of a 201-lesson catalog; the other 82 entries are explicitly marked as being authored. See [testing instructions](docs/TESTING.md), [validation](docs/VALIDATION.md) and the [original specification](docs/PRODUCT_SPEC.md).
+Interactive visual lessons for algorithms, with reversible playback, Try challenges, quizzes, progress, and purchase-gated content. **This is an implementation checkpoint, not a production-ready release.** There are 147 authored lessons (112 DSA and 35 System Design) out of a 201-lesson catalog; the other 54 entries are explicitly marked as being authored. See [testing instructions](docs/TESTING.md), [validation](docs/VALIDATION.md) and the [original specification](docs/PRODUCT_SPEC.md).
 
 ## Run locally
 

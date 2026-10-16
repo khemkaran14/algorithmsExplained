@@ -1,0 +1,39 @@
+# Heartbeats Leader Election
+
+## Hook
+
+An isolated chairperson may believe the meeting continues while being unable to gather enough votes.
+
+## Watch
+
+Suspicion is not proof, and a leader still needs a quorum. Use the validated parameter controls or edit the JSON scenario, then select Load input to recompute the trace.
+
+## How it works
+
+After a missing-heartbeat timeout, only a connected configured majority can elect the modeled leader and acknowledge writes. Healing exposes higher terms and fences the older leader.
+
+Every visible outcome comes from the displayed state model. Timings, capacities and failures are illustrative assumptions, not cloud benchmarks or production-protocol guarantees.
+
+## Try it
+
+Predict the next admission, delivery, cache, ownership or coordination decision. Introduce one failure at a time and account for every accepted, rejected, pending or committed outcome.
+
+## Complexity
+
+The player separates operation counters from architectural trade-offs. State size follows the active keys, tasks, nodes or retained history; the references use bounded scenarios. Container choices and presentation scans can affect simulator costs.
+
+## Code
+
+The four references implement the core model or its decision round. Queue/inbox and local ledger atomicity are explicit assumptions. Distributed deployment additionally needs durable shared state, complete protocol rules and operational validation. Reference inputs are fully validated/defaulted by the lesson; standalone callers must provide the shown fields.
+
+## When to use
+
+Use to distinguish failure detection, election, fencing and write acknowledgments.
+
+## Interview pitfalls
+
+This is an abstract quorum/fencing simulation, not Raft or Paxos. Durable votes, log freshness and recovery rules are required for a production consensus protocol.
+
+## Quiz
+
+Justify the model’s decision and name one production concern outside its scope.

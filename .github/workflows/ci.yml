@@ -30,6 +30,7 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm content:check:dsa
+      - run: pnpm content:check:system-design
       - run: pnpm content:check:ready
       - run: pnpm content:free-ratio
       - run: pnpm build

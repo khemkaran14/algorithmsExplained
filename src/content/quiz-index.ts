@@ -194,4 +194,59 @@ export const quizLoaders: Record<
   pacelc: () => import('../../content/system-design/fundamentals/pacelc/quiz'),
   'consistency-models': () =>
     import('../../content/system-design/fundamentals/consistency-models/quiz'),
+  'load-balancers': () =>
+    import('../../content/system-design/building-blocks/load-balancers/quiz'),
+  caching: () =>
+    import('../../content/system-design/building-blocks/caching/quiz'),
+  cdn: () => import('../../content/system-design/building-blocks/cdn/quiz'),
+  'reverse-proxy-api-gateway': () =>
+    import('../../content/system-design/building-blocks/reverse-proxy-api-gateway/quiz'),
+  'rate-limiting': () =>
+    import('../../content/system-design/building-blocks/rate-limiting/quiz'),
+  'message-queues-pub-sub': () =>
+    import('../../content/system-design/building-blocks/message-queues-pub-sub/quiz'),
+  'event-driven-architecture': () =>
+    import('../../content/system-design/building-blocks/event-driven-architecture/quiz'),
+  'system-design-consistent-hashing': () =>
+    import('../../content/system-design/building-blocks/system-design-consistent-hashing/quiz'),
+  'database-replication': () =>
+    import('../../content/system-design/building-blocks/database-replication/quiz'),
+  'sharding-partitioning': () =>
+    import('../../content/system-design/building-blocks/sharding-partitioning/quiz'),
+  'service-discovery': () =>
+    import('../../content/system-design/building-blocks/service-discovery/quiz'),
+  'circuit-breaker': () =>
+    import('../../content/system-design/building-blocks/circuit-breaker/quiz'),
+  'idempotency-retries': () =>
+    import('../../content/system-design/building-blocks/idempotency-retries/quiz'),
+  'distributed-ids': () =>
+    import('../../content/system-design/building-blocks/distributed-ids/quiz'),
+  'heartbeats-leader-election': () =>
+    import('../../content/system-design/building-blocks/heartbeats-leader-election/quiz'),
+  'monolith-vs-microservices': () =>
+    import('../../content/system-design/building-blocks/monolith-vs-microservices/quiz'),
+  'url-shortener': () =>
+    import('../../content/system-design/case-studies/url-shortener/quiz'),
+  'rate-limiter-design': () =>
+    import('../../content/system-design/case-studies/rate-limiter-design/quiz'),
+  'chat-app-design': () =>
+    import('../../content/system-design/case-studies/chat-app-design/quiz'),
+  'news-feed-design': () =>
+    import('../../content/system-design/case-studies/news-feed-design/quiz'),
+  'video-streaming-design': () =>
+    import('../../content/system-design/case-studies/video-streaming-design/quiz'),
+  'ride-sharing-design': () =>
+    import('../../content/system-design/case-studies/ride-sharing-design/quiz'),
+  'notification-system': () =>
+    import('../../content/system-design/case-studies/notification-system/quiz'),
+  'web-crawler': () =>
+    import('../../content/system-design/case-studies/web-crawler/quiz'),
+  'search-autocomplete': () =>
+    import('../../content/system-design/case-studies/search-autocomplete/quiz'),
+  'distributed-cache-design': () =>
+    import('../../content/system-design/case-studies/distributed-cache-design/quiz'),
+  'payment-system-design': () =>
+    import('../../content/system-design/case-studies/payment-system-design/quiz'),
+  'food-delivery-design': () =>
+    import('../../content/system-design/case-studies/food-delivery-design/quiz'),
 };

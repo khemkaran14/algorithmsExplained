@@ -4,10 +4,8 @@ import { catalog } from '@/content/catalog';
 import { serverLessonData } from '@/content/server-registry';
 import { loadCode } from '@/content/load';
 import { visualizerLoaders } from '@/content/visualizer-index';
-it('serves every DSA player with valid default/variant frames, code and bounded sample sizes', async () => {
-  for (const meta of catalog.filter(
-    (l) => l.track === 'dsa' && l.status !== 'planned',
-  )) {
+it('serves every authored player with valid default/variant frames, code and bounded sample sizes', async () => {
+  for (const meta of catalog.filter((l) => l.status !== 'planned')) {
     const code = await loadCode(meta),
       v = (await visualizerLoaders[meta.slug]()).default;
     for (const variant of ['default', ...Object.keys(v.variants ?? {})]) {

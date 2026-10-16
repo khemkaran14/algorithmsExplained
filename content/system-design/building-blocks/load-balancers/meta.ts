@@ -11,6 +11,6 @@ const meta = {
   isFree: true,
   prerequisites: [],
   tags: ['building-blocks', 'system-design'],
-  status: 'planned',
+  status: 'ready',
 } as const;
 export default meta;

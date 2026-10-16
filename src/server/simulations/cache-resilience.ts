@@ -29,13 +29,29 @@ const cacheSchema = z
   .strict();
 export type CacheInput = z.infer<typeof cacheSchema>;
 export function cacheModel(slug = 'caching'): Visualizer<CacheInput> {
-  const operations = [
-    { kind: 'read', key: 'a' },
-    { kind: 'read', key: 'a' },
-    { kind: 'write', key: 'a', value: 7 },
-    { kind: 'read', key: 'a' },
-    { kind: 'read', key: 'b' },
-  ];
+  const discovery = slug === 'service-discovery';
+  const parse = (raw: unknown) =>
+    cacheSchema.parse(
+      raw && typeof raw === 'object' && !Array.isArray(raw)
+        ? { loseInvalidation: discovery, ttl: discovery ? 5 : 8, ...raw }
+        : raw,
+    );
+  const operations = discovery
+    ? [
+        { kind: 'read', key: 'a' },
+        { kind: 'write', key: 'a', value: 7 },
+        { kind: 'read', key: 'a' },
+        { kind: 'tick' },
+        { kind: 'tick' },
+        { kind: 'read', key: 'a' },
+      ]
+    : [
+        { kind: 'read', key: 'a' },
+        { kind: 'read', key: 'a' },
+        { kind: 'write', key: 'a', value: 7 },
+        { kind: 'read', key: 'a' },
+        { kind: 'read', key: 'b' },
+      ];
   return {
     id: slug,
     maxSize: 32,
@@ -72,23 +88,25 @@ export function cacheModel(slug = 'caching'): Visualizer<CacheInput> {
       },
     ],
     presets: {
-      best: cacheSchema.parse({
+      best: parse({
         operations: [
           { kind: 'read', key: 'a' },
           { kind: 'read', key: 'a' },
         ],
       }),
-      average: cacheSchema.parse({ operations }),
-      worst: cacheSchema.parse({
-        strategy: 'write-back',
-        operations: [
-          { kind: 'write', key: 'a', value: 99 },
-          { kind: 'crash' },
-          { kind: 'read', key: 'a' },
-        ],
-      }),
+      average: parse({ operations }),
+      worst: discovery
+        ? parse({ operations, ttl: 32, loseInvalidation: true })
+        : parse({
+            strategy: 'write-back',
+            operations: [
+              { kind: 'write', key: 'a', value: 99 },
+              { kind: 'crash' },
+              { kind: 'read', key: 'a' },
+            ],
+          }),
       random: (n) =>
-        cacheSchema.parse({
+        parse({
           operations: Array.from(
             { length: Math.min(32, Math.max(1, n)) },
             (_, i) => ({
@@ -98,7 +116,7 @@ export function cacheModel(slug = 'caching'): Visualizer<CacheInput> {
           ),
         }),
     },
-    validateInput: (raw) => cacheSchema.parse(raw),
+    validateInput: (raw) => parse(raw),
     complexity: {
       metric: { label: 'Durable store reads', keys: ['databaseReads'] },
       best: 'Cache hit avoids a durable-store read',
@@ -140,11 +158,16 @@ export function cacheModel(slug = 'caching'): Visualizer<CacheInput> {
             { id: 'app', label: input.strategy, x: 210, y: 80 },
             {
               id: 'cache',
-              label: `LRU cache ${cache.size}/${input.capacity}`,
+              label: `${discovery ? 'Resolver TTL cache' : 'LRU cache'} ${cache.size}/${input.capacity}`,
               x: 430,
               y: 0,
             },
-            { id: 'db', label: 'Durable store', x: 650, y: 140 },
+            {
+              id: 'db',
+              label: discovery ? 'Endpoint registry' : 'Durable store',
+              x: 650,
+              y: 140,
+            },
           ],
           edges: [
             { from: 'client', to: 'app' },

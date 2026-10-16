@@ -1,0 +1,39 @@
+# Circuit Breaker
+
+## Hook
+
+A safety switch stays open while the appliance cools, then permits a recovery test.
+
+## Watch
+
+Stop calling a failing dependency before testing recovery. Use the validated parameter controls or edit the JSON scenario, then select Load input to recompute the trace.
+
+## How it works
+
+Consecutive real call failures open the breaker. Calls during cooldown short-circuit without consuming a dependency outcome. A half-open serial probe closes on success or reopens on failure.
+
+Every visible outcome comes from the displayed state model. Timings, capacities and failures are illustrative assumptions, not cloud benchmarks or production-protocol guarantees.
+
+## Try it
+
+Predict the next admission, delivery, cache, ownership or coordination decision. Introduce one failure at a time and account for every accepted, rejected, pending or committed outcome.
+
+## Complexity
+
+The player separates operation counters from architectural trade-offs. State size follows the active keys, tasks, nodes or retained history; the references use bounded scenarios. Container choices and presentation scans can affect simulator costs.
+
+## Code
+
+The four references implement the core model or its decision round. Queue/inbox and local ledger atomicity are explicit assumptions. Distributed deployment additionally needs durable shared state, complete protocol rules and operational validation. Reference inputs are fully validated/defaulted by the lesson; standalone callers must provide the shown fields.
+
+## When to use
+
+Use alongside timeouts, bulkheads and retry budgets to prevent cascading dependency overload.
+
+## Interview pitfalls
+
+This is a serial consecutive-failure breaker; rolling error windows and concurrent probe coordination are separate policies.
+
+## Quiz
+
+Justify the model’s decision and name one production concern outside its scope.

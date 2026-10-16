@@ -13,6 +13,7 @@ export type RemoteLessonData = {
   inputHint?: string;
   maxSize?: number;
   controls?: import('@/engine/types').LessonControl[];
+  caseStudy?: import('@/engine/types').CaseStudySpec;
   presetLabels?: Visualizer['presetLabels'];
   complexity: ComplexityInfo;
   presets: { best: unknown; average: unknown; worst: unknown };
@@ -27,7 +28,11 @@ export async function serverLessonData(
   const loader = visualizerLoaders[meta.slug];
   if (!loader) throw new Error('Visualizer is not registered');
   const root = (await loader()).default;
-  if (variant && variant !== 'default' && !root.variants?.[variant])
+  if (
+    variant &&
+    variant !== 'default' &&
+    (!root.variants || !Object.hasOwn(root.variants, variant))
+  )
     throw new ApiError(400, 'This variant is not available.');
   const v =
     variant && variant !== 'default'
@@ -84,6 +89,7 @@ export async function serverLessonData(
     input,
     inputHint: v.inputHint,
     controls: v.controls,
+    caseStudy: root.caseStudy,
     maxSize: v.maxSize,
     presetLabels: v.presetLabels,
     complexity: v.complexity,

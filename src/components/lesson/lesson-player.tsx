@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState, useRef } from 'react';
+import { CaseStudyOverview } from './case-study-overview';
 import { readLearning, updateProgress } from '@/learning/local';
 import { useStore } from 'zustand';
 import { Play, Pause, SkipBack, SkipForward, RotateCcw } from 'lucide-react';
@@ -216,6 +217,9 @@ export function LessonPlayer({
   const chartMax = Math.max(...chart.map((p) => p.count), 1);
   return (
     <section aria-label="Interactive lesson player" className="space-y-5">
+      {remoteData?.caseStudy && (
+        <CaseStudyOverview spec={remoteData.caseStudy} />
+      )}
       <div className="flex flex-wrap gap-2 rounded-2xl border border-[var(--border)] p-3">
         {(['best', 'average', 'worst'] as const).map((p) => (
           <Button
@@ -250,9 +254,10 @@ export function LessonPlayer({
           />
         </label>
         {remoteData?.variants && (
-          <label className="flex w-full items-center gap-3 text-sm">
-            Variant
+          <div className="flex w-full items-center gap-3 text-sm">
+            <label htmlFor={`variant-${id}`}>Algorithm variant</label>
             <select
+              id={`variant-${id}`}
               className="rounded-lg border border-[var(--border)] bg-[var(--background)] p-2"
               value={remoteData.variant ?? 'default'}
               onChange={(e) => void load(undefined, undefined, e.target.value)}
@@ -263,7 +268,7 @@ export function LessonPlayer({
                 </option>
               ))}
             </select>
-          </label>
+          </div>
         )}
         {remoteData?.inputHint && (
           <p className="w-full text-xs text-[var(--muted)]">
@@ -393,196 +398,199 @@ export function LessonPlayer({
           Preparing input…
         </p>
       )}
-      <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
-        <div
-          id={`panel-${id}-visual`}
-          role="tabpanel"
-          aria-labelledby={`tab-${id}-visual`}
-          className={`${tab === 'visual' ? 'block' : 'hidden'} min-w-0 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 lg:block`}
-        >
-          <div className="mb-4 flex gap-2" aria-label="Learning mode">
-            {(['watch', 'try'] as const).map((m) => (
-              <Button
-                key={m}
-                variant={mode === m ? 'default' : 'outline'}
-                aria-pressed={mode === m}
-                onClick={() => {
-                  setMode(m);
-                  state.pause();
-                  setFeedback('');
-                }}
-              >
-                {m === 'watch' ? 'Watch' : 'Try it yourself'}
-              </Button>
-            ))}
-          </div>
-          <VisualCanvas frame={current} />
-          {mode === 'try' && (
-            <section className="my-4 rounded-xl border border-[var(--border)] p-4">
-              <h3 className="mb-3 font-medium">
-                {current.action?.prompt ?? 'Find the next decision point.'}
-              </h3>
-              {current.action ? (
-                <div className="flex flex-wrap gap-2">
-                  {current.action.choices.map((choice) => (
-                    <Button
-                      key={choice}
-                      variant="outline"
-                      onClick={() => {
-                        if (choice === current.action?.answer) {
-                          setFeedback('✓ Correct. Watch what happens next.');
-                          state.step(1);
-                        } else setFeedback('Not yet. ' + current.action?.hint);
-                      }}
-                    >
-                      {choice}
-                    </Button>
-                  ))}
-                  <Button
-                    variant="outline"
-                    onClick={() => setFeedback(current.action?.hint ?? '')}
-                  >
-                    Hint
-                  </Button>
-                </div>
-              ) : (
-                <Button variant="outline" onClick={nextChallenge}>
-                  Find next challenge
-                </Button>
-              )}
-              <p className="mt-3 text-sm" role="status">
-                {feedback}
-              </p>
-            </section>
-          )}
-          <VisualLegend />
-          <p
-            className="mt-5 min-h-14 border-t border-[var(--border)] pt-4 text-sm"
-            aria-live="polite"
-            aria-atomic="true"
+      <div className="relative space-y-5">
+        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
+          <div
+            id={`panel-${id}-visual`}
+            role="tabpanel"
+            aria-labelledby={`tab-${id}-visual`}
+            className={`${tab === 'visual' ? 'block' : 'hidden'} min-w-0 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 lg:block`}
           >
-            {current.narration}
-          </p>
-        </div>
-        <div
-          id={`panel-${id}-code`}
-          role="tabpanel"
-          aria-labelledby={`tab-${id}-code`}
-          className={`${tab === 'code' ? 'block' : 'hidden'} min-w-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-[#0d1117] text-zinc-100 lg:block`}
-        >
-          <label className="flex items-center justify-between border-b border-zinc-700 px-4 py-3 text-sm">
-            Code language
-            <select
-              aria-label="Code language"
-              value={lang}
-              onChange={(e) => setLang(e.target.value as Lang)}
-              className="rounded bg-zinc-800 p-2"
-            >
-              {LANGUAGES.map((l) => (
-                <option key={l} value={l}>
-                  {l}
-                </option>
-              ))}
-            </select>
-          </label>
-          <pre
-            className="max-h-80 overflow-auto p-3 text-xs leading-7"
-            tabIndex={0}
-            aria-label="Synchronized code"
-          >
-            <code>
-              {(remoteData?.code ?? code)[lang].map((tokens, i) => (
-                <span
-                  key={i}
-                  className={`block ${i + 1 === current.codeLine[lang] ? 'border-l-2 border-lime-300 bg-zinc-800' : 'border-l-2 border-transparent'}`}
-                  aria-current={
-                    i + 1 === current.codeLine[lang] ? 'step' : undefined
-                  }
+            <div className="mb-4 flex gap-2" aria-label="Learning mode">
+              {(['watch', 'try'] as const).map((m) => (
+                <Button
+                  key={m}
+                  variant={mode === m ? 'default' : 'outline'}
+                  aria-pressed={mode === m}
+                  onClick={() => {
+                    setMode(m);
+                    state.pause();
+                    setFeedback('');
+                  }}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="mr-4 inline-block w-5 select-none text-right text-zinc-500"
-                  >
-                    {i + 1}
-                  </span>
-                  {tokens.map((token, j) => (
-                    <span key={j} style={{ color: token.color }}>
-                      {token.content}
-                    </span>
-                  ))}
-                </span>
+                  {m === 'watch' ? 'Watch' : 'Try it yourself'}
+                </Button>
               ))}
-            </code>
-          </pre>
-        </div>
-      </div>
-      <div
-        className="sticky bottom-0 z-20 rounded-2xl border border-[var(--border)] bg-[var(--background)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg"
-        aria-label="Playback controls"
-      >
-        <div className="mb-3 flex flex-wrap items-center justify-center gap-2">
-          <Button
-            variant="outline"
-            aria-label="Restart"
-            onClick={state.restart}
-          >
-            <RotateCcw size={18} />
-          </Button>
-          <Button
-            variant="outline"
-            aria-label="Step back"
-            disabled={state.index === 0}
-            onClick={() => state.step(-1)}
-          >
-            <SkipBack size={18} />
-          </Button>
-          <Button
-            aria-label={state.playing ? 'Pause' : 'Play'}
-            disabled={state.index === state.length - 1 || mode === 'try'}
-            onClick={state.toggle}
-          >
-            {state.playing ? <Pause size={18} /> : <Play size={18} />}
-          </Button>
-          <Button
-            variant="outline"
-            aria-label="Step forward"
-            disabled={state.index === state.length - 1}
-            onClick={() => state.step(1)}
-          >
-            <SkipForward size={18} />
-          </Button>
-          <label className="flex items-center gap-1 text-xs">
-            Speed
-            <select
-              aria-label="Playback speed"
-              value={state.speed}
-              onChange={(e) => state.setSpeed(Number(e.target.value))}
-              className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2"
+            </div>
+            <VisualCanvas frame={current} />
+            {mode === 'try' && (
+              <section className="my-4 rounded-xl border border-[var(--border)] p-4">
+                <h3 className="mb-3 font-medium">
+                  {current.action?.prompt ?? 'Find the next decision point.'}
+                </h3>
+                {current.action ? (
+                  <div className="flex flex-wrap gap-2">
+                    {current.action.choices.map((choice) => (
+                      <Button
+                        key={choice}
+                        variant="outline"
+                        onClick={() => {
+                          if (choice === current.action?.answer) {
+                            setFeedback('✓ Correct. Watch what happens next.');
+                            state.step(1);
+                          } else
+                            setFeedback('Not yet. ' + current.action?.hint);
+                        }}
+                      >
+                        {choice}
+                      </Button>
+                    ))}
+                    <Button
+                      variant="outline"
+                      onClick={() => setFeedback(current.action?.hint ?? '')}
+                    >
+                      Hint
+                    </Button>
+                  </div>
+                ) : (
+                  <Button variant="outline" onClick={nextChallenge}>
+                    Find next challenge
+                  </Button>
+                )}
+                <p className="mt-3 text-sm" role="status">
+                  {feedback}
+                </p>
+              </section>
+            )}
+            <VisualLegend />
+            <p
+              className="mt-5 min-h-14 border-t border-[var(--border)] pt-4 text-sm"
+              aria-live="polite"
+              aria-atomic="true"
             >
-              {[0.25, 0.5, 1, 2, 4].map((s) => (
-                <option key={s} value={s}>
-                  {s}×
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div className="flex items-center gap-3">
-          <input
-            className="min-w-0 flex-1 accent-lime-600"
-            type="range"
-            min="0"
-            max={state.length - 1}
-            value={state.index}
-            onChange={(e) => state.seek(Number(e.target.value))}
-            aria-label="Animation timeline"
-          />
-          <output
-            className="w-20 text-right font-mono text-xs"
-            aria-label="Current frame"
+              {current.narration}
+            </p>
+          </div>
+          <div
+            id={`panel-${id}-code`}
+            role="tabpanel"
+            aria-labelledby={`tab-${id}-code`}
+            className={`${tab === 'code' ? 'block' : 'hidden'} min-w-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-[#0d1117] text-zinc-100 lg:block`}
           >
-            {state.index + 1} / {state.length}
-          </output>
+            <label className="flex items-center justify-between border-b border-zinc-700 px-4 py-3 text-sm">
+              Code language
+              <select
+                aria-label="Code language"
+                value={lang}
+                onChange={(e) => setLang(e.target.value as Lang)}
+                className="rounded bg-zinc-800 p-2"
+              >
+                {LANGUAGES.map((l) => (
+                  <option key={l} value={l}>
+                    {l}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <pre
+              className="max-h-80 overflow-auto p-3 text-xs leading-7"
+              tabIndex={0}
+              aria-label="Synchronized code"
+            >
+              <code>
+                {(remoteData?.code ?? code)[lang].map((tokens, i) => (
+                  <span
+                    key={i}
+                    className={`block ${i + 1 === current.codeLine[lang] ? 'border-l-2 border-lime-300 bg-zinc-800' : 'border-l-2 border-transparent'}`}
+                    aria-current={
+                      i + 1 === current.codeLine[lang] ? 'step' : undefined
+                    }
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="mr-4 inline-block w-5 select-none text-right text-zinc-500"
+                    >
+                      {i + 1}
+                    </span>
+                    {tokens.map((token, j) => (
+                      <span key={j} style={{ color: token.color }}>
+                        {token.content}
+                      </span>
+                    ))}
+                  </span>
+                ))}
+              </code>
+            </pre>
+          </div>
+        </div>
+        <div
+          className="sticky bottom-0 z-20 rounded-2xl border border-[var(--border)] bg-[var(--background)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg"
+          aria-label="Playback controls"
+        >
+          <div className="mb-3 flex flex-wrap items-center justify-center gap-2">
+            <Button
+              variant="outline"
+              aria-label="Restart"
+              onClick={state.restart}
+            >
+              <RotateCcw size={18} />
+            </Button>
+            <Button
+              variant="outline"
+              aria-label="Step back"
+              disabled={state.index === 0}
+              onClick={() => state.step(-1)}
+            >
+              <SkipBack size={18} />
+            </Button>
+            <Button
+              aria-label={state.playing ? 'Pause' : 'Play'}
+              disabled={state.index === state.length - 1 || mode === 'try'}
+              onClick={state.toggle}
+            >
+              {state.playing ? <Pause size={18} /> : <Play size={18} />}
+            </Button>
+            <Button
+              variant="outline"
+              aria-label="Step forward"
+              disabled={state.index === state.length - 1}
+              onClick={() => state.step(1)}
+            >
+              <SkipForward size={18} />
+            </Button>
+            <label className="flex items-center gap-1 text-xs">
+              Speed
+              <select
+                aria-label="Playback speed"
+                value={state.speed}
+                onChange={(e) => state.setSpeed(Number(e.target.value))}
+                className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2"
+              >
+                {[0.25, 0.5, 1, 2, 4].map((s) => (
+                  <option key={s} value={s}>
+                    {s}×
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className="flex items-center gap-3">
+            <input
+              className="min-w-0 flex-1 accent-lime-600"
+              type="range"
+              min="0"
+              max={state.length - 1}
+              value={state.index}
+              onChange={(e) => state.seek(Number(e.target.value))}
+              aria-label="Animation timeline"
+            />
+            <output
+              className="w-20 text-right font-mono text-xs"
+              aria-label="Current frame"
+            >
+              {state.index + 1} / {state.length}
+            </output>
+          </div>
         </div>
       </div>
       <div

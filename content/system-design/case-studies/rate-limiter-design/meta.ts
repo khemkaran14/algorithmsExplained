@@ -12,6 +12,6 @@ const meta = {
   isFree: true,
   prerequisites: [],
   tags: ['case-studies', 'system-design'],
-  status: 'planned',
+  status: 'ready',
 } as const;
 export default meta;

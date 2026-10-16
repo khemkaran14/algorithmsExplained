@@ -20,6 +20,9 @@ def check(directory):
             if result.returncode: errors.append(result.stderr)
     return directory.relative_to(root),errors
 paths=[p.parent for p in (root/'content').rglob('js.ts') if (p.parent/'py.py').exists()]
+if len(sys.argv)>1:
+    paths=[p for p in paths if sys.argv[1] in str(p.relative_to(root/'content'))]
+    if not paths: raise SystemExit('No snippet sets match the requested scope.')
 failed=0
 with ThreadPoolExecutor(max_workers=2) as pool:
     for name,errors in pool.map(check,sorted(paths)):

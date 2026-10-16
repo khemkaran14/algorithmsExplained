@@ -116,6 +116,37 @@ async function main() {
       const v = (
         await import(pathToFileURL(path.join(base, 'visualizer.ts')).href)
       ).default as Visualizer<unknown>;
+      if (meta.track === 'system-design' && meta.module === 'case-studies') {
+        const spec = v.caseStudy;
+        if (
+          !spec ||
+          spec.requirements.length < 3 ||
+          spec.apis.length < 2 ||
+          spec.entities.length < 2 ||
+          spec.decisions.length < 3 ||
+          !spec.breakInstructions
+        )
+          throw Error(
+            'Case study needs requirements, estimates, API contracts, entities, design decisions and a break scenario.',
+          );
+        if (
+          Object.values(spec.assumptions).some(
+            (n) => !Number.isFinite(n) || n < 0,
+          )
+        )
+          throw Error(
+            'Case-study estimate assumptions must be finite and nonnegative.',
+          );
+        const frames = [...v.generate(v.validateInput(v.presets.average))];
+        if (
+          frames[0].state.kind !== 'architecture' ||
+          (frames[0].state.nodes?.length ?? 0) !== 1 ||
+          !frames.some((f) => (f.state.nodes?.length ?? 0) > 1)
+        )
+          throw Error(
+            'Case study must progressively introduce its architecture.',
+          );
+      }
       await validateVisualizer(v, path.join(base, 'code'));
       for (const [variant, alternate] of Object.entries(v.variants ?? {})) {
         if (!/^[a-z0-9-]{1,80}$/.test(variant))

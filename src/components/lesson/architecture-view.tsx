@@ -54,6 +54,7 @@ export default function ArchitectureView({ frame }: { frame: Frame }) {
   return (
     <div className="h-80 w-full rounded-xl" aria-label={frame.narration}>
       <ReactFlow
+        key={nodes.map((node) => node.id).join('|')}
         nodes={nodes}
         edges={edges}
         fitView

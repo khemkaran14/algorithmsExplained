@@ -18,7 +18,9 @@ Open http://localhost:3000 after `pnpm dev`. Keep that origin consistent with `A
 6. Open `/compare`. Compare Bubble, Selection and/or Insertion Sort on the same array. Scrub both traces, change speed and inspect each counter. Adding a paid sort while anonymous must display an access error.
 7. Click Search or press Ctrl/Command-K. Search `track:dsa bubble`; follow the result. Reopen and press Escape; focus should return to the opener.
 8. Open Merge Sort while anonymous: expect a locked preview. Confirm that `/account` redirects to sign-in and that unavailable auth providers show an honest configuration state.
-9. Open a lesson labelled as being authored: expect its planned-content page, not an unfinished player. System Design, Databases and Cloud are still being implemented.
+9. Open `/learn/system-design/fundamentals/how-a-request-travels`, change traffic, replicas, cache target and a database failure, then Load input. Check request conservation and the AWS/GCP component labels.
+10. Open `/learn/system-design/case-studies/url-shortener`. Edit capacity assumptions, step through the progressive architecture, then enable lost delete invalidation and inspect cached versus durable outcomes. Case API paths are design exercises, not live AlgoVerse routes.
+11. Open a lesson labelled as being authored: expect its planned-content page, not an unfinished player. Databases and Cloud are still being implemented.
 
 ## Authenticated acceptance tests
 
@@ -44,7 +46,7 @@ A provider cannot deliver webhooks directly to localhost. Use a reachable HTTPS 
 
 ## Automated checks
 
-Run the validation commands in README against a disposable local database. Expect the implemented-content validator to report 119 authored lessons and 82 planned entries at this checkpoint. The strict full-catalog validator should remain red until all lessons are finished.
+Run the validation commands in README against a disposable local database. Expect the implemented-content validator to report 147 authored lessons and 54 planned entries at this checkpoint. The strict full-catalog validator should remain red until all lessons are finished.
 
 Browser suites cover desktop/mobile, accessibility scans on sampled pages, anonymous account merging, protected content/invoices, signed webhook idempotency, playback, search, playground isolation and comparison gating. A passing accessibility sample does not establish full-site WCAG conformance. Lighthouse and full production-hardening acceptance still remain.
 

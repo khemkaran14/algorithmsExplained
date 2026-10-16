@@ -267,3 +267,18 @@ it('duplicate worker assignments collide only in the explicitly unsafe demonstra
     result(distributedIds, { ...raw, demonstrateDuplicateWorkers: true }),
   ).toMatchObject({ issued: 2, unique: 1, collisions: 1 });
 });
+it('discovery defaults expose stale resolver entries until TTL and event-driven defaults fan out', () => {
+  const v = cacheModel('service-discovery'),
+    r = result(v, v.presets.average) as {
+      reads: { value: number; stale: boolean }[];
+    };
+  expect(r.reads.map((read) => read.value)).toEqual([1, 1, 7]);
+  expect(r.reads[1].stale).toBe(true);
+  const q = messageQueue('event-driven-architecture');
+  expect(q.presets.average.mode).toBe('pubsub');
+  expect(result(q, q.presets.average)).toMatchObject({
+    totalTasks: 16,
+    done: 16,
+    duplicatesBlocked: 1,
+  });
+});
