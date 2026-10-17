@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { signOut } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { writeLearning } from '@/learning/local';
+import { clearLearningIdentity } from '@/learning/identity';
 import { EMPTY } from '@/learning/progress';
 export function AccountPrivacy() {
   const [confirmation, setConfirmation] = useState(''),
@@ -38,6 +39,7 @@ export function AccountPrivacy() {
               const data = (await response.json()) as { error?: string };
               throw new Error(data.error ?? 'Account deletion failed.');
             }
+            clearLearningIdentity();
             writeLearning(EMPTY);
             try {
               localStorage.removeItem('algoverse.reviews.v1');

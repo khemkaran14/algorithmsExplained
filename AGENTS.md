@@ -71,3 +71,7 @@ Production lessons stream their header before model/code preparation. Static les
 ## First-time learner navigation
 
 The homepage primary action opens the free Bubble Sort lesson. Keep the shared getting-started guide on both the homepage and learning dashboard, preserve working links for every authored track, and distinguish paid access from unfinished content. Do not reintroduce development-phase announcements in the public learning journey.
+
+## Authentication lifecycle
+
+The root session guard verifies the current owner through a private, no-store endpoint before displaying account-owned browser learning data. Quarantine during verification/outages; clear prior-owner learning and reviews after a confirmed account switch or expiry. Sign-out must revoke the server session, clear local account state, confirm anonymous status and return to the current origin. Never add a production fixture-login route. Live Google consent and Resend delivery require separate provider acceptance; database-session browser fixtures do not establish either.

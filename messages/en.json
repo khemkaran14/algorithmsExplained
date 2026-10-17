@@ -54,7 +54,10 @@
     "send": "Email me a sign-in link",
     "unavailable": "Sign-in is not configured yet. Add the provider credentials described in the setup guide.",
     "back": "Back to home",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "account": "My account",
+    "signIn": "Sign in",
+    "signOutError": "Sign-out could not be confirmed. Check your connection and try again."
   },
   "dashboard": {
     "title": "Your learning space",

@@ -101,3 +101,12 @@
 - This onboarding update does not close the broader source synchronization audit or external-provider acceptance gates.
 
 - Focused release validation: 489 tests, strict validation of 201 lessons, production compilation/standalone preparation, lint, types and formatting pass. Browser suite: 42/44 passed initially; the architecture-diagram and mobile-admin checks both passed when rerun individually. The new first-lesson navigation passes on desktop and mobile.
+
+## 2026-10-17 — Authentication lifecycle and account isolation
+
+- Added signed-in account navigation and explicit Google account selection.
+- Quarantined private browser learning until server owner verification; clear prior-owner data/reviews on account switching and expiry, and bind guest learning to the verified account.
+- Added confirmed logout with same-origin navigation, retry feedback and a hydration guard.
+- Added isolated regression tests for expired sessions, server session revocation, account switching and browser ownership races.
+- Added a live Google/Resend acceptance guide. Live provider acceptance remains pending: the operator reports the live provider endpoint lists Google only, so email configuration is not active in the running container yet.
+- Validation: 497 tests pass; production build, types, lint and formatting pass. All six new desktop/mobile authentication scenarios pass. Full browser run passed 49/50 initially; one Cloud capstone input check passed on isolated retry. Test clients now have separate trusted proxy identities to avoid sharing one rate-limit budget. Live Google consent and Resend delivery remain unverified.

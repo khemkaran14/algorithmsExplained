@@ -1,3 +1,5 @@
+import { AuthNav } from '@/components/auth-nav';
+import { SessionGuard } from '@/components/session-guard';
 import { headers } from 'next/headers';
 import { LessonSearch } from '@/components/lesson-search';
 import type { Metadata } from 'next';
@@ -25,6 +27,7 @@ export default async function RootLayout({
       <body>
         <NextIntlClientProvider>
           <Providers nonce={nonce}>
+            <SessionGuard />
             <a className="skip-link" href="#main">
               {t('common.skip')}
             </a>
@@ -61,7 +64,7 @@ export default async function RootLayout({
                   Cheat sheet
                 </Link>
                 <LessonSearch />
-                <Link href="/sign-in">{t('nav.signIn')}</Link>
+                <AuthNav />
                 <ThemeToggle />
               </nav>
             </header>

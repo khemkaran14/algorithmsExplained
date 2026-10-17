@@ -1,4 +1,5 @@
 'use client';
+import { useLearningOwner } from '@/learning/local';
 import { useEffect, useState } from 'react';
 import { scheduleReview, type ReviewState } from '@/learning/sm2';
 import { Button } from './ui/button';
@@ -10,10 +11,15 @@ type Card = {
   explanation: string;
 };
 export function Revision({ cards }: { cards: Card[] }) {
+  const owner = useLearningOwner();
   const [reviews, setReviews] = useState<Record<string, ReviewState>>({});
   const [ready, setReady] = useState(false);
   const [revealed, setRevealed] = useState(false);
   useEffect(() => {
+    setReady(false);
+    setReviews({});
+    setRevealed(false);
+    if (owner === undefined) return;
     try {
       const raw = JSON.parse(
         localStorage.getItem('algoverse.reviews.v1') ?? '{}',
@@ -32,14 +38,14 @@ export function Revision({ cards }: { cards: Card[] }) {
       setReviews(safe);
     } catch {}
     setReady(true);
-  }, []);
+  }, [owner]);
   const now = new Date(),
     due = cards.filter(
       (c) => !reviews[c.id] || reviews[c.id].due <= now.toISOString(),
     );
   const card = due[0];
   function rate(quality: 0 | 3 | 4 | 5) {
-    if (!card) return;
+    if (!card || owner === undefined) return;
     const next = {
       ...reviews,
       [card.id]: scheduleReview(reviews[card.id], quality),
@@ -50,7 +56,8 @@ export function Revision({ cards }: { cards: Card[] }) {
     } catch {}
     setRevealed(false);
   }
-  if (!ready) return <p role="status">Loading review schedule…</p>;
+  if (!ready || owner === undefined)
+    return <p role="status">Loading review schedule…</p>;
   return (
     <section className="rounded-2xl border border-[var(--border)] p-6">
       <p className="mb-6 font-mono text-xs text-[var(--muted)]">

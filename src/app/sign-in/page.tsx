@@ -22,7 +22,11 @@ export default async function SignIn() {
         <form
           action={async () => {
             'use server';
-            await signIn('google', { redirectTo: '/learn' });
+            await signIn(
+              'google',
+              { redirectTo: '/learn' },
+              { prompt: 'select_account' },
+            );
           }}
         >
           <Button className="mb-5 w-full">{t('google')}</Button>

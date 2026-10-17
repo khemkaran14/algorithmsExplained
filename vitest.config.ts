@@ -7,6 +7,7 @@ if (!process.env.DATABASE_URL && local.DATABASE_URL)
   process.env.DATABASE_URL = local.DATABASE_URL;
 export default defineConfig({
   plugins: [react()],
+  ssr: { noExternal: ['next-auth'] },
   resolve: {
     alias: {
       'server-only': fileURLToPath(

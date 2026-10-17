@@ -68,3 +68,9 @@ Lesson headings stream independently of MDX/code preparation. A bounded producti
 ## First-time learning entry (2026-10-17)
 
 The homepage primary action opens the free Bubble Sort lesson directly. A shared server-rendered guide on the homepage and learning dashboard explains playback, predictions and quizzes without requiring account creation. Arrays and Big O provide concrete next lessons. Do not replace unfinished-content gates with availability claims: authored content, entitlement and release acceptance are separate states.
+
+## Authentication lifecycle (2026-10-17)
+
+Google sign-in requests account selection. Navigation distinguishes authenticated accounts from anonymous visitors. The browser verifies a minimal server session owner, quarantines private learning until verification, associates guest data with the verified owner, and clears prior-account learning/reviews on confirmed switching or expiry. Focus, visibility and storage events plus a visible-tab interval recheck identity. Session changes refresh server-rendered account content. Session verification outages hide owned data without deleting it.
+
+Sign-out uses Auth.js session revocation without its redirect, verifies anonymous status, then navigates to the current origin's root. This avoids returning users to an unintended host from a configured callback base. Failed confirmation presents a retry message rather than claiming successful logout. Provider credentials remain server environment configuration; real Google and email acceptance is not inferred from fixture tests.
