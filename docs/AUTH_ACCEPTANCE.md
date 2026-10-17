@@ -26,8 +26,18 @@ Record the time, deployed commit, browser, provider and pass/fail result. Automa
 
 ## Current evidence and limits
 
-The owner reports Google login and manual admin access working. The owner reports Resend configured, but the live /api/auth/providers endpoint lists only Google. Email is not active in the current running app; verify AUTH_RESEND_KEY and AUTH_EMAIL_FROM inside its container and recreate the app after correcting configuration. Delivery and token redemption remain unverified. This execution environment's proxy rejected a public-domain request with CONNECT 403; it has no VPS access or live provider credentials. Live authentication acceptance remains pending until the checks above are performed on the deployed release.
+The owner reports Google login and manual admin access working. Resend delivery is now confirmed by its Delivered event and the recipient finding the message in Gmail Spam. The verified sending domain is learndatastructureandalgorithms.divyrs.com and the configured sender matches it. Clicking the email link currently produces a Verification error, so email login acceptance is still open. Existing live logs collapse the error category; deploy the safe diagnostics before diagnosing token consumption or expiry. This execution environment has no VPS access or live provider credentials, and its proxy rejected the public domain with CONNECT 403.
 
 ## Automated release evidence (2026-10-17)
 
 497 tests pass, including real Auth.js email callback expiry/replay and browser identity quarantine tests. Six desktop/mobile browser scenarios verify database session expiry, confirmed logout and account isolation. Production build, types, lint and formatting pass. The full browser suite passed 49/50 initially; the Cloud capstone input check passed on isolated retry. No real email, Google consent flow or production session was used for these fixtures. The public-domain network check remained blocked by this environment's proxy.
+
+## Diagnosing a delivered email whose link fails
+
+Delivery does not prove that the callback succeeded. After deploying the diagnostic logger, reproduce with one fresh email and inspect only categorical auth_failure records:
+
+- authType=Verification, verification=token_not_found: no matching single-use token was found. Prior consumption, a changed secret, altered URL parameters, or different backing storage can cause this. Do not assume a mail scanner is responsible.
+- authType=Verification, verification=token_expired: the matched token expired according to the application clock.
+- authType=AdapterError: inspect database availability and migrations without dumping adapter error objects or connection strings.
+
+No token values, addresses, callback URLs or credentials are recorded. Preserve single-use behavior. A browser verification error is not evidence that the link expired; use the categorical result first. Reproduce only after the running app has been updated, without restarting or changing secrets between requesting and opening a new link.

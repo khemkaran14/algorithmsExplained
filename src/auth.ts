@@ -1,4 +1,4 @@
-import { logFailure } from '@/lib/logger';
+import { logFailure, logVerificationFailure } from '@/lib/logger';
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 import Resend from 'next-auth/providers/resend';
@@ -10,8 +10,19 @@ export const googleEnabled = Boolean(
 export const emailEnabled = Boolean(
   process.env.AUTH_RESEND_KEY && process.env.AUTH_EMAIL_FROM,
 );
+const adapter = PrismaAdapter(db);
+const consumeVerificationToken = adapter.useVerificationToken;
+if (consumeVerificationToken) {
+  adapter.useVerificationToken = async (input) => {
+    const token = await consumeVerificationToken(input);
+    if (!token) logVerificationFailure('token_not_found');
+    else if (token.expires.valueOf() < Date.now())
+      logVerificationFailure('token_expired');
+    return token;
+  };
+}
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(db),
+  adapter,
   logger: {
     error: (error) => logFailure('auth_failure', error),
     warn: () => logFailure('auth_warning'),

@@ -75,3 +75,5 @@ The homepage primary action opens the free Bubble Sort lesson. Keep the shared g
 ## Authentication lifecycle
 
 The root session guard verifies the current owner through a private, no-store endpoint before displaying account-owned browser learning data. Quarantine during verification/outages; clear prior-owner learning and reviews after a confirmed account switch or expiry. Sign-out must revoke the server session, clear local account state, confirm anonymous status and return to the current origin. Never add a production fixture-login route. Live Google consent and Resend delivery require separate provider acceptance; database-session browser fixtures do not establish either.
+
+Email verification diagnosis must remain categorical: whitelist Auth.js types and token lookup outcomes; never log error messages, causes, tokens, URLs, emails or query details. An absent token is not proof of scanner activity. Preserve the adapter's single-use lookup semantics.
