@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { auth } from '@/auth';
 import { hasAllAccess } from '@/payments/access';
@@ -6,6 +7,8 @@ import { PRODUCT } from '@/config/product';
 import { CheckoutButton } from '@/components/checkout-button';
 export const metadata = { title: 'Lifetime access' };
 export default async function Pricing() {
+  const t = await getTranslations('payments');
+  const testMode = process.env.RAZORPAY_KEY_ID?.startsWith('rzp_test_');
   const session = await auth();
   const access = session?.user?.id
     ? await hasAllAccess(session.user.id)
@@ -43,6 +46,14 @@ export default async function Pricing() {
             <li key={item}>✓ {item}</li>
           ))}
         </ul>
+        {testMode && (
+          <p
+            role="status"
+            className="mb-5 rounded-xl border border-[var(--border)] p-3 text-sm"
+          >
+            {t('testMode')}
+          </p>
+        )}
         <CheckoutButton
           signedIn={Boolean(session?.user)}
           allAccess={access}

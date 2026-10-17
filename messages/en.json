@@ -451,5 +451,8 @@
     "account": "Sign in to sync your learning across devices. Free lessons are labelled Free; other lessons require all-access.",
     "arrays": "Explore arrays",
     "complexity": "Understand Big O"
+  },
+  "payments": {
+    "testMode": "Test checkout: use Razorpay test payment details only. No real money is charged."
   }
 }

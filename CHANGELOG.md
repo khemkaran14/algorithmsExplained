@@ -117,3 +117,11 @@
 - Record only token-not-found or token-expired categories at the existing adapter boundary; preserve token consumption and return values.
 - Never log token values, email addresses, callback URLs, credentials, stacks or underlying database errors. Live email verification remains under investigation; no cause is inferred from a generic error.
 - Validation: 503 automated tests passed; the real Auth.js email callback tests were rerun after adding adapter diagnostics and both passed. Production build, types, lint and formatting pass. Six authentication browser checks pass; the full browser run passed 49/50 with the remaining gateway-variant interface check passing on isolated retry.
+
+## 2026-10-17 — Razorpay test setup and operations
+
+- Added a VPS Test Mode guide, a safe read-only configuration/provider checker and a receipt-retry helper packaged in the runtime image.
+- Require a webhook secret before new payable orders, label test checkout and allow a fresh attempt after definitive payment failure.
+- Document separate staging data, live activation, webhook/refund checks and owner-only provider acceptance. No real payment or dashboard action was performed by the development environment.
+- Guard checkout/coupon/refund controls until hydration so initial clicks are not lost before their handlers attach.
+- Validation: 514 automated tests and all 50 desktop/mobile browser checks pass; production build, types, lint and formatting pass. Checker smoke test passes in a Node 22 container with synthetic credentials. Full image build is unverified here because container DNS cannot resolve the package-registry download (EAI_AGAIN); no TLS checks were disabled. Real Razorpay Test Mode acceptance still requires operator credentials and dashboard setup.

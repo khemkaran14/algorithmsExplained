@@ -12,6 +12,7 @@ FROM base AS runtime
 ENV NODE_ENV=production HOSTNAME=0.0.0.0
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
+COPY --from=build --chown=node:node /app/scripts/check-payments.mjs /app/scripts/dispatch-receipts.mjs ./scripts/
 USER node
 EXPOSE 3000
 CMD ["node","server.js"]

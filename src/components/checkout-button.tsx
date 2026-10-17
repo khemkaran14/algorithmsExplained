@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 type CheckoutResponse = {
@@ -61,6 +61,8 @@ export function CheckoutButton({
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
   const key = useRef<string>('');
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   async function pay() {
     setBusy(true);
     setError('');
@@ -118,6 +120,7 @@ export function CheckoutButton({
         },
       });
       checkout.on('payment.failed', () => {
+        key.current = '';
         setError('Payment was not completed. You can retry safely.');
         setBusy(false);
       });
@@ -146,6 +149,7 @@ export function CheckoutButton({
       </label>
       <input
         id="coupon"
+        disabled={!ready || busy}
         value={coupon}
         maxLength={32}
         onChange={(e) => {
@@ -155,7 +159,11 @@ export function CheckoutButton({
         className="w-full rounded-xl border border-[var(--border)] bg-[var(--background)] p-3 font-mono"
         autoComplete="off"
       />
-      <Button className="w-full" disabled={busy} onClick={() => void pay()}>
+      <Button
+        className="w-full"
+        disabled={!ready || busy}
+        onClick={() => void pay()}
+      >
         {busy ? 'Opening secure checkout…' : 'Unlock everything'}
       </Button>
       <p role="status" className="text-sm text-red-600 dark:text-red-300">

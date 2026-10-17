@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 type Props = {
@@ -28,6 +28,8 @@ type Props = {
 };
 export function AdminPanel({ users, payments, coupons }: Props) {
   const router = useRouter();
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   const [message, setMessage] = useState(''),
     [busy, setBusy] = useState(false);
   async function send(path: string, body: unknown, method = 'POST') {
@@ -59,6 +61,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
           className="grid gap-3 sm:grid-cols-3"
           onSubmit={(e) => {
             e.preventDefault();
+            if (!ready || busy) return;
             const data = new FormData(e.currentTarget);
             void send('/api/admin/coupons', {
               code: data.get('code'),
@@ -72,6 +75,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
           <label className="text-sm">
             Code
             <input
+              disabled={!ready || busy}
               required
               name="code"
               minLength={3}
@@ -82,6 +86,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
           <label className="text-sm">
             Discount type
             <select
+              disabled={!ready || busy}
               name="kind"
               className="mt-1 w-full rounded-lg border border-[var(--border)] bg-[var(--background)] p-3"
             >
@@ -92,6 +97,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
           <label className="text-sm">
             Value
             <input
+              disabled={!ready || busy}
               required
               name="value"
               type="number"
@@ -102,6 +108,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
           <label className="text-sm">
             Expiry
             <input
+              disabled={!ready || busy}
               required
               name="expiry"
               type="datetime-local"
@@ -111,6 +118,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
           <label className="text-sm">
             Usage limit
             <input
+              disabled={!ready || busy}
               required
               name="maxUses"
               type="number"
@@ -119,7 +127,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
               className="mt-1 w-full rounded-lg border border-[var(--border)] bg-[var(--background)] p-3"
             />
           </label>
-          <Button disabled={busy} className="self-end">
+          <Button disabled={!ready || busy} className="self-end">
             Create coupon
           </Button>
         </form>
@@ -138,7 +146,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
               {c.active ? 'Active' : 'Disabled'}{' '}
               <Button
                 variant="outline"
-                disabled={busy}
+                disabled={!ready || busy}
                 onClick={() =>
                   void send(
                     '/api/admin/coupons',
@@ -177,7 +185,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
                   <td className="p-3">
                     {p.status === 'paid' && (
                       <Button
-                        disabled={busy}
+                        disabled={!ready || busy}
                         variant="outline"
                         onClick={() => {
                           if (

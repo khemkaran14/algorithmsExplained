@@ -31,6 +31,8 @@ Add settings from `.env.example` to `.env`, then restart the server:
 - Email magic links: `AUTH_RESEND_KEY`, `AUTH_EMAIL_FROM` using a verified Resend sender.
 - Payments: Razorpay **test-mode** `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`. The webhook path is `/api/webhooks/razorpay`; Razorpay needs a reachable HTTPS endpoint for webhook delivery. Keep `AUTH_URL` consistent with the origin used in your browser.
 
+For the existing Hostinger deployment, follow [Razorpay setup and acceptance](docs/RAZORPAY_SETUP.md). `pnpm payments:check` checks required settings without network requests; append `--provider` for a read-only API authentication check. The runtime image includes the same checker and a separate receipt-retry command.
+
 Provider credentials are not included. Real Google/email login and Razorpay Checkout are operator acceptance tests; the automated webhook suite uses signed fixtures and a real test database. No production authentication bypass exists.
 
 ## Validate

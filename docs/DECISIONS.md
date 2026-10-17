@@ -78,3 +78,7 @@ Sign-out uses Auth.js session revocation without its redirect, verifies anonymou
 ## Email verification diagnosis (2026-10-17)
 
 Authentication logs use an allowlist of fixed Auth.js categories. The adapter reports only whether a verification lookup was absent or expired, without changing deletion, lookup or session behavior. An absent token can result from previous consumption, mismatched hashing secrets or a different database; it does not by itself prove a mail scanner consumed the link. Preserve single-use semantics and diagnose the deployed instance before changing authentication behavior.
+
+## Razorpay setup readiness (2026-10-17)
+
+A non-mutating runtime checker reports required-setting presence, test/live key format and optional provider authentication using GET orders only. It discards provider bodies. New orders require a webhook secret, but verification of already created orders remains possible if webhook configuration temporarily fails. A definitive payment failure starts a fresh idempotency key; uncertain outcomes retain the original key. Test Mode is labelled on pricing. Receipt retries use a container-local helper so the job secret never appears in crontab arguments. Operator acceptance remains separate from mocked provider tests.

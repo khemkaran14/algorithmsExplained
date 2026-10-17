@@ -26,7 +26,7 @@ Record the time, deployed commit, browser, provider and pass/fail result. Automa
 
 ## Current evidence and limits
 
-The owner reports Google login and manual admin access working. Resend delivery is now confirmed by its Delivered event and the recipient finding the message in Gmail Spam. The verified sending domain is learndatastructureandalgorithms.divyrs.com and the configured sender matches it. Clicking the email link currently produces a Verification error, so email login acceptance is still open. Existing live logs collapse the error category; deploy the safe diagnostics before diagnosing token consumption or expiry. This execution environment has no VPS access or live provider credentials, and its proxy rejected the public domain with CONNECT 403.
+The owner reports Google login and manual admin access working. Resend delivery is now confirmed by its Delivered event and the recipient finding the message in Gmail Spam. The verified sending domain is learndatastructureandalgorithms.divyrs.com and the configured sender matches it. The owner subsequently confirmed live email sign-in is working. This is operator-reported acceptance, separate from the automated fixture checks below. Safe categorical diagnostics remain available for future token failures. This execution environment has no VPS access or live provider credentials, and its proxy rejected the public domain with CONNECT 403.
 
 ## Automated release evidence (2026-10-17)
 
