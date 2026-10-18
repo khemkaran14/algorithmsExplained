@@ -32,13 +32,52 @@ export async function adminOverview(filters: AdminFilters) {
         OR: [
           { email: { contains: search, mode: 'insensitive' as const } },
           { name: { contains: search, mode: 'insensitive' as const } },
+          {
+            payments: {
+              some: {
+                paymentEmail: {
+                  contains: search,
+                  mode: 'insensitive' as const,
+                },
+              },
+            },
+          },
         ],
       }
     : {};
   const paymentsWhere = {
     ...(filters.status === 'all' ? {} : { status: filters.status }),
     ...(search
-      ? { receipt: { contains: search, mode: 'insensitive' as const } }
+      ? {
+          OR: [
+            { receipt: { contains: search, mode: 'insensitive' as const } },
+            {
+              paymentEmail: { contains: search, mode: 'insensitive' as const },
+            },
+            {
+              razorpayPaymentId: {
+                contains: search,
+                mode: 'insensitive' as const,
+              },
+            },
+            {
+              razorpayOrderId: {
+                contains: search,
+                mode: 'insensitive' as const,
+              },
+            },
+            {
+              user: {
+                email: { contains: search, mode: 'insensitive' as const },
+              },
+            },
+            {
+              user: {
+                name: { contains: search, mode: 'insensitive' as const },
+              },
+            },
+          ],
+        }
       : {}),
   };
   const couponsWhere = search
@@ -62,7 +101,20 @@ export async function adminOverview(filters: AdminFilters) {
       skip: (filters.usersPage - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
       orderBy: { id: 'asc' },
-      select: { id: true, name: true, email: true, role: true },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        emailVerified: true,
+        accounts: { select: { provider: true } },
+        entitlements: {
+          where: { type: 'ALL_ACCESS', revokedAt: null },
+          take: 1,
+          select: { id: true },
+        },
+        _count: { select: { payments: true, progress: true } },
+      },
     }),
     db.payment.findMany({
       where: paymentsWhere,
@@ -75,6 +127,8 @@ export async function adminOverview(filters: AdminFilters) {
         amount: true,
         status: true,
         userId: true,
+        paymentEmail: true,
+        user: { select: { name: true, email: true } },
       },
     }),
     db.coupon.findMany({
@@ -114,7 +168,17 @@ export async function adminOverview(filters: AdminFilters) {
   ]);
   const free = catalog.filter((x) => x.isFree).length;
   return {
-    users,
+    users: users.map((u) => ({
+      id: u.id,
+      name: u.name,
+      email: u.email,
+      role: u.role,
+      emailVerified: Boolean(u.emailVerified),
+      providers: u.accounts.map((a) => a.provider),
+      allAccess: u.entitlements.length > 0,
+      paymentCount: u._count.payments,
+      lessonCount: u._count.progress,
+    })),
     payments,
     coupons,
     userCount,

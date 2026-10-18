@@ -1,3 +1,4 @@
+import { hasAllAccess } from '@/payments/access';
 import { getTranslations } from 'next-intl/server';
 import { GettingStarted } from '@/components/getting-started';
 import { auth } from '@/auth';
@@ -16,7 +17,12 @@ export default async function Learn() {
         {uiText('mc88cdb8e5496')}
       </h1>
       <GettingStarted />
-      <LearningDashboard signedIn={Boolean(session?.user)} />
+      <LearningDashboard
+        signedIn={Boolean(session?.user)}
+        allAccess={
+          session?.user?.id ? await hasAllAccess(session.user.id) : false
+        }
+      />
     </section>
   );
 }

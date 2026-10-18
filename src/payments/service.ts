@@ -137,6 +137,11 @@ async function applyPayment(
         paidAt: saved.paidAt ?? new Date(),
       },
     });
+    if (provider.email)
+      await tx.payment.updateMany({
+        where: { id: saved.id, userId: { not: null } },
+        data: { paymentEmail: provider.email },
+      });
     if (saved.userId)
       await tx.entitlement.upsert({
         where: { paymentId: saved.id },

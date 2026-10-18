@@ -1,7 +1,5 @@
-import { redirect, notFound } from 'next/navigation';
+import { requireAdminPage } from '@/admin/access';
 import Link from 'next/link';
-import { auth } from '@/auth';
-import { db } from '@/lib/db';
 import { AdminPanel } from '@/components/admin-panel';
 import {
   adminFilters,
@@ -59,17 +57,7 @@ export default async function Admin({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const user = (await auth())?.user;
-  if (!user?.id) redirect('/sign-in');
-  if (
-    (
-      await db.user.findUnique({
-        where: { id: user.id },
-        select: { role: true },
-      })
-    )?.role !== 'admin'
-  )
-    notFound();
+  await requireAdminPage();
   const parsed = adminFilters.safeParse(await searchParams);
   if (!parsed.success)
     return (
@@ -109,7 +97,7 @@ export default async function Admin({
       </div>
       <form className="mb-8 flex flex-wrap items-end gap-3">
         <label className="text-sm">
-          Search names / email, receipts or coupons
+          Search user / payment email, names, payment IDs, receipts or coupons
           <input
             name="q"
             defaultValue={filters.q}

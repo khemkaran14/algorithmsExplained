@@ -1,5 +1,7 @@
 'use client';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 type Props = {
@@ -8,6 +10,11 @@ type Props = {
     name: string | null;
     email: string | null;
     role: string;
+    emailVerified: boolean;
+    providers: string[];
+    allAccess: boolean;
+    paymentCount: number;
+    lessonCount: number;
   }[];
   payments: {
     id: string;
@@ -15,6 +22,8 @@ type Props = {
     amount: number;
     status: string;
     userId: string | null;
+    paymentEmail: string | null;
+    user: { name: string | null; email: string | null } | null;
   }[];
   coupons: {
     id: string;
@@ -28,6 +37,7 @@ type Props = {
 };
 export function AdminPanel({ users, payments, coupons }: Props) {
   const router = useRouter();
+  const t = useTranslations('adminUsers');
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
   const [message, setMessage] = useState(''),
@@ -169,6 +179,8 @@ export function AdminPanel({ users, payments, coupons }: Props) {
             <thead>
               <tr>
                 <th className="p-3">Receipt</th>
+                <th className="p-3">{t('accountEmail')}</th>
+                <th className="p-3">{t('paymentEmail')}</th>
                 <th className="p-3">Amount</th>
                 <th className="p-3">Status</th>
                 <th className="p-3">Action</th>
@@ -180,6 +192,19 @@ export function AdminPanel({ users, payments, coupons }: Props) {
                   <td className="max-w-48 break-all p-3 font-mono text-xs">
                     {p.receipt}
                   </td>
+                  <td className="p-3">
+                    {p.userId ? (
+                      <Link
+                        className="underline"
+                        href={`/admin/users/${p.userId}`}
+                      >
+                        {p.user?.email ?? p.userId}
+                      </Link>
+                    ) : (
+                      t('deleted')
+                    )}
+                  </td>
+                  <td className="p-3">{p.paymentEmail ?? t('notRecorded')}</td>
                   <td className="p-3">INR {(p.amount / 100).toFixed(2)}</td>
                   <td className="p-3">{p.status}</td>
                   <td className="p-3">
@@ -211,16 +236,51 @@ export function AdminPanel({ users, payments, coupons }: Props) {
       <section>
         <h2 className="mb-4 text-2xl font-semibold">Accounts · current page</h2>
         {!users.length && <p>No accounts match these filters.</p>}
-        <ul className="space-y-3 text-sm">
-          {users.map((u) => (
-            <li
-              key={u.id}
-              className="rounded-lg border border-[var(--border)] p-3"
-            >
-              {u.name ?? u.email ?? u.id} · {u.role}
-            </li>
-          ))}
-        </ul>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr>
+                {[
+                  t('accountColumn'),
+                  t('role'),
+                  t('access'),
+                  t('emailVerified'),
+                  t('loginProviders'),
+                  t('payments'),
+                  t('started'),
+                ].map((label) => (
+                  <th key={label} className="p-3">
+                    {label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((u) => (
+                <tr key={u.id} className="border-t border-[var(--border)]">
+                  <td className="p-3">
+                    <Link href={`/admin/users/${u.id}`} className="underline">
+                      {u.name ?? t('unnamed')}
+                      <span className="block">{u.email ?? t('noEmail')}</span>
+                    </Link>
+                  </td>
+                  <td className="p-3">{u.role}</td>
+                  <td className="p-3">
+                    {u.allAccess ? t('lifetime') : t('free')}
+                  </td>
+                  <td className="p-3">
+                    {u.emailVerified ? t('yes') : t('notRecorded')}
+                  </td>
+                  <td className="p-3">
+                    {u.providers.join(', ') || t('emailProvider')}
+                  </td>
+                  <td className="p-3">{u.paymentCount}</td>
+                  <td className="p-3">{u.lessonCount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </div>
   );

@@ -10,6 +10,7 @@ const entity = z.object({
   amount: z.number().int(),
   currency: z.string(),
   status: z.string(),
+  email: z.email().max(254).nullish().catch(null),
 });
 const schema = z.object({
   event: z.string(),

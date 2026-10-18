@@ -1,3 +1,4 @@
+import { hasAllAccess } from '@/payments/access';
 import { AccountPrivacy } from '@/components/account-privacy';
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
@@ -49,7 +50,10 @@ export default async function Account() {
           </p>
         )}
       </section>
-      <LearningDashboard signedIn />
+      <LearningDashboard
+        signedIn
+        allAccess={await hasAllAccess(session.user.id)}
+      />
       <AccountPrivacy />
     </section>
   );

@@ -48,6 +48,7 @@ export async function exportAccount(userId: string) {
       payments: {
         select: {
           receipt: true,
+          paymentEmail: true,
           amount: true,
           currency: true,
           status: true,
@@ -75,6 +76,10 @@ export async function deleteAccount(userId: string) {
       await tx.verificationToken.deleteMany({
         where: { identifier: user.email },
       });
+    await tx.payment.updateMany({
+      where: { userId },
+      data: { paymentEmail: null },
+    });
     // Schema cascades private learning/auth data; payment.userId becomes NULL for reconciliation.
     await tx.user.delete({ where: { id: userId } });
   });

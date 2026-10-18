@@ -81,3 +81,7 @@ Email verification diagnosis must remain categorical: whitelist Auth.js types an
 ## Razorpay operations
 
 Use docs/RAZORPAY_SETUP.md for the existing VPS. The runtime payment checker is read-only and must never print credentials or provider bodies. Receipt dispatch is a separate explicit job that can send real email. Require webhook verification configuration before creating new payable orders; preserve idempotent retries for uncertain outcomes. Test and live payments are not automatically partitioned in the current ledger: keep staging data separate before accepting real purchases.
+
+## Admin user details and payment email
+
+All admin pages use a fresh stored-role check before selecting private data. Select explicit profile/payment fields; never pass entire Account/Session records to pages. Checkout email is optional trusted captured-payment metadata, independent of login email. Preserve account-deletion anonymization and do not restore checkout email on late events for a deleted user. Catalog badges receive server-verified entitlement state; client badges never replace protected loader/API checks. Apply the additive paymentEmail migration before deploying this release; see docs/ADMIN_USERS.md.

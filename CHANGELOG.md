@@ -125,3 +125,13 @@
 - Document separate staging data, live activation, webhook/refund checks and owner-only provider acceptance. No real payment or dashboard action was performed by the development environment.
 - Guard checkout/coupon/refund controls until hydration so initial clicks are not lost before their handlers attach.
 - Validation: 514 automated tests and all 50 desktop/mobile browser checks pass; production build, types, lint and formatting pass. Checker smoke test passes in a Node 22 container with synthetic credentials. Full image build is unverified here because container DNS cannot resolve the package-registry download (EAI_AGAIN); no TLS checks were disabled. Real Razorpay Test Mode acceptance still requires operator credentials and dashboard setup.
+
+## 2026-10-18 — Lifetime tile status and admin user profiles
+
+- Replace paid-tile locks with an included indicator for active lifetime users across dashboards, tracks, modules and guided paths.
+- Expand searchable admin users/payments and add guarded per-user profiles with access, activity counts, payer email, payment references/dates and receipt state.
+- Record optional checkout email on trusted capture using an additive nullable-column migration; existing rows remain Not recorded. Preserve account-export and deletion privacy, including late payment events.
+- Add a discoverable admin navigation link and migration/deployment instructions in docs/ADMIN_USERS.md.
+
+- Add an admin-only, same-origin lookup for historical payment email; verify provider identity/order/amount/currency and prevent deleted-account data restoration.
+- Validation: additive migration applied successfully in development; 517 automated tests, all 54 desktop/mobile browser checks, production build, types, lint and formatting pass. New checks cover entitlement badges across five surfaces, revocation, admin role changes, separate account/payment email search, historical-lookup matching and deletion privacy. Provider lookups in automated tests are mocked; no real payment or refund is performed.

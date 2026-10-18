@@ -86,6 +86,7 @@ test('a signed captured webhook grants access once, while an invalid signature g
             amount: 19900,
             currency: 'INR',
             status: 'captured',
+            email: `billing-${id}@example.com`,
           },
         },
       },
@@ -115,6 +116,10 @@ test('a signed captured webhook grants access once, while an invalid signature g
     expect((await request.post(url, { data: raw, headers })).status()).toBe(
       200,
     );
+    expect(
+      (await db.payment.findUnique({ where: { id: payment.id } }))
+        ?.paymentEmail,
+    ).toBe(`billing-${id}@example.com`);
     const replay = await request.post(url, { data: raw, headers });
     expect(await replay.json()).toMatchObject({ duplicate: true });
     expect(

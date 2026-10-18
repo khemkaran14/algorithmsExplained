@@ -12,9 +12,9 @@ export default function Page() {
         <p className="leading-relaxed text-[var(--muted)]">
           We use your account name, email and provider identifier for
           authentication; learning progress, notes, bookmarks and quiz results
-          for learning features; and payment references for access and
-          accounting. Card details are handled by Razorpay and are not stored by
-          this app.
+          for learning features; and payment references and checkout email for
+          access and accounting. Card details are handled by Razorpay and are
+          not stored by this app.
         </p>
       </section>
       <section className="my-8">
@@ -41,8 +41,8 @@ export default function Page() {
         <p className="leading-relaxed text-[var(--muted)]">
           Export your application data or request account deletion through your
           account. Deletion removes learning data and credentials; payment
-          references may be retained in anonymized form where accounting law
-          requires it.
+          checkout email is removed, while payment references may be retained in
+          anonymized form where accounting law requires it.
         </p>
       </section>
       <section className="my-8">

@@ -2,6 +2,7 @@
 import { expect, it } from 'vitest';
 import { randomUUID } from 'node:crypto';
 import { db } from '@/lib/db';
+import { capturePayment } from '@/payments/service';
 import { exportAccount, deleteAccount } from '@/account/server';
 it.skipIf(!process.env.DATABASE_URL)(
   'exports only owned learning/profile fields and deletion cascades private data while anonymizing retained payments',
@@ -67,6 +68,8 @@ it.skipIf(!process.env.DATABASE_URL)(
           id: payment,
           userId: id,
           receipt: 'privacy_' + id,
+          razorpayOrderId: 'order_' + payment.replaceAll('-', ''),
+          paymentEmail: email,
           amount: 19900,
           status: 'paid',
         },
@@ -89,14 +92,26 @@ it.skipIf(!process.env.DATABASE_URL)(
       expect(
         await db.payment.findUnique({
           where: { id: payment },
-          select: { status: true, userId: true },
+          select: { status: true, userId: true, paymentEmail: true },
         }),
-      ).toEqual({ status: 'paid', userId: null });
+      ).toEqual({ status: 'paid', userId: null, paymentEmail: null });
+      await capturePayment({
+        id: 'pay_' + payment.replaceAll('-', ''),
+        order_id: 'order_' + payment.replaceAll('-', ''),
+        amount: 19900,
+        currency: 'INR',
+        status: 'captured',
+        email,
+      });
+      expect(
+        (await db.payment.findUnique({ where: { id: payment } }))?.paymentEmail,
+      ).toBeNull();
       expect(
         await db.note.findFirst({ where: { userId: other } }),
       ).toMatchObject({ text: 'other account private note' });
     } finally {
       await db.verificationToken.deleteMany({ where: { identifier: email } });
+      await db.emailReceipt.deleteMany({ where: { paymentId: payment } });
       await db.payment.deleteMany({ where: { id: payment } });
       await db.user.deleteMany({ where: { id: { in: [id, other] } } });
     }

@@ -193,6 +193,7 @@ model Payment {
   userId            String?
   razorpayOrderId   String?       @unique
   razorpayPaymentId String?       @unique
+  paymentEmail      String?
   receipt           String        @unique
   amount            Int
   currency          String        @default("INR")

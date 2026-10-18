@@ -35,6 +35,10 @@ For the existing Hostinger deployment, follow [Razorpay setup and acceptance](do
 
 Provider credentials are not included. Real Google/email login and Razorpay Checkout are operator acceptance tests; the automated webhook suite uses signed fixtures and a real test database. No production authentication bypass exists.
 
+## Administration
+
+Administrators can browse/search accounts and payments at `/admin`, then open a user profile for access and purchase details. See [admin users and migration rollout](docs/ADMIN_USERS.md) before deploying the payment-email update. Older checkout emails can be retrieved explicitly from Razorpay using the matching environment credentials.
+
 ## Validate
 
 ```bash

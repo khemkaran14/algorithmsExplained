@@ -10,7 +10,13 @@ import {
 import { learningStats, EMPTY } from '@/learning/progress';
 import { useEffect, useState } from 'react';
 import { CatalogGrid } from '@/components/lesson/catalog-grid';
-export function LearningDashboard({ signedIn }: { signedIn: boolean }) {
+export function LearningDashboard({
+  signedIn,
+  allAccess = false,
+}: {
+  signedIn: boolean;
+  allAccess?: boolean;
+}) {
   const learning = useLearning(),
     stats = learningStats(learning.progress);
   const [synced, setSynced] = useState(false);
@@ -113,7 +119,10 @@ export function LearningDashboard({ signedIn }: { signedIn: boolean }) {
           );
         })}
       </div>
-      <CatalogGrid lessons={catalog.filter((l) => l.status !== 'planned')} />
+      <CatalogGrid
+        allAccess={allAccess}
+        lessons={catalog.filter((l) => l.status !== 'planned')}
+      />
     </>
   );
 }

@@ -13,6 +13,7 @@ const paymentSchema = z.object({
   amount: z.number().int(),
   currency: z.string(),
   status: z.string(),
+  email: z.email().max(254).nullish().catch(null),
 });
 export type ProviderPayment = z.infer<typeof paymentSchema>;
 export function paymentKeys() {

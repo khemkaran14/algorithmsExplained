@@ -1,7 +1,15 @@
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Lock, ArrowUpRight } from 'lucide-react';
+import { Lock, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { lessonUrl, type LessonMeta } from '@/content/catalog';
-export function CatalogGrid({ lessons }: { lessons: readonly LessonMeta[] }) {
+export function CatalogGrid({
+  lessons,
+  allAccess = false,
+}: {
+  lessons: readonly LessonMeta[];
+  allAccess?: boolean;
+}) {
+  const t = useTranslations('catalog');
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {lessons.map((l) => (
@@ -16,10 +24,16 @@ export function CatalogGrid({ lessons }: { lessons: readonly LessonMeta[] }) {
             </span>
             {l.isFree ? (
               <span className="rounded bg-lime-300 px-2 py-1 text-zinc-950">
-                Free
+                {t('free')}
               </span>
+            ) : allAccess ? (
+              <CheckCircle2
+                size={16}
+                aria-label={t('included')}
+                className="text-green-700 dark:text-green-300"
+              />
             ) : (
-              <Lock size={15} aria-label="Paid lesson" />
+              <Lock size={15} aria-label={t('locked')} />
             )}
           </div>
           <h2 className="text-xl font-semibold">{l.title}</h2>

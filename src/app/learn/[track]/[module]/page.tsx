@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { catalog } from '@/content/catalog';
-import { CatalogGrid } from '@/components/lesson/catalog-grid';
+import { AuthorizedCatalogGrid as CatalogGrid } from '@/components/lesson/authorized-catalog-grid';
 export default async function Module({
   params,
 }: {

@@ -82,3 +82,11 @@ Authentication logs use an allowlist of fixed Auth.js categories. The adapter re
 ## Razorpay setup readiness (2026-10-17)
 
 A non-mutating runtime checker reports required-setting presence, test/live key format and optional provider authentication using GET orders only. It discards provider bodies. New orders require a webhook secret, but verification of already created orders remains possible if webhook configuration temporarily fails. A definitive payment failure starts a fresh idempotency key; uncertain outcomes retain the original key. Test Mode is labelled on pricing. Receipt retries use a container-local helper so the job secret never appears in crontab arguments. Operator acceptance remains separate from mocked provider tests.
+
+## Entitlement-aware tiles and admin profiles (2026-10-18)
+
+Paid/free metadata is not user authorization. Every catalog surface now receives the current server-verified lifetime entitlement and shows an included indicator for authorized paid lessons. Backend checks remain independent.
+
+Admin account rows link to a paginated server-rendered profile authorized against the current database role on every request. Login email and payment email remain separate. Razorpay checkout email is captured prospectively in a nullable Payment field; older rows remain unknown. The optional gateway email cannot invalidate an otherwise valid payment. Account deletion clears checkout email; conditional payment updates prevent later events from restoring it. No token, credential or private note body is selected for administrator views.
+
+Historical payment email retrieval is an explicit admin action using provider GET only. Match payment/order identifiers, amount, currency and captured/refunded status before writing. Conditional updates preserve deletion privacy and existing recorded addresses. No automatic bulk lookup or payment operation is performed.
