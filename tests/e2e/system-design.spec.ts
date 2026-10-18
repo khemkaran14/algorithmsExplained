@@ -90,7 +90,19 @@ test('entitled gateway variant changes its real policy model and anonymous varia
     await page
       .getByLabel('Rate policy', { exact: true })
       .selectOption('sliding-log');
+    const loaded = page.waitForResponse(
+      (response) =>
+        response.url().endsWith(url) &&
+        response.request().method() === 'POST' &&
+        response.request().postDataJSON()?.input?.algorithm === 'sliding-log',
+    );
     await page.getByRole('button', { name: 'Load input', exact: true }).click();
+    const response = await loaded;
+    expect(response.ok()).toBe(true);
+    await response.finished();
+    await expect(
+      page.getByText('Preparing input…', { exact: true }),
+    ).toBeHidden();
     await page
       .getByLabel('Animation timeline')
       .fill((await page.getByLabel('Animation timeline').getAttribute('max'))!);
@@ -119,11 +131,23 @@ test('case study exposes editable estimates, progressive architecture and URL fa
   await page.getByLabel('Requests per actor/day', { exact: true }).fill('1');
   await expect(overview).toContainText('86,400');
   await expect(overview).toContainText('1.00');
+  await page.getByRole('button', { name: 'Fit View', exact: true }).click();
   await expect(
     page.getByText('Create / redirect client', { exact: true }),
   ).toBeVisible();
   await page.getByLabel('Lose delete invalidation', { exact: true }).check();
+  const loaded = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/lessons/url-shortener/frames') &&
+      response.request().method() === 'POST',
+  );
   await page.getByRole('button', { name: 'Load input', exact: true }).click();
+  const response = await loaded;
+  expect(response.ok()).toBe(true);
+  await response.finished();
+  await expect(
+    page.getByText('Preparing input…', { exact: true }),
+  ).toBeHidden();
   const timeline = page.getByLabel('Animation timeline');
   await timeline.fill((await timeline.getAttribute('max'))!);
   await expect(page.getByLabel('Algorithm result data')).toContainText(

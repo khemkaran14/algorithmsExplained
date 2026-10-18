@@ -14,7 +14,18 @@ test('free relational model reports real primary and foreign-key violations', as
       enforceConstraints: true,
     }),
   );
+  const loaded = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/lessons/relational-model-keys/frames') &&
+      response.request().method() === 'POST',
+  );
   await page.getByRole('button', { name: 'Load input', exact: true }).click();
+  const response = await loaded;
+  expect(response.ok()).toBe(true);
+  await response.finished();
+  await expect(
+    page.getByText('Preparing input…', { exact: true }),
+  ).toBeHidden();
   await expect(page.getByLabel('Custom input', { exact: true })).toHaveValue(
     /"join":"left"/,
   );
@@ -39,7 +50,20 @@ test('free normalization distinguishes 3NF from BCNF and remains accessible', as
       atomicCells: true,
     }),
   );
+  const loaded = page.waitForResponse(
+    (response) =>
+      response
+        .url()
+        .endsWith('/api/lessons/normalization-1nf-to-bcnf/frames') &&
+      response.request().method() === 'POST',
+  );
   await page.getByRole('button', { name: 'Load input', exact: true }).click();
+  const response = await loaded;
+  expect(response.ok()).toBe(true);
+  await response.finished();
+  await expect(
+    page.getByText('Preparing input…', { exact: true }),
+  ).toBeHidden();
   await expect(page.getByLabel('Custom input', { exact: true })).toHaveValue(
     /"atomicCells":true/,
   );

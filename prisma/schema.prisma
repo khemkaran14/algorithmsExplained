@@ -9,6 +9,7 @@ datasource db {
 }
 
 model User {
+  createdAt     DateTime?        @default(now())
   id            String           @id @default(cuid())
   name          String?
   email         String?          @unique
@@ -185,7 +186,10 @@ model Entitlement {
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   payment   Payment?  @relation(fields: [paymentId], references: [id])
 
+  expiresAt DateTime @default(dbgenerated("(CURRENT_TIMESTAMP + interval '5 years')"))
+
   @@index([userId, type, revokedAt])
+  @@index([userId, type, revokedAt, expiresAt])
 }
 
 model Payment {

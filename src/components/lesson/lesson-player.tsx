@@ -30,7 +30,11 @@ export function LessonPlayer({
   const [remoteData, setRemoteData] = useState(remote);
   const requestRef = useRef<AbortController | null>(null);
   const [loading, setLoading] = useState(false);
-  useEffect(() => () => requestRef.current?.abort(), []);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setReady(true);
+    return () => requestRef.current?.abort();
+  }, []);
 
   const visualizer = useMemo<Visualizer<unknown>>(
     () =>
@@ -257,6 +261,7 @@ export function LessonPlayer({
         {(['best', 'average', 'worst'] as const).map((p) => (
           <Button
             key={p}
+            disabled={!ready}
             variant="outline"
             onClick={() => load(visualizer.presets[p])}
           >
@@ -265,6 +270,7 @@ export function LessonPlayer({
           </Button>
         ))}
         <Button
+          disabled={!ready}
           variant="outline"
           onClick={() =>
             remoteData
@@ -278,6 +284,7 @@ export function LessonPlayer({
           Size {size}
           <input
             aria-label="Input size"
+            disabled={!ready}
             className="min-w-0 flex-1"
             type="range"
             min="1"
@@ -291,6 +298,7 @@ export function LessonPlayer({
             <label htmlFor={`variant-${id}`}>Algorithm variant</label>
             <select
               id={`variant-${id}`}
+              disabled={!ready}
               className="rounded-lg border border-[var(--border)] bg-[var(--background)] p-2"
               value={remoteData.variant ?? 'default'}
               onChange={(e) => void load(undefined, undefined, e.target.value)}
@@ -316,7 +324,10 @@ export function LessonPlayer({
           className="flex w-full flex-wrap gap-2"
         >
           {remoteData?.controls && (
-            <fieldset className="mb-4 flex w-full flex-wrap gap-4">
+            <fieldset
+              disabled={!ready}
+              className="mb-4 flex w-full flex-wrap gap-4"
+            >
               <legend className="mb-2 font-medium">
                 Simulation parameters
               </legend>
@@ -391,13 +402,16 @@ export function LessonPlayer({
           </label>
           <input
             id={`custom-${id}`}
+            disabled={!ready}
             className="min-w-0 flex-1 rounded-xl border border-[var(--border)] bg-[var(--background)] p-3 font-mono text-sm"
             value={raw}
             onChange={(e) => setRaw(e.target.value)}
             aria-invalid={Boolean(error)}
             aria-describedby={`input-error-${id}`}
           />
-          <Button variant="outline">Load input</Button>
+          <Button disabled={!ready} variant="outline">
+            Load input
+          </Button>
         </form>
         <p
           id={`input-error-${id}`}

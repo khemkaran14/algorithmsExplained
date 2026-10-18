@@ -1,3 +1,4 @@
+import { activeAccess } from '@/payments/term';
 import 'server-only';
 import { db } from '@/lib/db';
 import { auth } from '@/auth';
@@ -5,7 +6,7 @@ import type { LessonMeta } from '@/content/catalog';
 export async function hasAllAccess(userId: string) {
   return Boolean(
     await db.entitlement.findFirst({
-      where: { userId, type: 'ALL_ACCESS', revokedAt: null },
+      where: activeAccess(userId),
     }),
   );
 }

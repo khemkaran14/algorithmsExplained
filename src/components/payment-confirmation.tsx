@@ -33,7 +33,7 @@ export function PaymentConfirmation() {
     <div className="rounded-2xl border border-[var(--border)] p-6">
       <p role="status" className="mb-5">
         {state === 'active'
-          ? '✓ Your lifetime access is active. Welcome aboard.'
+          ? '✓ Your five-year access is active. Welcome aboard.'
           : state === 'checking'
             ? 'Confirming your access securely…'
             : 'Your payment is still being confirmed. Do not pay again; check your account or contact support with your Razorpay payment ID.'}

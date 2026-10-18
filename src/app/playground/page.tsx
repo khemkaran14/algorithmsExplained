@@ -1,10 +1,6 @@
+import { pageMetadata } from '@/config/site';
 import { catalog } from '@/content/catalog';
 import { AlgorithmTools } from '@/components/algorithm-tools';
-export const metadata = {
-  title: 'Algorithm playground',
-  description:
-    'Explore free algorithms with editable, validated inputs and reversible visual steps.',
-};
 export default function Playground() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
@@ -21,3 +17,9 @@ export default function Playground() {
     </section>
   );
 }
+
+export const metadata = pageMetadata(
+  'Algorithm playground',
+  'Experiment with visual algorithm examples and compare their behavior.',
+  '/playground',
+);

@@ -1,9 +1,5 @@
+import { pageMetadata } from '@/config/site';
 import { ComplexityCheatsheet } from '@/components/complexity-cheatsheet';
-export const metadata = {
-  title: 'Algorithm complexity cheat sheet',
-  description:
-    'A free, searchable guide to best, average, worst time and space complexity across the DSA curriculum.',
-};
 export default function Cheatsheet() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-10">
@@ -18,3 +14,9 @@ export default function Cheatsheet() {
     </section>
   );
 }
+
+export const metadata = pageMetadata(
+  'Computer science cheat sheet',
+  'Review algorithm complexity and core computer science concepts.',
+  '/cheatsheet',
+);

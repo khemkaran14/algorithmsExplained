@@ -1,9 +1,9 @@
+import { pageMetadata } from '@/config/site';
 import { hasAllAccess } from '@/payments/access';
 import { getTranslations } from 'next-intl/server';
 import { GettingStarted } from '@/components/getting-started';
 import { auth } from '@/auth';
 import { LearningDashboard } from '@/components/learning-dashboard';
-export const metadata = { title: 'Your learning dashboard' };
 export default async function Learn() {
   const uiText = await getTranslations('ui');
 
@@ -26,3 +26,9 @@ export default async function Learn() {
     </section>
   );
 }
+
+export const metadata = pageMetadata(
+  'Explore interactive lessons',
+  'Learn algorithms, system design, databases and cloud through visual lessons, guided paths and quizzes.',
+  '/learn',
+);

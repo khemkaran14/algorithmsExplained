@@ -11,7 +11,19 @@ test('free service-model exercise applies real responsibility boundaries and a G
   await page
     .getByLabel('Customer data-access policy configured', { exact: true })
     .check();
+  const loaded = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/lessons/cloud-service-models/frames') &&
+      response.request().method() === 'POST' &&
+      response.request().postDataJSON()?.input?.provider === 'gcp',
+  );
   await page.getByRole('button', { name: 'Load input', exact: true }).click();
+  const response = await loaded;
+  expect(response.ok()).toBe(true);
+  await response.finished();
+  await expect(
+    page.getByText('Preparing input…', { exact: true }),
+  ).toBeHidden();
   await expect(page.getByLabel('Custom input', { exact: true })).toHaveValue(
     /"provider":"gcp"/,
   );

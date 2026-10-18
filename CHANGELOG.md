@@ -135,3 +135,14 @@
 
 - Add an admin-only, same-origin lookup for historical payment email; verify provider identity/order/amount/currency and prevent deleted-account data restoration.
 - Validation: additive migration applied successfully in development; 517 automated tests, all 54 desktop/mobile browser checks, production build, types, lint and formatting pass. New checks cover entitlement badges across five surfaces, revocation, admin role changes, separate account/payment email search, historical-lookup matching and deletion privacy. Provider lookups in automated tests are mocked; no real payment or refund is performed.
+
+## 2026-10-18 — Five-year access, dates and SEO
+
+- Record new signup dates and show signup/payment dates in admin; preserve unknown legacy dates.
+- Expire All Access after five calendar years, enforce expiry in protected flows and offer manual renewal.
+- Update checkout, pricing, account, receipt and invoice terms; preserve original dates on replay.
+- Add sitemap, crawler rules, canonical/share metadata, WebSite structured data and share image/icon.
+- Publish linked privacy, terms, refund, delivery, cookie, about and contact pages using operator configuration.
+- Document existing-account conversion, migration, VPS rollout and remaining owner acceptance.
+- Prevent simulation parameter/variant selections before hydration, and wait for replacement models in browser checks so early interactions are not lost.
+- Reflect server-confirmed coupon changes immediately while admin data refreshes in the background.

@@ -1,6 +1,6 @@
 # Razorpay setup on the existing Hostinger VPS
 
-Use Test Mode first. Current price is INR 199 (19900 paise), one-time lifetime access. This guide configures the existing integration; automated fixtures do not prove real provider acceptance.
+Use Test Mode first. Current price is INR 199 (19900 paise), one-time five-year access. This guide configures the existing integration; automated fixtures do not prove real provider acceptance.
 
 ## 1. Dashboard and environment
 

@@ -71,6 +71,12 @@ export async function middleware(request: NextRequest) {
     path.startsWith('/admin')
   )
     response.headers.set('Cache-Control', 'private, no-store');
+  if (
+    ['/api', '/account', '/admin', '/sign-in', '/checkout', '/revision'].some(
+      (prefix) => path === prefix || path.startsWith(prefix + '/'),
+    )
+  )
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
   return response;
 }
 export const config = {

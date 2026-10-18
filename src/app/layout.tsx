@@ -1,3 +1,4 @@
+import { siteOrigin } from '@/config/site';
 import { AuthNav } from '@/components/auth-nav';
 import { SessionGuard } from '@/components/session-guard';
 import { headers } from 'next/headers';
@@ -11,6 +12,11 @@ import { Providers } from '@/components/providers';
 import { ThemeToggle } from '@/components/theme-toggle';
 import './globals.css';
 export const metadata: Metadata = {
+  metadataBase: new URL(siteOrigin()),
+  applicationName: PRODUCT.name,
+  robots: { index: true, follow: true },
+  openGraph: { type: 'website', siteName: PRODUCT.name, locale: 'en_US' },
+  twitter: { card: 'summary_large_image' },
   title: { default: PRODUCT.name, template: `%s · ${PRODUCT.name}` },
   description:
     'Visual learning for algorithms, system design, databases, and cloud.',
@@ -28,6 +34,21 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           <Providers nonce={nonce}>
             <SessionGuard />
+            <script
+              type="application/ld+json"
+              nonce={nonce}
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'WebSite',
+                  name: PRODUCT.name,
+                  url: siteOrigin(),
+                  description:
+                    'Visual learning for algorithms, system design, databases and cloud.',
+                  inLanguage: 'en',
+                }).replace(/</g, '\\u003c'),
+              }}
+            />
             <a className="skip-link" href="#main">
               {t('common.skip')}
             </a>
@@ -74,6 +95,24 @@ export default async function RootLayout({
                 {PRODUCT.name} © {new Date().getFullYear()}
               </span>
               <span>{t('footer.note')}</span>
+              <nav
+                aria-label={t('legal.footer')}
+                className="flex flex-wrap gap-4"
+              >
+                {[
+                  'about',
+                  'contact',
+                  'privacy',
+                  'terms',
+                  'refunds',
+                  'shipping',
+                  'cookies',
+                ].map((path) => (
+                  <Link key={path} href={`/${path}`} className="underline">
+                    {t(`legal.${path}.title`)}
+                  </Link>
+                ))}
+              </nav>
             </footer>
           </Providers>
         </NextIntlClientProvider>

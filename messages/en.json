@@ -16,8 +16,8 @@
     "bubble": "Bubble sort",
     "previewNote": "Step through the full lesson, then predict the next move.",
     "pricingTitle": "Learn without the interruptions.",
-    "pricingDescription": "No ads. Free lessons in every module. One-time lifetime access to all lessons for {price}.",
-    "pricingNote": "Explore the free lessons before choosing lifetime access.",
+    "pricingDescription": "No ads. Free lessons in every module. One-time five-year access to all lessons for {price}.",
+    "pricingNote": "Explore the free lessons before choosing five-year access.",
     "map": "THE LEARNING MAP",
     "steps": "SMALL STEPS. REAL UNDERSTANDING.",
     "foundationStep": "Read the explanation, then play and step through the visualizer",
@@ -140,12 +140,12 @@
     "m7e1b0d5641f2": "Account",
     "mbfd402b2f6f3": "Sign in",
     "m1837d8a92a41": "Track certificates",
-    "m66e3c7bed92e": "Lifetime access and an 80% pass on every track quiz are required. Guest quiz results must be submitted again while signed in for verification.",
+    "m66e3c7bed92e": "Five-year access and an 80% pass on every track quiz are required. Guest quiz results must be submitted again while signed in for verification.",
     "mbcdfd7a50e55": "Public display name or pseudonym (Latin characters)",
     "m494a811759c0": "I agree that this name, track and completion date will be visible to anyone with my certificate link.",
     "m0a262c9ecc8b": " quizzes passed",
     "m591207a795b0": "Create certificate",
-    "mac04076f7c9a": "Your lifetime access is active →",
+    "mac04076f7c9a": "Your five-year access is active →",
     "m49e529df8458": "Sign in to unlock everything",
     "md0580e53fb9f": "Have a coupon?",
     "m8d15b0fbf84a": "Opening secure checkout…",
@@ -282,7 +282,7 @@
     "m4baf4e030ced": "Open full lesson",
     "m911d30b1fe97": "Sorted! Every adjacent pair is in order.",
     "ma330bd25c8ed": "Compare adjacent values; swap when the left value is larger.",
-    "m364a2ffbb657": "✓ Your lifetime access is active. Welcome aboard.",
+    "m364a2ffbb657": "✓ Your five-year access is active. Welcome aboard.",
     "m20b34a13608a": "Confirming your access securely…",
     "m391f3b6cc70e": "Your payment is still being confirmed. Do not pay again; check your account or contact support with your Razorpay payment ID.",
     "m65d365ad25f4": "Open your account",
@@ -300,19 +300,17 @@
     "m15a95f62f956": "Disable analytics",
     "md8a993b847e8": "Enable analytics",
     "m4efca0d10c5f": "About",
-    "me184e420cd3b": "Template — review with a lawyer and complete the business details before launch.",
     "m3576e21a8ec2": "Our purpose",
     "m9e1d107f3bf9": "We make difficult computer science ideas easier to understand through step-by-step visuals, practice and short quizzes.",
     "ma2d4612764f2": "Our scope",
     "m2f07ee0a22e5": "The curriculum covers data structures and algorithms, system design, database principles, and AWS/GCP cloud concepts.",
     "m6f104becb0c8": "Business identity",
-    "mbb3f99843ee0": "The operating business name, address, grievance contact, and relevant registration details must be completed before a public launch.",
     "m99126e703e9b": "Support:",
     "mdbb5f6371b6a": "Your account",
     "mc289bafb148f": "Purchases & invoices",
     "m4f67fd09c36c": "Download invoice",
     "m229c89d41fc5": "No purchases yet.",
-    "m38a8e5fb8cde": "Explore lifetime access",
+    "m38a8e5fb8cde": "Explore five-year access",
     "ma57b08a480b8": "Previous",
     "m6076934f99bd": "Page ",
     "mbcb9f0d526ea": " matching records",
@@ -350,7 +348,6 @@
     "mbe91940b79f4": "Support",
     "mc451b2e14225": "For account, access, payment or privacy help, use the business support email below. Include a payment reference only when relevant; never share OTPs or secret keys.",
     "m18f857f58217": "Response times",
-    "ma01f57ff64a6": "The operator must publish support hours and expected response times before launch.",
     "m121d2e828fae": "Business and grievance contact",
     "md38b6e36ec8b": "Business name, address and grievance contact must be configured and reviewed before live payments are enabled.",
     "m18fe66c3248e": "a↗",
@@ -383,11 +380,11 @@
     "mba64b525fd6c": "O(n²)",
     "m6848e06e9f5d": "Explore lessons ↗",
     "me674447337e8": "Available",
-    "mf288ee77d14d": "Explore lifetime access →",
+    "mf288ee77d14d": "Explore five-year access →",
     "mf0c2468b4c52": "YOUR GUIDED PATH",
     "mc7fafaba0344": "Algorithm playground",
     "m08c2699d7e30": "Change the input, predict the result and inspect every step.",
-    "m33ca934441d4": "ONE PURCHASE. A LIFETIME OF AHA.",
+    "m33ca934441d4": "ONE PURCHASE. FIVE YEARS OF LEARNING.",
     "m8deeb1dfde10": "Invest in your understanding.",
     "m911870928b2c": " All Access",
     "mc4f4fbd12ff3": "one time",
@@ -407,12 +404,10 @@
     "m0ecda0421ac7": "Your choices",
     "m52976160d90f": "Export your application data or request account deletion through your account. Deletion removes learning data and credentials; payment references may be retained in anonymized form where accounting law requires it.",
     "m16e74936a0b9": "Retention and contact",
-    "m5f6e4a730f2f": "The operator must publish a specific retention period, grievance contact and business address before launch. Contact the operator for access, correction or deletion requests.",
     "mbb6f16cbfdf8": "Refund & cancellation policy",
     "m56f857a1ad8a": "Digital access",
     "meaa9e34b1eff": "Access is delivered digitally after a successful captured payment. There is no recurring subscription to cancel.",
     "m1b77c7a75b1d": "Refund requests",
-    "ma82eb2185aac": "This template proposes a seven-day request window for duplicate charges, accidental purchases and unresolved access failures. The operator must review and adopt an explicit policy before accepting live payments.",
     "mc8e3e92a62ec": "Processing",
     "mfcb18c606c21": "Contact support with the registered email and Razorpay payment ID. Never send card numbers, passwords or OTPs. Approved refunds return through the original payment method; provider/bank processing times vary.",
     "m6fce8fd2a321": "After a refund",
@@ -423,7 +418,7 @@
     "m91cde597ffcc": "No physical shipment",
     "m6711408d0978": "All products are digital educational access. There are no physical packages, shipping charges or delivery addresses.",
     "m74bedc69dcef": "Delivery timing",
-    "m01f430c11b8f": "Lifetime access is enabled after server-side confirmation that Razorpay captured the payment. If a confirmation is delayed, check your account and contact support before paying again.",
+    "m01f430c11b8f": "Five-year access is enabled after server-side confirmation that Razorpay captured the payment. If a confirmation is delayed, check your account and contact support before paying again.",
     "m838c69765e28": "Access issues",
     "m8f0970316ad5": "Use the same account used during checkout. The operator can locate the purchase from its payment reference and account email.",
     "me69e06144877": "Terms of service",
@@ -431,13 +426,11 @@
     "m0c7ba12fa566": "You must provide accurate account details and keep your sign-in links private. Access is personal and may not be resold. Users under the applicable age of consent need a parent or guardian’s permission.",
     "m8f8aa9a8d550": "Purchase and delivery",
     "madcf85213f77": "All Access is a one-time INR ",
-    "m5e1cc1b5997d": " purchase for lifetime access to current and future lessons, subject to continued operation of the service. Access is delivered digitally after payment capture is verified. No physical goods are shipped.",
+    "m5e1cc1b5997d": " purchase for five-year access to current and future lessons, subject to continued operation of the service. Access is delivered digitally after payment capture is verified. No physical goods are shipped.",
     "mb9bda3bc3afb": "Educational use",
     "m1bfa62503f20": "Lessons are for education and do not guarantee employment, certification by a cloud provider, or suitability for a production system. Do not use interactive security examples against systems without authorization.",
     "m4a855686acf2": "Availability and changes",
-    "m0412a9f5a63d": "We may improve, correct or retire content. We will communicate material changes and provide support for purchase/access problems. Liability and dispute terms must be reviewed for the operating business and jurisdiction.",
     "m0a895458c853": "Disputes and contact",
-    "me78c3c7628f1": "Contact the operator through the Contact page first. Applicable consumer protections remain in force. The governing jurisdiction and business identity must be completed before launch.",
     "accountVerificationPending": "Connect to verify this account before accessing its saved learning data."
   },
   "gettingStarted": {
@@ -458,8 +451,8 @@
   },
   "catalog": {
     "free": "Free",
-    "included": "Included in your lifetime access",
-    "locked": "Requires lifetime access"
+    "included": "Included in your five-year access",
+    "locked": "Requires five-year access"
   },
   "adminUsers": {
     "title": "User details",
@@ -478,14 +471,14 @@
     "quizAttempts": "Quiz attempts",
     "bookmarks": "Bookmarks",
     "notes": "Notes",
-    "activeGrants": "Active lifetime grants",
-    "noGrant": "No active lifetime grant.",
+    "activeGrants": "Active five-year grants",
+    "noGrant": "No active five-year grant.",
     "paymentHistory": "Payment history",
     "paymentHelp": "Payment email is supplied by Razorpay after capture and may differ from account email. Older payments may not have it recorded. Dates are UTC.",
     "noPayments": "No payments on this page.",
     "notRecorded": "Not recorded",
     "emailProvider": "Email / not recorded",
-    "lifetime": "Lifetime active",
+    "lifetime": "Five-year active",
     "free": "Free access",
     "amount": "Amount",
     "status": "Status",
@@ -511,6 +504,164 @@
     "fetchEmail": "Retrieve payment email from Razorpay",
     "emailSaved": "Payment email recorded.",
     "emailUnavailable": "Razorpay did not return a valid email for this payment.",
-    "emailLookupFailed": "Could not retrieve payment email. Check provider availability and that the configured keys match this payment’s test or live mode."
+    "emailLookupFailed": "Could not retrieve payment email. Check provider availability and that the configured keys match this payment’s test or live mode.",
+    "joined": "Joined (UTC)",
+    "expires": "Expires (UTC)"
+  },
+  "accessTerm": {
+    "title": "All Access term",
+    "active": "Access ends on {date} (UTC). Your purchase covers five years. No automatic renewal or charge.",
+    "expired": "Your paid access has ended. Renew to unlock paid lessons again. Your learning history is kept.",
+    "renew": "Get five-year access",
+    "note": "Five years from payment confirmation. Renew manually after expiry at the price then displayed; no automatic charges.",
+    "free": "You are using free lessons. Unlock all lessons with a five-year purchase."
+  },
+  "legal": {
+    "footer": "Information and policies",
+    "updated": "Last updated: 18 October 2026",
+    "operator": "Operator",
+    "support": "Support",
+    "address": "Business address",
+    "jurisdiction": "Jurisdiction",
+    "missingSupport": "Support contact has not yet been published.",
+    "sectionsLabel": "Policy details",
+    "privacy": {
+      "title": "Privacy policy",
+      "description": "How AlgoVerse uses account, learning and payment information, and how to export or delete your data.",
+      "sections": [
+        [
+          "Information we collect",
+          "We use your name, email, authentication provider identifier, account creation date and essential session information to operate your account. Learning features store progress, quizzes, bookmarks, notes, review schedules and achievements. Purchases record amount, status, timestamps, payment references, checkout email and access dates. Razorpay handles payment credentials; AlgoVerse does not store your full card number, CVV or UPI PIN."
+        ],
+        [
+          "Purpose and sharing",
+          "We process this information to authenticate you, save learning work, deliver purchased access, prevent abuse, reconcile payments and provide support. Google handles Google sign-in, Resend sends login links and receipts, and Razorpay processes payments. Our hosting and database infrastructure process service data. These providers may process data in other countries under their own terms. We do not sell personal data. Authorized administrators can view account and purchase information for support."
+        ],
+        [
+          "Cookies and device storage",
+          "Essential cookies maintain authentication. Browser storage keeps theme preferences, guest learning work and account-scoped learning state. Signing out clears account learning state in that browser. Guest work may merge after verified sign-in. See our cookie policy for controls."
+        ],
+        [
+          "Retention and deletion",
+          "Account and learning information remains while your account exists. You can export or delete it from your account page. Deletion removes linked learning data, sessions and provider credentials and clears checkout email. Payment reconciliation records remain without an account link; legally required accounting records and provider-held records may be retained. Backup copies may remain until backup rotation. Expiry of paid access does not itself delete your learning history."
+        ],
+        [
+          "Your rights and security",
+          "Contact support to request access, correction or deletion or to raise a privacy concern. We verify account ownership before acting. Use the account export and deletion controls where available. We use access controls and authentication, but no system guarantees absolute security. Never send passwords, OTPs, payment PINs or secret keys to support."
+        ],
+        [
+          "Children and changes",
+          "If you are below the applicable age of digital consent, use the service with a parent or guardian. Contact us about information collected from a child without required permission. Material policy changes will be published here; applicable privacy rights remain unaffected."
+        ]
+      ]
+    },
+    "terms": {
+      "title": "Terms of service",
+      "description": "Account rules, five-year access terms, payment conditions and educational-use terms for AlgoVerse.",
+      "sections": [
+        [
+          "Using AlgoVerse",
+          "By using the service you agree to these terms. Keep account information accurate and sign-in links private. Your account and purchased access are personal and may not be resold or shared commercially. Do not bypass access controls, misuse the service or redistribute protected lesson content."
+        ],
+        [
+          "Five-year All Access",
+          "All Access is a one-time purchase covering five calendar years from verified payment capture. It includes current and future lessons made available during that term, subject to service availability. The price and any discount are shown before checkout. Access ends at the displayed expiry time; you may then purchase a new five-year term at the price offered at that time. There is no automatic renewal or recurring charge. Free lessons remain available. Existing grants are dated from their original grant date; the account page shows the applicable expiry."
+        ],
+        [
+          "Payments, delivery and refunds",
+          "Razorpay processes payments. The server confirms capture before enabling access. Delivery is digital; there is no physical shipment. Do not pay again while a payment is uncertain; check your account or contact support. Our refund and digital delivery policies form part of these terms."
+        ],
+        [
+          "Educational scope and intellectual property",
+          "Lessons are educational models and references, with the assumptions stated in each lesson. They do not guarantee employment, provider certification or production suitability. Respect intellectual property and any licenses accompanying code. Use security examples only on systems where you have authorization."
+        ],
+        [
+          "Availability and account restrictions",
+          "We may correct or improve content and temporarily interrupt service for maintenance or security. We may restrict accounts for fraud or abuse and investigate with appropriate notice where possible. These terms do not exclude mandatory consumer rights or remedies for failure to deliver purchased access."
+        ],
+        [
+          "Changes and disputes",
+          "Material changes will be published here. Contact support first about disputes or access problems. Applicable consumer and privacy protections continue to apply. No future renewal is charged without a new purchase."
+        ]
+      ]
+    },
+    "refunds": {
+      "title": "Refund & cancellation policy",
+      "description": "How to request a refund for digital access and what happens after an approved refund.",
+      "sections": [
+        [
+          "Requesting a refund",
+          "Contact support within seven days of purchase for duplicate charges, accidental purchases or unresolved access failures. Include your registered email, payment reference, purchase date and a short explanation. Do not send card numbers, passwords, OTPs or payment PINs. Mandatory statutory refund rights are unaffected by this request window."
+        ],
+        [
+          "Review and processing",
+          "Support reviews the payment and access issue before approving a refund. Approved refunds are submitted to Razorpay for return to the original payment method; bank and provider processing times vary. A support request or pending refund is not proof that funds have reached your bank. Contact support with the reference if a refund is delayed."
+        ],
+        [
+          "Access after refund and cancellation",
+          "A completed refund revokes access linked to that payment. Completion certificates may be revoked when no other valid grant remains. This is a one-time five-year purchase: there is no recurring subscription to cancel. You can choose not to renew after expiry. Account deletion is separate from a refund request and does not automatically refund a payment."
+        ]
+      ]
+    },
+    "shipping": {
+      "title": "Digital delivery policy",
+      "description": "How AlgoVerse delivers online access after payment confirmation.",
+      "sections": [
+        [
+          "Delivery",
+          "All products are online educational access. There are no physical shipments or shipping fees. All Access is enabled after server verification of a captured payment. The five-year term and expiry appear in your account."
+        ],
+        [
+          "Delayed access",
+          "Sign in with the same account used at checkout. If access is delayed, check payment status in your account and contact support with the payment reference. Avoid creating another charge while the first outcome is uncertain. An unsuccessful or uncaptured payment does not grant access."
+        ]
+      ]
+    },
+    "contact": {
+      "title": "Contact & support",
+      "description": "Contact AlgoVerse about account access, payments, privacy and learning content.",
+      "sections": [
+        [
+          "How to ask for help",
+          "For account or privacy requests, use your registered email. For payment questions, include the purchase date and Razorpay reference. For a lesson issue, include its URL and the steps that reproduce the problem. Never share passwords, OTPs, sign-in links or API keys."
+        ],
+        [
+          "Payment and privacy concerns",
+          "Use the support contact below for access failures, refund requests, corrections, data rights and grievances. We verify ownership before making account changes. The account page also offers data export and account deletion."
+        ]
+      ]
+    },
+    "about": {
+      "title": "About AlgoVerse",
+      "description": "Visual, interactive learning across algorithms, system design, databases and cloud.",
+      "sections": [
+        [
+          "See it. Try it. Understand it.",
+          "AlgoVerse teaches computer science through step-by-step visuals, editable examples, reference code and quizzes. Start with a free lesson and follow a guided path at your own pace."
+        ],
+        [
+          "Curriculum",
+          "Explore data structures and algorithms, system design, databases and cloud concepts. Lessons state their teaching assumptions and scope. Educational examples do not operate real infrastructure or guarantee professional certification."
+        ]
+      ]
+    },
+    "cookies": {
+      "title": "Cookie policy",
+      "description": "Essential authentication cookies, local learning storage and your browser controls.",
+      "sections": [
+        [
+          "Essential cookies",
+          "Authentication uses cookies to keep you signed in and protect login requests. Blocking these cookies can prevent account and purchase features from working. Cookies are not used as proof of a paid entitlement; the server checks access."
+        ],
+        [
+          "Local storage",
+          "Theme preferences, guest progress and account-scoped learning work may be kept on your device. Signing out clears browser account learning state. You can remove local storage and cookies through browser settings; unsynced guest work may be lost."
+        ],
+        [
+          "Third-party services",
+          "Google sign-in and Razorpay checkout may set cookies or process device information under their own policies. Email links are sent by Resend. Review provider policies when using those services. This policy does not claim that browser storage can disable providers required to complete a requested login or payment."
+        ]
+      ]
+    }
   }
 }

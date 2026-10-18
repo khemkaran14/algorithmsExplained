@@ -1,3 +1,4 @@
+import { pageMetadata } from '@/config/site';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { auth } from '@/auth';
@@ -5,9 +6,9 @@ import { hasAllAccess } from '@/payments/access';
 import { PRICING } from '@/config/pricing';
 import { PRODUCT } from '@/config/product';
 import { CheckoutButton } from '@/components/checkout-button';
-export const metadata = { title: 'Lifetime access' };
 export default async function Pricing() {
   const t = await getTranslations('payments');
+  const term = await getTranslations('accessTerm');
   const testMode = process.env.RAZORPAY_KEY_ID?.startsWith('rzp_test_');
   const session = await auth();
   const access = session?.user?.id
@@ -21,7 +22,7 @@ export default async function Pricing() {
   return (
     <section className="mx-auto max-w-4xl px-5 py-16">
       <p className="mb-4 text-center font-mono text-xs text-[var(--muted)]">
-        ONE PURCHASE. A LIFETIME OF AHA.
+        ONE PURCHASE. FIVE YEARS OF LEARNING.
       </p>
       <h1 className="text-center text-4xl font-semibold tracking-tight sm:text-5xl">
         Invest in your understanding.
@@ -36,7 +37,7 @@ export default async function Pricing() {
         </p>
         <ul className="mb-7 space-y-3 text-sm">
           {[
-            'All current and future lessons',
+            'All current and future lessons during your five-year term',
             'Watch, Try and Quiz modes',
             'Four languages of synchronized code',
             'DSA, system design, databases and cloud',
@@ -61,7 +62,7 @@ export default async function Pricing() {
         />
         <p className="mt-5 text-xs leading-relaxed text-[var(--muted)]">
           Secure checkout by Razorpay. UPI, cards, netbanking and wallets.
-          Access begins after server-side capture confirmation.
+          {term('note')}
         </p>
       </div>
       <p className="text-center text-sm text-[var(--muted)]">
@@ -86,3 +87,9 @@ export default async function Pricing() {
     </section>
   );
 }
+
+export const metadata = pageMetadata(
+  'Five-year All Access',
+  'One payment for five years of all AlgoVerse lessons. Renew manually after expiry; no automatic billing.',
+  '/pricing',
+);

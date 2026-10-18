@@ -1,3 +1,4 @@
+import { activeAccess, accessExpiry } from '@/payments/term';
 import 'server-only';
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
@@ -29,10 +30,10 @@ export async function createOrder(
       await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${`checkout:${userId}`}))`;
       if (
         await tx.entitlement.findFirst({
-          where: { userId, type: 'ALL_ACCESS', revokedAt: null },
+          where: activeAccess(userId),
         })
       )
-        throw new ApiError(409, 'Your account already has lifetime access.');
+        throw new ApiError(409, 'Your account already has five-year access.');
       const receipt =
         'av_' +
         createHash('sha256')
@@ -129,12 +130,13 @@ async function applyPayment(
   if (status === 'paid' || status === 'refund-pending') {
     if (provider.status !== 'captured')
       throw new ApiError(400, 'Payment is not captured.');
+    const grantedAt = saved.paidAt ?? new Date();
     await tx.payment.update({
       where: { id: saved.id },
       data: {
         status,
         razorpayPaymentId: provider.id,
-        paidAt: saved.paidAt ?? new Date(),
+        paidAt: grantedAt,
       },
     });
     if (provider.email)
@@ -149,6 +151,8 @@ async function applyPayment(
           userId: saved.userId,
           type: 'ALL_ACCESS',
           source: 'razorpay',
+          grantedAt,
+          expiresAt: accessExpiry(grantedAt),
           paymentId: saved.id,
         },
         update: {},
@@ -174,7 +178,7 @@ async function applyPayment(
     if (
       saved.userId &&
       !(await tx.entitlement.findFirst({
-        where: { userId: saved.userId, type: 'ALL_ACCESS', revokedAt: null },
+        where: activeAccess(saved.userId),
       }))
     )
       await tx.certificate.updateMany({

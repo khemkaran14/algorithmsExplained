@@ -1,9 +1,11 @@
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Lock } from 'lucide-react';
 import type { LessonMeta } from '@/content/catalog';
 import { PRICING } from '@/config/pricing';
 import { Button } from '../ui/button';
-export function LockedLesson({ meta }: { meta: LessonMeta }) {
+export async function LockedLesson({ meta }: { meta: LessonMeta }) {
+  const term = await getTranslations('accessTerm');
   const price = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: PRICING.currency,
@@ -38,6 +40,7 @@ export function LockedLesson({ meta }: { meta: LessonMeta }) {
           Watch, try, explore the code and test yourself. Includes all current
           and future lessons, with no ads.
         </p>
+        <p className="mb-4 text-sm">{term('note')}</p>
         <ul className="mb-6 flex flex-wrap gap-2 text-xs">
           {meta.tags.map((tag) => (
             <li

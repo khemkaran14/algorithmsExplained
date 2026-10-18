@@ -16,6 +16,9 @@ export async function GET(
         userId: user.id,
         status: { in: ['paid', 'refund-pending', 'refunded'] },
       },
+      include: {
+        entitlement: { select: { grantedAt: true, expiresAt: true } },
+      },
     });
     if (!p) throw new ApiError(404, 'Invoice not found.');
     const pdf = await PDFDocument.create(),
@@ -31,7 +34,9 @@ export async function GET(
       `Invoice: ${p.receipt}`,
       `Date: ${(p.paidAt ?? p.createdAt).toISOString().slice(0, 10)}`,
       `Customer: ${user.email ?? user.id}`,
-      `Item: ${PRODUCT.name} lifetime ALL ACCESS`,
+      `Item: ${PRODUCT.name} five-year ALL ACCESS`,
+      `Access starts (UTC): ${p.entitlement?.grantedAt.toISOString() ?? 'Not recorded'}`,
+      `Access ends (UTC): ${p.entitlement?.expiresAt.toISOString() ?? 'Not recorded'}`,
       `Currency: ${p.currency}`,
       `Total paid: INR ${(p.amount / 100).toFixed(2)}`,
       `Tax included (${gstRate}%): INR ${(tax / 100).toFixed(2)}`,

@@ -85,3 +85,14 @@ Use docs/RAZORPAY_SETUP.md for the existing VPS. The runtime payment checker is 
 ## Admin user details and payment email
 
 All admin pages use a fresh stored-role check before selecting private data. Select explicit profile/payment fields; never pass entire Account/Session records to pages. Checkout email is optional trusted captured-payment metadata, independent of login email. Preserve account-deletion anonymization and do not restore checkout email on late events for a deleted user. Catalog badges receive server-verified entitlement state; client badges never replace protected loader/API checks. Apply the additive paymentEmail migration before deploying this release; see docs/ADMIN_USERS.md.
+
+## Access terms and indexing
+
+All Access is five calendar years from the original grant, including migrated
+manual grants. Use src/payments/term.ts activeAccess for every entitlement query
+that authorizes work; expiry is exclusive. Never extend a grant on webhook replay.
+New signup dates are recorded; unknown legacy dates remain null. Apply the
+five-year migration before starting this release. Public legal/business fields
+must come from configured operator details, never invented identities. Sitemaps
+use public catalog metadata only, and crawlers never bypass paid loaders. See
+docs/FIVE_YEAR_ACCESS_AND_SEO.md for rollout and owner acceptance.

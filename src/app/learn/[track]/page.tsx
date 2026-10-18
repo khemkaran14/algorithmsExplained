@@ -1,3 +1,4 @@
+import { pageMetadata } from '@/config/site';
 import { notFound } from 'next/navigation';
 import { catalog } from '@/content/catalog';
 import { AuthorizedCatalogGrid as CatalogGrid } from '@/components/lesson/authorized-catalog-grid';
@@ -19,5 +20,22 @@ export default async function Track({
       </h1>
       <CatalogGrid lessons={lessons} />
     </section>
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ track: string }>;
+}) {
+  const p = await params;
+  if (!catalog.some((l) => l.track === p.track))
+    return { title: 'Not found', robots: { index: false } };
+  return pageMetadata(
+    p.track === 'dsa'
+      ? 'Data structures & algorithms'
+      : p.track.replaceAll('-', ' '),
+    `Explore visual lessons and quizzes in ${p.track.replaceAll('-', ' ')}.`,
+    `/learn/${p.track}`,
   );
 }

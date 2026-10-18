@@ -1,3 +1,4 @@
+import { activeAccess } from '@/payments/term';
 import 'server-only';
 import { z } from 'zod';
 import { db } from '@/lib/db';
@@ -107,9 +108,10 @@ export async function adminOverview(filters: AdminFilters) {
         email: true,
         role: true,
         emailVerified: true,
+        createdAt: true,
         accounts: { select: { provider: true } },
         entitlements: {
-          where: { type: 'ALL_ACCESS', revokedAt: null },
+          where: activeAccess(),
           take: 1,
           select: { id: true },
         },
@@ -128,6 +130,8 @@ export async function adminOverview(filters: AdminFilters) {
         status: true,
         userId: true,
         paymentEmail: true,
+        createdAt: true,
+        paidAt: true,
         user: { select: { name: true, email: true } },
       },
     }),
@@ -173,6 +177,7 @@ export async function adminOverview(filters: AdminFilters) {
       name: u.name,
       email: u.email,
       role: u.role,
+      createdAt: u.createdAt,
       emailVerified: Boolean(u.emailVerified),
       providers: u.accounts.map((a) => a.provider),
       allAccess: u.entitlements.length > 0,

@@ -4,11 +4,11 @@
 
 /admin lists searchable accounts and payments with stable pagination (25 records per page). Search matches account names, account email, payment email, Razorpay IDs, receipts and coupon codes. Account rows link to /admin/users/<id> for a detailed profile. The Admin navigation link appears only for a freshly authorized administrator.
 
-Profiles show account ID, name, login email, role, recorded email-verification date, linked provider names, active lifetime grants, learning activity counts and paginated payment history. Payment history includes captured checkout email, amount/currency, status, provider order/payment IDs, dates and receipt-delivery state. No sign-in credentials, session tokens, OAuth tokens, card details or note contents are exposed.
+Profiles show account ID, name, login email, role, recorded email-verification date, linked provider names, active five-year grants, learning activity counts and paginated payment history. Payment history includes captured checkout email, amount/currency, status, provider order/payment IDs, dates and receipt-delivery state. No sign-in credentials, session tokens, OAuth tokens, card details or note contents are exposed.
 
 Every admin page rechecks the stored administrator role before querying private profile details. Demoting an administrator takes effect on the next request. Normal users cannot read another user's admin profile by guessing its URL.
 
-Lifetime users see an included-access indicator instead of a lock on paid tiles across /learn, /account, track/module catalogs and guided paths. Free lessons retain their Free badge. Revoked grants no longer count as active. The badges do not authorize lesson access; protected loaders and APIs still perform independent checks.
+Five-year users see an included-access indicator instead of a lock on paid tiles across /learn, /account, track/module catalogs and guided paths. Free lessons retain their Free badge. Revoked grants no longer count as active. The badges do not authorize lesson access; protected loaders and APIs still perform independent checks.
 
 ## Payment email availability and privacy
 
@@ -50,8 +50,10 @@ Stop if migration fails; do not use db:push or delete volumes as a workaround.
 docker compose -f /root/algoverse/compose.yml --env-file /root/algoverse/app/.env up -d --no-deps --build app
 ```
 
-5. Sign in with the existing admin account and open /admin. Search a login email, click the account row, and inspect its profile. Check a lifetime account's tiles at /learn/dsa and /learn. New captured test payments can verify checkout-email recording. Never issue a real payment merely to test the new display.
+5. Sign in with the existing admin account and open /admin. Search a login email, click the account row, and inspect its profile. Check a five-year account's tiles at /learn/dsa and /learn. New captured test payments can verify checkout-email recording. Never issue a real payment merely to test the new display.
 
 ## Verification (2026-10-18)
 
 The additive migration applies in the development database. 517 automated tests and all 54 desktop/mobile browser scenarios pass, along with production compilation, type checking, lint and formatting. Tests verify badges on all five catalog surfaces, revocation, admin/non-admin access, search by separate payer email, token non-disclosure, matched historical lookup and privacy after account deletion/late capture. Automated provider lookups use fixtures, not live merchant credentials.
+
+For signup dates, expiry enforcement and the latest required migration, see [Five-year access and SEO rollout](FIVE_YEAR_ACCESS_AND_SEO.md). Revoked or expired grants no longer unlock paid tiles.

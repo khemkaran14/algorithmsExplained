@@ -90,3 +90,15 @@ Paid/free metadata is not user authorization. Every catalog surface now receives
 Admin account rows link to a paginated server-rendered profile authorized against the current database role on every request. Login email and payment email remain separate. Razorpay checkout email is captured prospectively in a nullable Payment field; older rows remain unknown. The optional gateway email cannot invalidate an otherwise valid payment. Account deletion clears checkout email; conditional payment updates prevent later events from restoring it. No token, credential or private note body is selected for administrator views.
 
 Historical payment email retrieval is an explicit admin action using provider GET only. Match payment/order identifiers, amount, currency and captured/refunded status before writing. Conditional updates preserve deletion privacy and existing recorded addresses. No automatic bulk lookup or payment operation is performed.
+
+## 2026-10-18 — Five-year access and public site information
+
+The owner changed lifetime-labelled All Access to a five-calendar-year one-time
+purchase with manual renewal after expiry. Existing grants retain their original
+grant date and receive that date plus five years; deployment does not reset terms.
+Admin role remains independent. All authorization paths share an exclusive expiry
+predicate, and captured-event upserts do not extend grants. Unknown historical
+signup dates remain null instead of becoming deployment dates. Public SEO uses a
+configured origin and catalog metadata, with no paid-content crawler bypass.
+Legal pages disclose the implemented behavior and use configured public business
+fields; owner details and live HTTPS/indexing acceptance remain external actions.

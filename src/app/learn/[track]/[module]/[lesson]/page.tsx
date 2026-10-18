@@ -1,3 +1,4 @@
+import { pageMetadata } from '@/config/site';
 import { Suspense } from 'react';
 import type { LessonMeta } from '@/content/catalog';
 export const dynamic = 'force-dynamic';
@@ -21,7 +22,9 @@ export async function generateMetadata({
       (l) =>
         l.track === p.track && l.module === p.module && l.slug === p.lesson,
     );
-  return { title: l?.title ?? 'Lesson not found', description: l?.description };
+  return l
+    ? pageMetadata(l.title, l.description, lessonUrl(l))
+    : { title: 'Lesson not found', robots: { index: false } };
 }
 export default async function LessonPage({
   params,

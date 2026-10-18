@@ -1,3 +1,4 @@
+import { activeAccess } from '@/payments/term';
 import { z } from 'zod';
 import { api, json, readJson, requireSameOrigin, ApiError } from '@/lib/http';
 import { requireUser } from '@/lib/user';
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
     if (
       !meta.isFree &&
       !(await db.entitlement.findFirst({
-        where: { userId: user.id, type: 'ALL_ACCESS', revokedAt: null },
+        where: activeAccess(user.id),
       }))
     )
       throw new ApiError(403, 'Unlock this lesson to take its quiz.');

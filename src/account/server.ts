@@ -9,6 +9,7 @@ export async function exportAccount(userId: string) {
       name: true,
       email: true,
       emailVerified: true,
+      createdAt: true,
       image: true,
       progress: true,
       quizAttempts: {
@@ -43,7 +44,13 @@ export async function exportAccount(userId: string) {
         },
       },
       entitlements: {
-        select: { type: true, source: true, grantedAt: true, revokedAt: true },
+        select: {
+          type: true,
+          source: true,
+          grantedAt: true,
+          expiresAt: true,
+          revokedAt: true,
+        },
       },
       payments: {
         select: {

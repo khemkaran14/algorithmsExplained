@@ -1,3 +1,4 @@
+import { activeAccess } from '@/payments/term';
 import { PaymentEmailSync } from '@/components/payment-email-sync';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
@@ -41,10 +42,11 @@ export default async function UserDetails({
       email: true,
       role: true,
       emailVerified: true,
+      createdAt: true,
       accounts: { select: { provider: true } },
       entitlements: {
-        where: { type: 'ALL_ACCESS', revokedAt: null },
-        select: { source: true, grantedAt: true },
+        where: activeAccess(),
+        select: { source: true, grantedAt: true, expiresAt: true },
         orderBy: { grantedAt: 'desc' },
         take: 25,
       },
@@ -95,6 +97,7 @@ export default async function UserDetails({
           [t('accountEmail'), user.email ?? t('notRecorded')],
           [t('userId'), user.id],
           [t('role'), user.role],
+          [t('joined'), formatDate(user.createdAt)],
           [t('emailVerified'), formatDate(user.emailVerified)],
           [
             t('providers'),
@@ -120,7 +123,8 @@ export default async function UserDetails({
         <ul className="space-y-2">
           {user.entitlements.map((e, index) => (
             <li key={index}>
-              {e.source} · {formatDate(e.grantedAt)}
+              {e.source} · {formatDate(e.grantedAt)} · {t('expires')}:{' '}
+              {formatDate(e.expiresAt)}
             </li>
           ))}
         </ul>

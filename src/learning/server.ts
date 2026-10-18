@@ -1,3 +1,4 @@
+import { activeAccess } from '@/payments/term';
 import 'server-only';
 import { db } from '@/lib/db';
 import { catalog } from '@/content/catalog';
@@ -38,7 +39,7 @@ export async function mergeLearning(userId: string, incoming: LocalLearning) {
   await db.$transaction(async (tx) => {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${userId}))`;
     const entitlement = await tx.entitlement.findFirst({
-      where: { userId, type: 'ALL_ACCESS', revokedAt: null },
+      where: activeAccess(userId),
     });
     const allowed = new Set(
       catalog

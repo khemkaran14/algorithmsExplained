@@ -1,3 +1,4 @@
+import { pageMetadata } from '@/config/site';
 import { notFound } from 'next/navigation';
 import { catalog } from '@/content/catalog';
 import { AuthorizedCatalogGrid as CatalogGrid } from '@/components/lesson/authorized-catalog-grid';
@@ -18,5 +19,20 @@ export default async function Module({
       </h1>
       <CatalogGrid lessons={lessons} />
     </section>
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ track: string; module: string }>;
+}) {
+  const p = await params;
+  if (!catalog.some((l) => l.track === p.track && l.module === p.module))
+    return { title: 'Not found', robots: { index: false } };
+  return pageMetadata(
+    p.module.replaceAll('-', ' '),
+    `Learn ${p.module.replaceAll('-', ' ')} with interactive examples and quizzes.`,
+    `/learn/${p.track}/${p.module}`,
   );
 }

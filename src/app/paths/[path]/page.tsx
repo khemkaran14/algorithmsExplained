@@ -1,3 +1,4 @@
+import { pageMetadata } from '@/config/site';
 import { notFound } from 'next/navigation';
 import { catalog } from '@/content/catalog';
 import { AuthorizedCatalogGrid as CatalogGrid } from '@/components/lesson/authorized-catalog-grid';
@@ -45,4 +46,16 @@ export default async function Path({
       <CatalogGrid lessons={catalog.filter((l) => l.track === p.track)} />
     </section>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ path: string }>;
+}) {
+  const { path } = await params;
+  const p = paths[path];
+  return p
+    ? pageMetadata(p.title, p.description, `/paths/${path}`)
+    : { title: 'Not found', robots: { index: false } };
 }

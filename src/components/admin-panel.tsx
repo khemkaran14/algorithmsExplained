@@ -11,6 +11,7 @@ type Props = {
     email: string | null;
     role: string;
     emailVerified: boolean;
+    createdAt: Date | null;
     providers: string[];
     allAccess: boolean;
     paymentCount: number;
@@ -23,6 +24,8 @@ type Props = {
     status: string;
     userId: string | null;
     paymentEmail: string | null;
+    createdAt: Date;
+    paidAt: Date | null;
     user: { name: string | null; email: string | null } | null;
   }[];
   coupons: {
@@ -42,7 +45,12 @@ export function AdminPanel({ users, payments, coupons }: Props) {
   useEffect(() => setReady(true), []);
   const [message, setMessage] = useState(''),
     [busy, setBusy] = useState(false);
-  async function send(path: string, body: unknown, method = 'POST') {
+  async function send(
+    path: string,
+    body: unknown,
+    method = 'POST',
+    onSuccess?: () => void,
+  ) {
     setBusy(true);
     try {
       const response = await fetch(path, {
@@ -52,6 +60,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
       });
       const data = (await response.json()) as { error?: string };
       if (!response.ok) throw new Error(data.error ?? 'Request failed');
+      onSuccess?.();
       setMessage('Saved.');
       router.refresh();
     } catch (error) {
@@ -151,23 +160,19 @@ export function AdminPanel({ users, payments, coupons }: Props) {
         </p>
         <ul className="mt-4 space-y-2 text-sm">
           {coupons.map((c) => (
-            <li key={c.id}>
-              {c.code} · {c.value} {c.kind} · {c.usedCount}/{c.maxUses} used ·{' '}
-              {c.active ? 'Active' : 'Disabled'}{' '}
-              <Button
-                variant="outline"
-                disabled={!ready || busy}
-                onClick={() =>
-                  void send(
-                    '/api/admin/coupons',
-                    { id: c.id, active: !c.active },
-                    'PATCH',
-                  )
-                }
-              >
-                {c.active ? 'Disable' : 'Enable'} {c.code}
-              </Button>
-            </li>
+            <CouponRow
+              key={c.id}
+              coupon={c}
+              disabled={!ready || busy}
+              update={(active, onSuccess) => {
+                void send(
+                  '/api/admin/coupons',
+                  { id: c.id, active },
+                  'PATCH',
+                  onSuccess,
+                );
+              }}
+            />
           ))}
         </ul>
       </section>
@@ -206,7 +211,19 @@ export function AdminPanel({ users, payments, coupons }: Props) {
                   </td>
                   <td className="p-3">{p.paymentEmail ?? t('notRecorded')}</td>
                   <td className="p-3">INR {(p.amount / 100).toFixed(2)}</td>
-                  <td className="p-3">{p.status}</td>
+                  <td className="p-3">
+                    {p.status}
+                    <span className="block">
+                      {t('created')}:{' '}
+                      {new Date(p.createdAt).toISOString().slice(0, 10)}
+                    </span>
+                    <span className="block">
+                      {t('captured')}:{' '}
+                      {p.paidAt
+                        ? new Date(p.paidAt).toISOString().slice(0, 10)
+                        : t('notRecorded')}
+                    </span>
+                  </td>
                   <td className="p-3">
                     {p.status === 'paid' && (
                       <Button
@@ -242,6 +259,7 @@ export function AdminPanel({ users, payments, coupons }: Props) {
               <tr>
                 {[
                   t('accountColumn'),
+                  t('joined'),
                   t('role'),
                   t('access'),
                   t('emailVerified'),
@@ -264,6 +282,11 @@ export function AdminPanel({ users, payments, coupons }: Props) {
                       <span className="block">{u.email ?? t('noEmail')}</span>
                     </Link>
                   </td>
+                  <td className="p-3">
+                    {u.createdAt
+                      ? new Date(u.createdAt).toISOString().slice(0, 10)
+                      : t('notRecorded')}
+                  </td>
                   <td className="p-3">{u.role}</td>
                   <td className="p-3">
                     {u.allAccess ? t('lifetime') : t('free')}
@@ -283,5 +306,32 @@ export function AdminPanel({ users, payments, coupons }: Props) {
         </div>
       </section>
     </div>
+  );
+}
+
+/** Keep the acknowledged value visible while a background router refresh settles. */
+function CouponRow({
+  coupon: c,
+  disabled,
+  update,
+}: {
+  coupon: Props['coupons'][number];
+  disabled: boolean;
+  update: (active: boolean, onSuccess: () => void) => void;
+}) {
+  const [active, setActive] = useState(c.active);
+  useEffect(() => setActive(c.active), [c.active]);
+  return (
+    <li>
+      {c.code} · {c.value} {c.kind} · {c.usedCount}/{c.maxUses} used ·{' '}
+      {active ? 'Active' : 'Disabled'}{' '}
+      <Button
+        variant="outline"
+        disabled={disabled}
+        onClick={() => update(!active, () => setActive(!active))}
+      >
+        {active ? 'Disable' : 'Enable'} {c.code}
+      </Button>
+    </li>
   );
 }

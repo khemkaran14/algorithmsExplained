@@ -11,7 +11,14 @@ export async function dispatchReceipts() {
       nextAttemptAt: { lte: new Date() },
     },
     take: 10,
-    include: { payment: { include: { user: { select: { email: true } } } } },
+    include: {
+      payment: {
+        include: {
+          user: { select: { email: true } },
+          entitlement: { select: { expiresAt: true } },
+        },
+      },
+    },
   });
   let sent = 0;
   for (const row of candidates) {
@@ -37,8 +44,8 @@ export async function dispatchReceipts() {
         body: JSON.stringify({
           from: process.env.AUTH_EMAIL_FROM,
           to: email,
-          subject: `Your ${PRODUCT.name} lifetime access receipt`,
-          text: `Payment received: INR ${(row.payment.amount / 100).toFixed(2)}. Receipt: ${row.payment.receipt}. Your lifetime access is active. Download your invoice from your account.`,
+          subject: `Your ${PRODUCT.name} five-year access receipt`,
+          text: `Payment received: INR ${(row.payment.amount / 100).toFixed(2)}. Receipt: ${row.payment.receipt}. Five-year access ends (UTC): ${row.payment.entitlement?.expiresAt.toISOString() ?? 'see your account'}. No automatic renewal. Download your invoice from your account.`,
         }),
         signal: AbortSignal.timeout(5000),
       });

@@ -1,10 +1,6 @@
+import { pageMetadata } from '@/config/site';
 import { catalog } from '@/content/catalog';
 import { AlgorithmTools } from '@/components/algorithm-tools';
-export const metadata = {
-  title: 'Compare sorting algorithms',
-  description:
-    'Compare two or three sorting algorithms on the same input, with synchronized visual steps and operation counters.',
-};
 export default function Compare() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-10">
@@ -26,3 +22,9 @@ export default function Compare() {
     </section>
   );
 }
+
+export const metadata = pageMetadata(
+  'Compare algorithms',
+  'Compare algorithm steps and performance with interactive examples.',
+  '/compare',
+);

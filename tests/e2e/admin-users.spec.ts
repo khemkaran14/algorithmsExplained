@@ -90,10 +90,14 @@ test('admin can find payment email and inspect a user while non-admins cannot re
     ).toBeVisible();
     await expect(page.getByText(billing, { exact: true })).toBeVisible();
     await expect(
-      page.getByText('Lifetime active', { exact: true }),
+      page.getByText('Five-year active', { exact: true }),
     ).toBeVisible();
     expect(await response!.text()).not.toContain('private-admin-oauth-token');
+    await expect(
+      page.getByRole('button', { name: 'Create coupon', exact: true }),
+    ).toBeEnabled();
     await page.getByRole('link', { name: /Customer fixture/ }).click();
+    await page.waitForURL(`**/admin/users/${customer}`);
     await expect(
       page.getByRole('heading', { name: 'User details', exact: true }),
     ).toBeVisible();
@@ -111,7 +115,7 @@ test('admin can find payment email and inspect a user while non-admins cannot re
   }
 });
 
-test('lifetime tiles are included across catalogs and relock after access revocation', async ({
+test('five-year tiles are included across catalogs and relock after access expiry', async ({
   page,
   context,
 }) => {
@@ -153,26 +157,41 @@ test('lifetime tiles are included across catalogs and relock after access revoca
     ]) {
       await page.goto(url);
       await expect(
-        page.getByLabel('Included in your lifetime access').first(),
+        page.getByLabel('Included in your five-year access').first(),
       ).toBeVisible();
-      await expect(page.getByLabel('Requires lifetime access')).toHaveCount(0);
+      await expect(page.getByLabel('Requires five-year access')).toHaveCount(0);
     }
     await db.entitlement.updateMany({
       where: { userId: id },
-      data: { revokedAt: new Date() },
+      data: { expiresAt: new Date(Date.now() - 1000) },
     });
-    await page.goto('/learn/dsa/sorting');
+    await page.goto('/account');
     await expect(
-      page.getByLabel('Requires lifetime access').first(),
+      page.getByText('Your paid access has ended.', { exact: false }),
     ).toBeVisible();
     await expect(
-      page.getByLabel('Included in your lifetime access'),
+      page.getByRole('link', { name: 'Get five-year access' }),
+    ).toBeVisible();
+    await page.goto('/learn/dsa/sorting');
+    await expect(
+      page.getByLabel('Requires five-year access').first(),
+    ).toBeVisible();
+    await expect(
+      page.getByLabel('Included in your five-year access'),
     ).toHaveCount(0);
     expect(
       (
         await context.request.post('/api/lessons/merge-sort/frames', {
           headers: { Origin: 'http://127.0.0.1:3000' },
           data: { input: [3, 2, 1] },
+        })
+      ).status(),
+    ).toBe(403);
+    expect(
+      (
+        await context.request.post('/api/quiz', {
+          headers: { Origin: 'http://127.0.0.1:3000' },
+          data: { slug: 'merge-sort', answers: {}, submissionId: randomUUID() },
         })
       ).status(),
     ).toBe(403);

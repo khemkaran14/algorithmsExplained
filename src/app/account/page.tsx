@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { hasAllAccess } from '@/payments/access';
 import { AccountPrivacy } from '@/components/account-privacy';
 import { redirect } from 'next/navigation';
@@ -9,6 +10,13 @@ import { LearningDashboard } from '@/components/learning-dashboard';
 export default async function Account() {
   const session = await auth();
   if (!session?.user?.id) redirect('/sign-in');
+  const t = await getTranslations('accessTerm');
+  const grants = await db.entitlement.findMany({
+    where: { userId: session.user.id, type: 'ALL_ACCESS', revokedAt: null },
+    orderBy: { expiresAt: 'desc' },
+    take: 1,
+  });
+  const end = grants[0]?.expiresAt;
   const payments = await db.payment.findMany({
     where: { userId: session.user.id },
     orderBy: { createdAt: 'desc' },
@@ -24,6 +32,19 @@ export default async function Account() {
         <SignOutButton />
       </div>
       <section className="my-8 rounded-2xl border border-[var(--border)] p-5">
+        <h2>{t('title')}</h2>
+        {end && end > new Date() ? (
+          <p>{t('active', { date: end.toISOString().slice(0, 10) })}</p>
+        ) : (
+          <>
+            <p>{t(end ? 'expired' : 'free')}</p>
+            <Link href="/pricing" className="underline">
+              {t('renew')}
+            </Link>
+          </>
+        )}
+      </section>
+      <section className="my-8 rounded-2xl border border-[var(--border)] p-5">
         <h2 className="mb-4 text-xl font-semibold">Purchases & invoices</h2>
         {payments.length ? (
           payments.map((p) => (
@@ -32,7 +53,10 @@ export default async function Account() {
               className="mb-3 flex flex-wrap justify-between gap-3 text-sm"
             >
               <span>
-                INR {(p.amount / 100).toFixed(2)} · {p.status}
+                INR {(p.amount / 100).toFixed(2)} · {p.status} ·{' '}
+                {p.paidAt?.toISOString().slice(0, 10) ??
+                  p.createdAt.toISOString().slice(0, 10)}{' '}
+                UTC
               </span>
               {['paid', 'refund-pending', 'refunded'].includes(p.status) && (
                 <a href={`/api/invoices/${p.id}`} className="underline">
@@ -45,7 +69,7 @@ export default async function Account() {
           <p className="text-sm text-[var(--muted)]">
             No purchases yet.{' '}
             <Link href="/pricing" className="underline">
-              Explore lifetime access
+              Explore five-year access
             </Link>
           </p>
         )}

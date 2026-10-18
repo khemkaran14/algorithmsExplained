@@ -91,7 +91,7 @@ export function CheckoutButton({
         amount: data.amount,
         currency: data.currency,
         name: product,
-        description: 'Lifetime access to all current and future lessons',
+        description: 'Five-year access to all current and future lessons',
         order_id: data.orderId,
         prefill: { name: data.name, email: data.email },
         modal: { ondismiss: () => setBusy(false) },
@@ -133,7 +133,7 @@ export function CheckoutButton({
   if (allAccess)
     return (
       <Button asChild>
-        <Link href="/learn">Your lifetime access is active →</Link>
+        <Link href="/learn">Your five-year access is active →</Link>
       </Button>
     );
   if (!signedIn)

@@ -6,7 +6,7 @@ import { catalog } from '@/content/catalog';
 import { CatalogGrid } from '@/components/lesson/catalog-grid';
 
 it.each([false, true])(
-  'paid tiles reflect lifetime access=%s while free tiles remain free',
+  'paid tiles reflect five-year access=%s while free tiles remain free',
   (allAccess) => {
     const lessons = catalog.filter((l) =>
       ['bubble-sort', 'merge-sort'].includes(l.slug),
@@ -18,12 +18,12 @@ it.each([false, true])(
     );
     expect(screen.getByText('Free', { exact: true })).toBeVisible();
     if (allAccess)
-      expect(screen.queryByLabelText('Requires lifetime access')).toBeNull();
+      expect(screen.queryByLabelText('Requires five-year access')).toBeNull();
     else
-      expect(screen.getByLabelText('Requires lifetime access')).toBeVisible();
+      expect(screen.getByLabelText('Requires five-year access')).toBeVisible();
     if (allAccess)
       expect(
-        screen.getByLabelText('Included in your lifetime access'),
+        screen.getByLabelText('Included in your five-year access'),
       ).toBeVisible();
   },
 );
