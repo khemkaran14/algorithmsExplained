@@ -35,3 +35,19 @@ it('uses configured origins rather than request hosts and rejects credentials or
       ?.canonical,
   ).toBe('/learn/dsa/sorting');
 });
+it('describes lessons with breadcrumbs and public metadata only', async () => {
+  const { lessonStructuredData, jsonLdString } =
+    await import('@/content/structured-data');
+  const lesson = catalog.find((l) => l.status !== 'planned')!;
+  const [crumbs, resource] = lessonStructuredData(
+    lesson,
+    'https://example.com',
+  );
+  const items = crumbs.itemListElement as { position: number; item: string }[];
+  expect(items.map((i) => i.position)).toEqual([1, 2, 3, 4]);
+  expect(items[3].item).toBe(`https://example.com${lessonUrl(lesson)}`);
+  expect(resource.name).toBe(lesson.title);
+  expect(resource.isAccessibleForFree).toBe(lesson.isFree);
+  expect(resource.timeRequired).toBe(`PT${lesson.estimatedMinutes}M`);
+  expect(jsonLdString({ x: '</script>' })).not.toContain('</script>');
+});

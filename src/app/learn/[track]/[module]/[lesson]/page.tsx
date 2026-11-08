@@ -1,4 +1,6 @@
-import { pageMetadata } from '@/config/site';
+import { pageMetadata, siteOrigin } from '@/config/site';
+import { headers } from 'next/headers';
+import { jsonLdString, lessonStructuredData } from '@/content/structured-data';
 import { Suspense } from 'react';
 import type { LessonMeta } from '@/content/catalog';
 export const dynamic = 'force-dynamic';
@@ -50,10 +52,27 @@ export default async function LessonPage({
         </Link>
       </section>
     );
-  if (!(await canReadLesson(meta))) return <LockedLesson meta={meta} />;
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
+  const structuredData = (
+    <script
+      type="application/ld+json"
+      nonce={nonce}
+      dangerouslySetInnerHTML={{
+        __html: jsonLdString(lessonStructuredData(meta, siteOrigin())),
+      }}
+    />
+  );
+  if (!(await canReadLesson(meta)))
+    return (
+      <>
+        {structuredData}
+        <LockedLesson meta={meta} />
+      </>
+    );
   const next = catalog[(catalog.indexOf(meta) + 1) % catalog.length];
   return (
     <article className="mx-auto max-w-6xl px-4 pb-16 pt-8">
+      {structuredData}
       <nav
         aria-label="Breadcrumb"
         className="mb-6 flex flex-wrap gap-2 text-xs text-[var(--muted)]"
